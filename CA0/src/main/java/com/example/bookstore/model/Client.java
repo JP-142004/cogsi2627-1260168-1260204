@@ -21,6 +21,9 @@ public class Client {
     /** The email address of the client. */
     private String email;
 
+    /** The NIF (tax identification number) of the client. */
+    private String nif;
+
     /**
      * Default constructor for Client.
      */
@@ -78,5 +81,23 @@ public class Client {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Gets the client's NIF.
+     *
+     * @return the NIF
+     */
+    public String getNif() {
+        return nif;
+    }
+
+    /**
+     * Sets the client's NIF.
+     *
+     * @param nif the NIF to set
+     */
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 }
