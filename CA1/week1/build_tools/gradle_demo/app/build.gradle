@@ -23,7 +23,7 @@ version = project.findProperty('appVersion') ?: 'unspecified'
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
@@ -108,4 +108,34 @@ tasks.register('runClient', JavaExec) {
     doFirst {
         println "Starting ChatClientApp with server IP: ${serverIP.get()} and port: ${serverPort.get()}"
     }
+}
+// Configuração do JUnit para os testes unitários
+test {
+    useJUnitPlatform()
+}
+
+// 1. Tarefa para executar o servidor (runServer)
+task runServer(type: JavaExec) {
+    group = 'execution'
+    description = 'Executa o servidor da aplicação'
+    mainClass = 'org.example.Server' // ou a classe principal do servidor da demo
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+// 2. Tarefa de backup do código-fonte (tipo Copy)
+task backupSources(type: Copy) {
+    group = 'backup'
+    description = 'Copia o codigo-fonte para a pasta de backup'
+    from 'src/main', 'src/test'
+    into "${buildDir}/backup"
+}
+
+// 3. Tarefa de compactação do backup (tipo Zip)
+task archiveBackup(type: Zip) {
+    group = 'backup'
+    description = 'Compacta a pasta de backup num ficheiro ZIP'
+    dependsOn backupSources
+    from "${buildDir}/backup"
+    archiveFileName = 'sources-backup.zip'
+    destinationDirectory = file("${buildDir}/archives")
 }
