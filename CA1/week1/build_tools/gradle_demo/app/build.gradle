@@ -13,8 +13,12 @@ repositories {
 
 // Declare the dependencies for the application.
 dependencies {
-    implementation      libs.log4j.api
-    implementation      libs.log4j.core
+    implementation libs.log4j.api
+    implementation libs.log4j.core
+
+    testImplementation platform(libs.junit.bom)
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.platform.launcher
 }
 
 // Set the version of the application, using a property from gradle.properties or defaulting to 'unspecified'.
@@ -110,26 +114,43 @@ tasks.register('runClient', JavaExec) {
     }
 }
 // Configuração do JUnit para os testes unitários
-test {
+tasks.named('test') {
     useJUnitPlatform()
 }
 
-// 1. Tarefa para executar o servidor (runServer)
-task runServer(type: JavaExec) {
-    group = 'execution'
-    description = 'Executa o servidor da aplicação'
-    mainClass = 'org.example.Server' // ou a classe principal do servidor da demo
+tasks.register('runServer', JavaExec) {
+    group = 'application'
+    description = 'Starts the chat server'
+
     classpath = sourceSets.main.runtimeClasspath
+    mainClass.set('org.example.ChatServerApp')
+
+    def serverPort = providers.gradleProperty('serverPort').orElse('59001')
+    args(serverPort.get())
 }
 
 // 2. Tarefa de backup do código-fonte (tipo Copy)
-task backupSources(type: Copy) {
+tasks.register('backupSources', Copy) {
     group = 'backup'
-    description = 'Copia o codigo-fonte para a pasta de backup'
-    from 'src/main', 'src/test'
-    into "${buildDir}/backup"
+    description = 'Copies application source directories into the backup'
+
+    into layout.buildDirectory.dir('backup')
+
+    from('src/main') {
+        into 'src/main'
+    }
+
+    from('src/test') {
+        into 'src/test'
+    }
+}
+tasks.register('cleanBackup', Delete) {
+    delete layout.buildDirectory.dir('backup')
 }
 
+tasks.named('backupSources') {
+    dependsOn(tasks.named('cleanBackup'))
+}
 // 3. Tarefa de compactação do backup (tipo Zip)
 task archiveBackup(type: Zip) {
     group = 'backup'
