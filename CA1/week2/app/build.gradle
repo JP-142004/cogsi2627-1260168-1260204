@@ -1,0 +1,169 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+
+plugins {
+    id 'java'
+    id 'application'
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+def replacementTokens = [
+    appVersion: project.version.toString(),
+    environment: 'dev',
+    buildTimestamp: java.time.Instant.now().toString()
+]
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    mainClass = 'com.example.bookstore.BookstoreApplication'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.data.jpa
+    implementation libs.spring.boot.starter.hateoas
+    implementation libs.spring.boot.starter.actuator
+
+    runtimeOnly libs.h2
+
+    testImplementation libs.spring.boot.starter.test
+    testRuntimeOnly libs.junit.platform.launcher
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.named('processResources') {
+    filesMatching('application.properties') {
+        filter(ReplaceTokens, tokens: replacementTokens)
+    }
+}
+
+def devDeploymentDir = layout.buildDirectory.dir('deployment/dev')
+
+tasks.register('cleanDevDeployment', Delete) {
+    group = 'deployment'
+    description = 'Cleans the previous dev deployment'
+    delete devDeploymentDir
+}
+
+tasks.register('copyDevArtifact', Copy) {
+    group = 'deployment'
+    description = 'Copies the executable application JAR'
+    dependsOn tasks.named('cleanDevDeployment')
+    dependsOn tasks.named('bootJar')
+
+    from(tasks.named('bootJar').flatMap { it.archiveFile })
+    into(devDeploymentDir)
+    rename { "${rootProject.name}.jar" }
+}
+
+tasks.register('copyDevRuntimeDependencies', Copy) {
+    group = 'deployment'
+    description = 'Copies the external runtime dependencies'
+    dependsOn tasks.named('cleanDevDeployment')
+
+    from(configurations.runtimeClasspath)
+    into(layout.buildDirectory.dir('deployment/dev/lib'))
+}
+
+tasks.register('copyDevConfiguration', Copy) {
+    group = 'deployment'
+    description = 'Copies the dev configuration and replaces its tokens'
+    dependsOn tasks.named('cleanDevDeployment')
+
+    from('src/main/resources') {
+        include 'application.properties'
+        filter(ReplaceTokens, tokens: replacementTokens)
+    }
+    into(layout.buildDirectory.dir('deployment/dev/config'))
+}
+
+tasks.register('deployToDev') {
+    group = 'deployment'
+    description = 'Prepares the Bookstore application for the dev environment'
+    dependsOn tasks.named('copyDevArtifact')
+    dependsOn tasks.named('copyDevRuntimeDependencies')
+    dependsOn tasks.named('copyDevConfiguration')
+}
+tasks.named('startScripts') {
+    doLast {
+        def windowsScript = project.layout.buildDirectory.file('scripts/app.bat').get().asFile
+        def lines = windowsScript.readLines('UTF-8')
+        def classpathLine = lines.findIndexOf {
+            it.trim().startsWith('set CLASSPATH=')
+        }
+
+        if (classpathLine < 0) {
+            throw new GradleException('Não foi encontrada a linha CLASSPATH em app.bat')
+        }
+
+        lines[classpathLine] = 'set CLASSPATH=%APP_HOME%\\lib\\*'
+
+        windowsScript.withWriter('UTF-8') { writer ->
+            lines.each { writer.writeLine(it) }
+        }
+    }
+}
+
+tasks.register('runInstalledDist', Exec) {
+    group = 'application'
+    description = 'Runs the application using the installed distribution script'
+    dependsOn tasks.named('installDist')
+
+    def binDirectory = layout.buildDirectory.dir('install/app/bin')
+
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        commandLine binDirectory.get().file('app.bat').asFile.absolutePath
+    } else {
+        commandLine binDirectory.get().file('app').asFile.absolutePath
+    }
+}
+tasks.register('packageJavadoc', Zip) {
+    group = 'documentation'
+    description = 'Packages the generated Javadoc into a ZIP archive'
+    dependsOn tasks.named('javadoc')
+
+    from(layout.buildDirectory.dir('docs/javadoc'))
+    archiveFileName = 'javadoc.zip'
+    destinationDirectory = layout.buildDirectory.dir('archives')
+}
+
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
+        runtimeClasspath += output + compileClasspath
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+tasks.register('integrationTest', Test) {
+    group = 'verification'
+    description = 'Runs the integration tests'
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    useJUnitPlatform()
+    shouldRunAfter tasks.named('test')
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('integrationTest')
+}
