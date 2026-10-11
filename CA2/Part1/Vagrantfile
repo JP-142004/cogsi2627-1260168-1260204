@@ -26,4 +26,7 @@ Vagrant.configure("2") do |config|
     "START_APPS" => ENV.fetch("START_APPS", "false"),
     "GIT_TOKEN"  => ENV.fetch("GIT_TOKEN", "")
   }
+
+  # Aponta o H2 para a pasta compartilhada (roda depois do setup.sh)
+  config.vm.provision "configure_db", type: "shell", path: "provisioning/configure_db.sh"
 end
