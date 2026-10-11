@@ -1,0 +1,28 @@
+Vagrant.configure("2") do |config|
+  # Box oficial da Canonical (usuario "ubuntu" no Vagrant Cloud), versao fixada
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.box_version = "20241002.0.0"
+  config.vm.hostname = "cogsi-ca2-part1"
+
+  # Bookstore (Spring Boot): http://localhost:8080 no host
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  # Servidor de chat (Gradle demo): clientes no host ligam a localhost:59001
+  config.vm.network "forwarded_port", guest: 59001, host: 59001
+
+  # Pasta padrao do projeto desativada
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  # Pasta dedicada ao armazenamento persistente do H2
+  config.vm.synced_folder "db", "/home/vagrant/h2-data"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name   = "cogsi-ca2-part1"
+    vb.memory = 2048
+    vb.cpus   = 2
+  end
+
+  # Variaveis de ambiente que controlam o provisionamento
+  config.vm.provision "shell", path: "provisioning/setup.sh", env: {
+    "CLONE_REPO" => ENV.fetch("CLONE_REPO", "true"),
+    "START_APPS" => ENV.fetch("START_APPS", "false")
+  }
+end
