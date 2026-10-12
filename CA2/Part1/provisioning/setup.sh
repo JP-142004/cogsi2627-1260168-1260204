@@ -7,7 +7,6 @@ REPO_URL="${REPO_URL:-https://github.com/JP-142004/cogsi2627-1260168-1260204.git
 REPO_BRANCH="${REPO_BRANCH:-main}"
 REPO_DIR="${REPO_DIR:-/home/vagrant/cogsi}"
 CLONE_REPO="${CLONE_REPO:-true}"
-START_APPS="${START_APPS:-false}"
 GIT_TOKEN="${GIT_TOKEN:-}"
 
 log() { echo "[setup] $*"; }
@@ -52,6 +51,5 @@ sync_repo() {
 install_packages
 sync_repo
 
-log "START_APPS=$START_APPS (starting the apps is added in a later step)"
 java -version
 log "Done"
