@@ -1,0 +1,3 @@
+# Banco H2 gerado em execucao (pasta sincronizada com a VM): nunca versionar
+db/*
+!db/.gitkeep
