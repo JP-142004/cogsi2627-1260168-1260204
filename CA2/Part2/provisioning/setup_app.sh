@@ -87,6 +87,10 @@ echo "[setup_app] application.properties configurado"
 # ========================================
 echo "[setup_app] Compilando Bookstore..."
 cd "$REPO_PATH/CA1/week2"
+
+# CORRECAO: Dar permissão de execução ao gradlew (Git no Windows não preserva permissões)
+chmod +x ./gradlew
+
 ./gradlew :app:bootJar --no-daemon -x test
 echo "[setup_app] Build concluído"
 
@@ -123,4 +127,4 @@ echo "[setup_app] Serviço Bookstore iniciado e habilitado"
 sleep 3
 systemctl status bookstore --no-pager
 
-echo "[setup_app] Configuração concluída com sucesso!"
+echo "[setup_app] Configuração concluído com sucesso!"
