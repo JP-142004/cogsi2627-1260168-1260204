@@ -1,0 +1,28 @@
+# Chaves SSH privadas (só as públicas .pub vão para o Git)
+keys/*
+!keys/.gitkeep
+
+# Banco de dados H2
+*.mv.db
+*.trace.db
+
+# Vagrant
+.vagrant/
+
+# Variáveis de ambiente
+.env
+.env.local
+*.local
+
+# Maven e Gradle
+target/
+build/
+.gradle/
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
