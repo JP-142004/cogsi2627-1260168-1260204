@@ -1,5 +1,6 @@
 # Chaves SSH privadas (só as públicas .pub vão para o Git)
 keys/*
+!keys/*.pub
 !keys/.gitkeep
 
 # Banco de dados H2
