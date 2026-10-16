@@ -1,0 +1,116 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  # Box base: Ubuntu 22.04 LTS (Jammy) com versão fixada
+  # Fonte: Canonical (oficial)
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.box_version = "20241002.0.0"
+
+  # Desabilitar a pasta compartilhada padrão /vagrant
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  # ========================================
+  # VM: db (H2 Database Server)
+  # ========================================
+  config.vm.define "db" do |db|
+    db.vm.hostname = "cogsi-ca2-db"
+    
+    # Rede privada
+    db.vm.network "private_network", ip: "192.168.56.30"
+    
+    # Recursos
+    db.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca2-db"
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+    
+    # Chaves SSH: remover a chave insegura e usar a nossa
+    db.ssh.insert_key = false
+    db.ssh.private_key_path = ["keys/db", "~/.vagrant.d/insecure_private_key"]
+    
+    # Provisioning: copiar chave pública e configurar H2
+    db.vm.provision "file", source: "keys/db.pub", destination: "/tmp/db_key.pub"
+    db.vm.provision "shell", inline: <<-SHELL
+      cat /tmp/db_key.pub >> /home/vagrant/.ssh/authorized_keys
+      chmod 600 /home/vagrant/.ssh/authorized_keys
+      chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
+    SHELL
+    
+    # Script de provisionamento do db (será criado depois)
+    db.vm.provision "setup_db", type: "shell", path: "provisioning/setup_db.sh"
+  end
+
+  # ========================================
+  # VM: app (Bookstore Spring Boot)
+  # ========================================
+  config.vm.define "app" do |app|
+    app.vm.hostname = "cogsi-ca2-app"
+    
+    # Rede privada
+    app.vm.network "private_network", ip: "192.168.56.10"
+    
+    # Porta forward: 8080 da app não é exposta direto, só pelo proxy
+    # (Por enquanto, para testes, pode expor direto)
+    app.vm.network "forwarded_port", guest: 8080, host: 8080
+    
+    # Recursos
+    app.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca2-app"
+      vb.memory = 2048
+      vb.cpus = 2
+    end
+    
+    # Chaves SSH
+    app.ssh.insert_key = false
+    app.ssh.private_key_path = ["keys/app", "~/.vagrant.d/insecure_private_key"]
+    
+    # Provisioning
+    app.vm.provision "file", source: "keys/app.pub", destination: "/tmp/app_key.pub"
+    app.vm.provision "shell", inline: <<-SHELL
+      cat /tmp/app_key.pub >> /home/vagrant/.ssh/authorized_keys
+      chmod 600 /home/vagrant/.ssh/authorized_keys
+      chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
+    SHELL
+    
+    # Scripts de provisionamento (serão criados depois)
+    app.vm.provision "setup_app", type: "shell", path: "provisioning/setup_app.sh"
+  end
+
+  # ========================================
+  # VM: proxy (Nginx Reverse Proxy)
+  # ========================================
+  config.vm.define "proxy" do |proxy|
+    proxy.vm.hostname = "cogsi-ca2-proxy"
+    
+    # Rede privada
+    proxy.vm.network "private_network", ip: "192.168.56.20"
+    
+    # Porta forward: host 80 → proxy 80
+    proxy.vm.network "forwarded_port", guest: 80, host: 80
+    
+    # Recursos
+    proxy.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca2-proxy"
+      vb.memory = 512
+      vb.cpus = 1
+    end
+    
+    # Chaves SSH
+    proxy.ssh.insert_key = false
+    proxy.ssh.private_key_path = ["keys/proxy", "~/.vagrant.d/insecure_private_key"]
+    
+    # Provisioning
+    proxy.vm.provision "file", source: "keys/proxy.pub", destination: "/tmp/proxy_key.pub"
+    proxy.vm.provision "shell", inline: <<-SHELL
+      cat /tmp/proxy_key.pub >> /home/vagrant/.ssh/authorized_keys
+      chmod 600 /home/vagrant/.ssh/authorized_keys
+      chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
+    SHELL
+    
+    # Script de provisionamento (será criado depois)
+    proxy.vm.provision "setup_proxy", type: "shell", path: "provisioning/setup_proxy.sh"
+  end
+
+end
