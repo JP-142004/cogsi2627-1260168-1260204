@@ -108,7 +108,7 @@ Type=simple
 User=vagrant
 WorkingDirectory=/home/vagrant/cogsi/CA1/week2
 ExecStartPre=/bin/bash -c 'while ! nc -z 192.168.56.30 9092; do sleep 2; done'
-ExecStart=/usr/bin/java -jar /home/vagrant/cogsi/CA1/week2/app/build/libs/app.jar --spring.config.additional-location=file:/home/vagrant/config/
+ExecStart=/usr/bin/java -jar /home/vagrant/cogsi/CA1/week2/app/build/libs/app-1.0.0.jar --spring.config.additional-location=file:/home/vagrant/config/
 Restart=on-failure
 RestartSec=5
 StandardOutput=journal
