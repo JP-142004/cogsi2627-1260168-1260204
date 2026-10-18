@@ -1,0 +1,23 @@
+# SSH Keys
+ssh_private_key_path = "~/.ssh/id_rsa"
+ssh_public_key_path  = "~/.ssh/id_rsa.pub"
+
+# Libvirt Configuration
+libvirt_uri       = "qemu:///system"
+storage_pool_path = "/var/lib/libvirt/ca2-pool"
+
+# VM Configuration (optional - defaults are used if omitted)
+# vms = {
+#   db = {
+#     memory = 1024
+#     cpus   = 1
+#   }
+#   app = {
+#     memory = 2048
+#     cpus   = 2
+#   }
+#   proxy = {
+#     memory = 512
+#     cpus   = 1
+#   }
+# }
