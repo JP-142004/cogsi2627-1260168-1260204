@@ -1,0 +1,25 @@
+#cloud-config
+hostname: ca2-db
+fqdn: ca2-db.local
+manage_etc_hosts: true
+
+users:
+  - name: ubuntu
+    ssh_authorized_keys:
+      - ${public_key}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - openssh-server
+  - openssh-client
+  - curl
+  - wget
+  - net-tools
+  - ufw
+
+runcmd:
+  - echo "Cloud-init for DB VM completed"
