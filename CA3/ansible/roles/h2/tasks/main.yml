@@ -1,0 +1,110 @@
+---
+- name: Atualizar a cache de pacotes
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  retries: 3
+  delay: 5
+  register: apt_update
+  until: apt_update is succeeded
+
+- name: Instalar Java para executar H2
+  ansible.builtin.apt:
+    name: openjdk-17-jre-headless
+    state: present
+  retries: 3
+  delay: 5
+  register: java_install
+  until: java_install is succeeded
+
+- name: Criar grupo de servico H2
+  ansible.builtin.group:
+    name: h2
+    system: true
+    state: present
+
+- name: Criar utilizador de servico H2
+  ansible.builtin.user:
+    name: h2
+    group: h2
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+    state: present
+
+- name: Criar diretorio do programa H2
+  ansible.builtin.file:
+    path: /opt/h2
+    state: directory
+    owner: root
+    group: h2
+    mode: '0750'
+
+- name: Criar diretorio dos dados H2
+  ansible.builtin.file:
+    path: /var/lib/h2
+    state: directory
+    owner: h2
+    group: h2
+    mode: '0750'
+
+- name: Descarregar H2
+  ansible.builtin.get_url:
+    url: https://repo.maven.apache.org/maven2/com/h2database/h2/2.2.224/h2-2.2.224.jar
+    dest: /opt/h2/h2-2.2.224.jar
+    owner: root
+    group: h2
+    mode: '0640'
+  register: h2_download
+  retries: 3
+  delay: 5
+  until: h2_download is succeeded
+
+- name: Instalar definicao do servico H2
+  ansible.builtin.copy:
+    src: h2-server.service
+    dest: /etc/systemd/system/h2-server.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reiniciar H2
+
+- name: Aplicar alteracoes pendentes do servico
+  ansible.builtin.meta: flush_handlers
+
+- name: Garantir H2 iniciado e ativo no arranque
+  ansible.builtin.systemd:
+    name: h2-server
+    enabled: true
+    state: started
+
+- name: Aguardar pela porta TCP do H2
+  ansible.builtin.wait_for:
+    host: 127.0.0.1
+    port: 9092
+    timeout: 60
+
+- name: Verificar resposta SQL do H2
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/java
+      - -cp
+      - /opt/h2/h2-2.2.224.jar
+      - org.h2.tools.Shell
+      - -url
+      - jdbc:h2:tcp://127.0.0.1:9092/mem:ca3_healthcheck
+      - -user
+      - sa
+      - -password
+      - ""
+      - -sql
+      - "SELECT 'CA3_H2_OK' AS STATUS;"
+  register: h2_health
+  changed_when: false
+  failed_when: >
+    h2_health.rc != 0 or
+    'CA3_H2_OK' not in h2_health.stdout
+  retries: 5
+  delay: 3
+  until: h2_health is succeeded
+  no_log: true

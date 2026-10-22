@@ -1,0 +1,7 @@
+---
+- name: Configurar o servidor de base de dados
+  hosts: database
+  become: true
+
+  roles:
+    - h2
