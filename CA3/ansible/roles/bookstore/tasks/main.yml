@@ -1,0 +1,147 @@
+---
+- name: Atualizar a cache de pacotes
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  register: app_apt_update
+  retries: 3
+  delay: 5
+  until: app_apt_update is succeeded
+
+- name: Instalar ferramentas para compilar Bookstore
+  ansible.builtin.apt:
+    name:
+      - openjdk-17-jdk
+      - unzip
+    state: present
+  register: app_packages
+  retries: 3
+  delay: 5
+  until: app_packages is succeeded
+
+- name: Criar pastas para compilar Bookstore
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: '0750'
+  loop:
+    - /home/vagrant/bookstore-build
+    - /home/vagrant/bookstore-build/app
+
+- name: Copiar codigo e configuracao Gradle
+  ansible.builtin.copy:
+    src: "/mnt/bookstore-source/{{ item }}"
+    dest: "/home/vagrant/bookstore-build/{{ item }}"
+    remote_src: true
+    owner: vagrant
+    group: vagrant
+    mode: 'u=rwX,g=rX,o='
+    directory_mode: '0750'
+  register: bookstore_source
+  loop:
+    - settings.gradle
+    - gradlew
+    - gradle/
+    - app/build.gradle
+    - app/src/
+
+- name: Verificar se o JAR Bookstore ja existe
+  ansible.builtin.stat:
+    path: /home/vagrant/bookstore-build/app/build/libs/app-1.0.0.jar
+  register: bookstore_jar
+
+- name: Compilar Bookstore com Gradle
+  become: true
+  become_user: vagrant
+  ansible.builtin.command:
+    argv:
+      - /bin/bash
+      - ./gradlew
+      - :app:bootJar
+      - --no-daemon
+    chdir: /home/vagrant/bookstore-build
+  when: bookstore_source.changed or not bookstore_jar.stat.exists
+
+- name: Criar grupo de servico Bookstore
+  ansible.builtin.group:
+    name: bookstore
+    system: true
+    state: present
+
+- name: Criar utilizador de servico Bookstore
+  ansible.builtin.user:
+    name: bookstore
+    group: bookstore
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+    state: present
+
+- name: Criar pastas da aplicacao e configuracao
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: bookstore
+    mode: '0750'
+  loop:
+    - /opt/bookstore
+    - /etc/bookstore
+
+- name: Instalar JAR da Bookstore
+  ansible.builtin.copy:
+    src: /home/vagrant/bookstore-build/app/build/libs/app-1.0.0.jar
+    dest: /opt/bookstore/bookstore.jar
+    remote_src: true
+    owner: root
+    group: bookstore
+    mode: '0640'
+
+  notify: Reiniciar Bookstore
+
+- name: Instalar configuracao da Bookstore
+  ansible.builtin.copy:
+    src: application.properties
+    dest: /etc/bookstore/application.properties
+    owner: root
+    group: bookstore
+    mode: '0640'
+  no_log: true
+
+  notify: Reiniciar Bookstore
+
+- name: Verificar acesso da app ao servidor H2
+  ansible.builtin.wait_for:
+    host: 192.168.56.30
+    port: 9092
+    timeout: 60
+
+- name: Instalar definicao do servico Bookstore
+  ansible.builtin.copy:
+    src: bookstore.service
+    dest: /etc/systemd/system/bookstore.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Reiniciar Bookstore
+
+- name: Aplicar alteracoes pendentes da Bookstore
+  ansible.builtin.meta: flush_handlers
+
+- name: Garantir Bookstore iniciada e ativa no arranque
+  ansible.builtin.systemd:
+    name: bookstore
+    enabled: true
+    state: started
+
+- name: Verificar consulta de livros pela aplicacao
+  ansible.builtin.uri:
+    url: http://127.0.0.1:8080/books
+    status_code: 200
+    return_content: true
+  register: bookstore_health
+  retries: 20
+  delay: 3
+  until: bookstore_health.status | default(0) == 200

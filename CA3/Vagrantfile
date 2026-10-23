@@ -21,6 +21,10 @@ Vagrant.configure("2") do |config|
     app.vm.hostname = "cogsi-ca3-app"
     app.vm.network "private_network", ip: "192.168.56.10"
 
+    app.vm.synced_folder "../CA1/week2", "/mnt/bookstore-source",
+      type: "virtualbox",
+      mount_options: ["ro"]
+
     app.vm.provider "virtualbox" do |vb|
       vb.name = "cogsi-ca3-app"
       vb.memory = 2048

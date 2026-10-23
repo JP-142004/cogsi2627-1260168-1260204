@@ -1,0 +1,123 @@
+
+PLAY [Configurar o servidor de base de dados] **********************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [db]
+
+TASK [h2 : Atualizar a cache de pacotes] ***************************************
+ok: [db]
+
+TASK [h2 : Instalar Java para executar H2] *************************************
+ok: [db]
+
+TASK [h2 : Criar grupo de servico H2] ******************************************
+ok: [db]
+
+TASK [h2 : Criar utilizador de servico H2] *************************************
+ok: [db]
+
+TASK [h2 : Criar diretorio do programa H2] *************************************
+ok: [db]
+
+TASK [h2 : Criar diretorio dos dados H2] ***************************************
+ok: [db]
+
+TASK [h2 : Descarregar H2] *****************************************************
+ok: [db]
+
+TASK [h2 : Instalar definicao do servico H2] ***********************************
+ok: [db]
+
+TASK [h2 : Garantir H2 iniciado e ativo no arranque] ***************************
+ok: [db]
+
+TASK [h2 : Aguardar pela porta TCP do H2] **************************************
+ok: [db]
+
+TASK [h2 : Verificar resposta SQL do H2] ***************************************
+ok: [db]
+
+PLAY [Configurar a aplicacao Bookstore] ****************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [app]
+
+TASK [bookstore : Atualizar a cache de pacotes] ********************************
+ok: [app]
+
+TASK [bookstore : Instalar ferramentas para compilar Bookstore] ****************
+ok: [app]
+
+TASK [bookstore : Criar pastas para compilar Bookstore] ************************
+ok: [app] => (item=/home/vagrant/bookstore-build)
+ok: [app] => (item=/home/vagrant/bookstore-build/app)
+
+TASK [bookstore : Copiar codigo e configuracao Gradle] *************************
+ok: [app] => (item=settings.gradle)
+ok: [app] => (item=gradlew)
+ok: [app] => (item=gradle/)
+ok: [app] => (item=app/build.gradle)
+ok: [app] => (item=app/src/)
+
+TASK [bookstore : Verificar se o JAR Bookstore ja existe] **********************
+ok: [app]
+
+TASK [bookstore : Compilar Bookstore com Gradle] *******************************
+skipping: [app]
+
+TASK [bookstore : Criar grupo de servico Bookstore] ****************************
+ok: [app]
+
+TASK [bookstore : Criar utilizador de servico Bookstore] ***********************
+ok: [app]
+
+TASK [bookstore : Criar pastas da aplicacao e configuracao] ********************
+ok: [app] => (item=/opt/bookstore)
+ok: [app] => (item=/etc/bookstore)
+
+TASK [bookstore : Instalar JAR da Bookstore] ***********************************
+ok: [app]
+
+TASK [bookstore : Instalar configuracao da Bookstore] **************************
+ok: [app]
+
+TASK [bookstore : Verificar acesso da app ao servidor H2] **********************
+ok: [app]
+
+TASK [bookstore : Instalar definicao do servico Bookstore] *********************
+ok: [app]
+
+TASK [bookstore : Garantir Bookstore iniciada e ativa no arranque] *************
+ok: [app]
+
+TASK [bookstore : Verificar consulta de livros pela aplicacao] *****************
+ok: [app]
+
+PLAY [Configurar o reverse proxy] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [proxy]
+
+TASK [nginx : Instalar Nginx] **************************************************
+ok: [proxy]
+
+TASK [nginx : Configurar proxy para Bookstore] *********************************
+ok: [proxy]
+
+TASK [nginx : Garantir site ativo] *********************************************
+ok: [proxy]
+
+TASK [nginx : Validar configuracao Nginx] **************************************
+ok: [proxy]
+
+TASK [nginx : Garantir Nginx iniciado e ativo no arranque] *********************
+ok: [proxy]
+
+TASK [nginx : Verificar acesso a Bookstore atraves do proxy] *******************
+ok: [proxy]
+
+PLAY RECAP *********************************************************************
+app                        : ok=15   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+db                         : ok=12   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+proxy                      : ok=7    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

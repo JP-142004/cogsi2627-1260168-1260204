@@ -1,0 +1,17 @@
+[Unit]
+Description=Bookstore Spring Boot Application
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=bookstore
+Group=bookstore
+WorkingDirectory=/opt/bookstore
+ExecStart=/usr/bin/java -jar /opt/bookstore/bookstore.jar --spring.config.additional-location=file:/etc/bookstore/application.properties
+Restart=on-failure
+RestartSec=5
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

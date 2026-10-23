@@ -1,0 +1,6 @@
+---
+- name: Reiniciar Bookstore
+  ansible.builtin.systemd:
+    name: bookstore
+    daemon_reload: true
+    state: restarted
