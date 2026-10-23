@@ -25,6 +25,10 @@ Vagrant.configure("2") do |config|
       type: "virtualbox",
       mount_options: ["ro"]
 
+    app.vm.synced_folder "ansible", "/mnt/ca3-ansible",
+      type: "virtualbox",
+      mount_options: ["ro"]
+
     app.vm.provider "virtualbox" do |vb|
       vb.name = "cogsi-ca3-app"
       vb.memory = 2048
