@@ -1,0 +1,21 @@
+---
+- name: Configurar o servidor de base de dados
+  hosts: database
+  become: true
+
+  roles:
+    - h2
+
+- name: Configurar a aplicacao Bookstore
+  hosts: application
+  become: true
+
+  roles:
+    - bookstore
+
+- name: Configurar o reverse proxy
+  hosts: reverse_proxy
+  become: true
+
+  roles:
+    - nginx

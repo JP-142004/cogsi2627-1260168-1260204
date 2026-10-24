@@ -1,0 +1,17 @@
+[Unit]
+Description=H2 Database Server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=h2
+Group=h2
+WorkingDirectory=/var/lib/h2
+ExecStart=/usr/bin/java -cp /opt/h2/h2-2.2.224.jar org.h2.tools.Server -tcp -tcpAllowOthers -tcpPort 9092 -baseDir /var/lib/h2 -ifNotExists
+Restart=on-failure
+RestartSec=5
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

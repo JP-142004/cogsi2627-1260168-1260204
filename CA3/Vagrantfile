@@ -1,0 +1,53 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.box_version = "20241002.0.0"
+
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.ssh.insert_key = true
+
+  config.vm.define "db" do |db|
+    db.vm.hostname = "cogsi-ca3-db"
+    db.vm.network "private_network", ip: "192.168.56.30"
+
+    db.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca3-db"
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+  end
+
+  config.vm.define "app" do |app|
+    app.vm.hostname = "cogsi-ca3-app"
+    app.vm.network "private_network", ip: "192.168.56.10"
+
+    app.vm.synced_folder "../CA1/week2", "/mnt/bookstore-source",
+      type: "virtualbox",
+      mount_options: ["ro"]
+
+    app.vm.synced_folder "ansible", "/mnt/ca3-ansible",
+      type: "virtualbox",
+      mount_options: ["ro"]
+
+    app.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca3-app"
+      vb.memory = 2048
+      vb.cpus = 2
+    end
+  end
+
+  config.vm.define "proxy" do |proxy|
+    proxy.vm.hostname = "cogsi-ca3-proxy"
+    proxy.vm.network "private_network", ip: "192.168.56.20"
+    proxy.vm.network "forwarded_port",
+      guest: 80,
+      host: 8081,
+      host_ip: "127.0.0.1"
+
+    proxy.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca3-proxy"
+      vb.memory = 512
+      vb.cpus = 1
+    end
+  end
+end
