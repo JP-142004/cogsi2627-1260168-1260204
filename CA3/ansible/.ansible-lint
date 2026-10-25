@@ -1,0 +1,5 @@
+# Regras tratadas como aviso, nao como erro.
+# no-handler: a tarefa de compilacao Gradle (role bookstore, herdada do Luiz) deve
+# correr quando o codigo muda; nao reinicia nada por si propria.
+warn_list:
+  - no-handler

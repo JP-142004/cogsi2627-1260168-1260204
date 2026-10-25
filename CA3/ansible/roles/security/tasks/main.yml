@@ -1,0 +1,9 @@
+---
+- name: Criar grupo e utilizador de desenvolvimento
+  ansible.builtin.import_tasks: accounts.yml
+
+- name: Aplicar politica de passwords e bloqueio
+  ansible.builtin.import_tasks: password_policy.yml
+
+- name: Aplicar configuracao PAM
+  ansible.builtin.import_tasks: pam.yml

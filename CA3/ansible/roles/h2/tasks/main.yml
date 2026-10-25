@@ -27,6 +27,8 @@
   ansible.builtin.user:
     name: h2
     group: h2
+    groups: developers
+    append: true
     system: true
     shell: /usr/sbin/nologin
     create_home: false
@@ -40,13 +42,32 @@
     group: h2
     mode: '0750'
 
-- name: Criar diretorio dos dados H2
+- name: Criar diretorio dos dados H2 (restrito ao grupo developers, setgid)
   ansible.builtin.file:
     path: /var/lib/h2
     state: directory
     owner: h2
-    group: h2
-    mode: '0750'
+    group: developers
+    mode: 'u=rwX,g=rwXs,o='
+
+- name: Criar pasta de drop-ins do servico H2
+  ansible.builtin.file:
+    path: /etc/systemd/system/h2-server.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Definir umask do servico H2 (ficheiros da BD com grupo developers)
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/h2-server.service.d/umask.conf
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      [Service]
+      UMask=0007
+  notify: Reiniciar H2
 
 - name: Descarregar H2
   ansible.builtin.get_url:

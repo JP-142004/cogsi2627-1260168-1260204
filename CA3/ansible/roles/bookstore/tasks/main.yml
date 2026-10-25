@@ -74,17 +74,19 @@
   ansible.builtin.user:
     name: bookstore
     group: bookstore
+    groups: developers
+    append: true
     system: true
     shell: /usr/sbin/nologin
     create_home: false
     state: present
 
-- name: Criar pastas da aplicacao e configuracao
+- name: Criar pastas da aplicacao e configuracao (restritas ao grupo developers)
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: root
-    group: bookstore
+    group: developers
     mode: '0750'
   loop:
     - /opt/bookstore
@@ -96,9 +98,8 @@
     dest: /opt/bookstore/bookstore.jar
     remote_src: true
     owner: root
-    group: bookstore
+    group: developers
     mode: '0640'
-
   notify: Reiniciar Bookstore
 
 - name: Instalar configuracao da Bookstore
@@ -106,10 +107,9 @@
     src: application.properties
     dest: /etc/bookstore/application.properties
     owner: root
-    group: bookstore
+    group: developers
     mode: '0640'
   no_log: true
-
   notify: Reiniciar Bookstore
 
 - name: Verificar acesso da app ao servidor H2

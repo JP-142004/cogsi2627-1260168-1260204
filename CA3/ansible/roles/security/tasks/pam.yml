@@ -1,0 +1,27 @@
+---
+- name: Copiar common-auth (bloqueio apos falhas)
+  ansible.builtin.copy:
+    src: common-auth
+    dest: /etc/pam.d/common-auth
+    owner: root
+    group: root
+    mode: '0644'
+    backup: true
+
+- name: Copiar common-account (conta bloqueada)
+  ansible.builtin.copy:
+    src: common-account
+    dest: /etc/pam.d/common-account
+    owner: root
+    group: root
+    mode: '0644'
+    backup: true
+
+- name: Copiar common-password (historico e complexidade)
+  ansible.builtin.copy:
+    src: common-password
+    dest: /etc/pam.d/common-password
+    owner: root
+    group: root
+    mode: '0644'
+    backup: true
