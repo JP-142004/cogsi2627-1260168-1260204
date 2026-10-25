@@ -1,21 +1,21 @@
 # CA3 - Provisionamento com Ansible: Parte de Segurança
 
-Esta secção documenta a parte de segurança do CA3, desenvolvida sobre a infraestrutura Ansible do Luiz (H2, Bookstore e Nginx). O objetivo é reproduzir o trabalho passo a passo: criar o grupo e o utilizador de desenvolvimento, restringir o acesso aos dados, aplicar uma política de passwords e de bloqueio com PAM, e validar tudo com execuções idempotentes.
+Esta secção documenta a parte de segurança do CA3, desenvolvida sobre a infraestrutura Ansible do Luiz (H2, Bookstore e Nginx). O objetivo é reproduzir o trabalho passo a passo: criar o grupo e o utilizador de desenvolvimento, restringir o acesso aos dados, aplicar uma política de passwords e de bloqueio com PAM, e validar tudo com execuções idempotentes e testes reais.
 
 ## 1. Requisitos cobertos
 
 | Requisito | Onde | Estado |
 |-----------|------|--------|
-| Grupo `developers` e utilizador `devuser` em `app` e `db` | `roles/security/tasks/accounts.yml` | Feito |
-| `devuser` pertence a `developers` | `accounts.yml` | Feito |
-| Aplicação e base de dados em diretórios restritos a `developers` | `roles/bookstore`, `roles/h2` | Feito |
-| Contas de serviço `bookstore` e `h2` com acesso necessário | `roles/bookstore`, `roles/h2` (grupo suplementar) | Feito |
-| Mínimo de 12 caracteres | `pwquality.conf` (`minlen = 12`) | Configurado, não testado com password |
-| Pelo menos 3 de 4 classes de caracteres | `pwquality.conf` (`minclass = 3`) | Configurado, não testado com password |
-| Histórico de 5 passwords | `pam_pwhistory` (`remember=5`) | Configurado, não testado com password |
-| Bloqueio de 10 minutos após 5 falhas | `pam_faillock` (`deny=5`, `unlock_time=600`) | Configurado, não testado com falhas |
+| Grupo `developers` e utilizador `devuser` em `app` e `db` | `roles/security/tasks/accounts.yml` | Feito e validado |
+| `devuser` pertence a `developers` | `accounts.yml` | Feito e validado |
+| Aplicação e base de dados em diretórios restritos a `developers` | `roles/bookstore`, `roles/h2` | Feito e validado |
+| Contas de serviço `bookstore` e `h2` com acesso necessário | `roles/bookstore`, `roles/h2` (grupo suplementar) | Feito e validado |
+| Mínimo de 12 caracteres | `pwquality.conf` (`minlen = 12`) | Validado (teste 6.4) |
+| Pelo menos 3 de 4 classes de caracteres | `pwquality.conf` (`minclass = 3`) | Validado (teste 6.4) |
+| Histórico de 5 passwords | `pam_pwhistory` (`remember=5`) | Validado (teste 6.5) |
+| Bloqueio de 10 minutos após 5 falhas | `pam_faillock` (`deny=5`, `unlock_time=600`) | Validado (teste 6.6) |
 | `no_log: true` em tarefas sensíveis | `accounts.yml`, `bookstore`, `h2` | Feito |
-| Idempotência (segunda execução com 0 alterações) | Todo o playbook | Validado |
+| Idempotência (segunda execução com 0 alterações) | Todo o playbook | Validado (secção 4.4) |
 
 ## 2. Pré-requisitos
 
@@ -45,7 +45,7 @@ CA3/
         │       ├── common-auth
         │       ├── common-account
         │       └── common-password
-        ├── h2/tasks/main.yml           # alterado: grupo developers e umask
+        ├── h2/tasks/main.yml           # alterado: grupo developers, setgid e UMask
         └── bookstore/tasks/main.yml    # alterado: grupo developers em /opt, /etc e JAR
 ```
 
@@ -91,7 +91,7 @@ ansible-playbook -i hosts.ini site.yml
 ansible-playbook -i hosts.ini site.yml
 ```
 
-Na primeira execução, `db` reporta `changed=1` na pasta `/var/lib/h2`, porque o modo é corrigido pela primeira vez. A segunda execução tem de dar `changed=0` nas três VMs.
+Na primeira execução, `db` reporta alterações nas permissões de `/var/lib/h2`, porque o modo é corrigido pela primeira vez. A segunda execução tem de dar `changed=0` nas três VMs.
 
 Resultado da segunda execução (validada):
 
@@ -107,7 +107,7 @@ O `skipped=1` em `app` é a compilação Gradle, que só corre quando o código 
 
 ### 5.1 Grupo e permissões
 
-- `developers` é o grupo que pode aceder aos artefactos de desenvolvimento: o JAR e a configuração da Bookstore em `/opt/bookstore` e `/etc/bookstore` (`root:developers`, `0750` e `0640`), e a base de dados em `/var/lib/h2` (`h2:developers`, `2770`).
+- `developers` é o grupo que pode aceder aos artefactos de desenvolvimento: o JAR e a configuração da Bookstore em `/opt/bookstore` e `/etc/bookstore` (`root:developers`, `0750` e `0640`), e a base de dados em `/var/lib/h2` (`h2:developers`).
 - As contas de serviço `bookstore` e `h2` entram no grupo `developers` como grupo suplementar. Sem isto não conseguiriam ler o JAR nem escrever na base de dados. Não recebem acesso adicional a outros ficheiros.
 - `devuser` pertence a `developers` e não é dono de nenhum dos diretórios.
 
@@ -117,9 +117,9 @@ Usámos `mode: 'u=rwX,g=rwXs,o='` em vez de `2770`. O `X` maiúsculo só acresce
 
 ### 5.3 Máscara do H2 (`UMask`)
 
-Como o H2 cria os ficheiros da base de dados com permissões base `0777`, um `recurse` no Ansible voltava a estragar o modo a cada execução, e a tarefa nunca ficava idempotente. A solução foi um drop-in do `systemd`, `/etc/systemd/system/h2-server.service.d/umask.conf`, com `UMask=0007`. Com isto a segunda execução ficou sem alterações.
+O H2 cria os ficheiros da base de dados com permissões base `0777`. Um `recurse` no Ansible voltava a estragar o modo a cada execução, e a tarefa nunca ficava idempotente. A solução foi um drop-in do `systemd`, `/etc/systemd/system/h2-server.service.d/umask.conf`, com `UMask=0007`. Com isto a segunda execução ficou sem alterações.
 
-Limitação conhecida: o H2 mantém o bit de execução nos ficheiros criados (`-rwxrwx---`). Como `o` continua sem permissões e o grupo é o pretendido, não há exposição a utilizadores fora de `developers`. Corrigir isto exigiria `UMask=0117` ou ajustes à forma como o H2 cria ficheiros, e ficou fora do âmbito.
+Limitação conhecida: o H2 mantém o bit de execução nos ficheiros que cria (`-rwxrwx---`). Como `o` continua sem permissões e o grupo é o pretendido, não há exposição a utilizadores fora de `developers`. Corrigir isto exigiria `UMask=0117`, o que ficou fora do âmbito.
 
 ### 5.4 Ordem dos plays
 
@@ -170,14 +170,59 @@ curl -i http://localhost/books
 
 O health check do playbook confirma `HTTP 200` em `/books` através do Nginx.
 
-## 7. O que não foi testado
+### 6.4 Política de complexidade
 
-- **Política de passwords (pwquality, pwhistory):** a conta `devuser` fica sem password (`!`), por omissão, porque nenhuma password foi definida. Para testar, é preciso gerar um hash com `mkpasswd --method=sha-512`, passá-lo com `-e dev_user_password_hash=...`, e tentar alterar a password para uma que viole a política.
-- **Bloqueio (faillock):** não foram feitas cinco tentativas falhadas para confirmar o bloqueio de 10 minutos.
+A password base de `devuser` foi definida com `sudo passwd devuser`. As tentativas de alteração foram feitas com `sudo -u devuser passwd`, porque a política PAM só se aplica a utilizadores não-root.
+
+| Tentativa | Resultado |
+|-----------|-----------|
+| `curta` (menos de 12 caracteres) | Rejeitada: `The password is shorter than 12 characters` |
+| `minusculas2026` (uma classe) | Rejeitada: `The password contains less than 3 character classes` |
+| Igual à password atual | Rejeitada: `The password is the same as the old one` |
+| `Outra#Senha2026` | Aceite |
+
+### 6.5 Histórico de passwords
+
+Sequência de mudanças feitas por `devuser`, com `remember=5`:
+
+| Passo | Alteração | Resultado |
+|-------|-----------|-----------|
+| 1 | `Outra#Senha2026` → `Terceira#Senha26` | Aceite |
+| 2 | `Terceira#Senha26` → `Outra#Senha2026` | Rejeitada (no histórico) |
+| 3 | → `Quarta#Senha2026` | Aceite |
+| 4 | → `Quinta#Senha2026` | Aceite |
+| 5 | → `Sexta#Senha2026` | Aceite |
+| 6 | → `Setima#Senha2026` | Aceite |
+| 7 | → `Outra#Senha2026` | Aceite: já tinha saído da janela de 5 |
+
+Verificação do ficheiro `/etc/security/opasswd`: `Quarta`, `Quinta`, `Sexta` e `Setima` estão guardadas. Depois desta sequência, a password atual é `Outra#Senha2026`, e as duas tentativas seguintes foram recusadas com `Password has been already used`:
+
+- `Outra#Senha2026` → `Quarta#Senha2026`: rejeitada
+- `Outra#Senha2026` → `Setima#Senha2026`: rejeitada
+
+### 6.6 Bloqueio após falhas
+
+Cinco tentativas com password errada, seguidas de uma tentativa com a password correta, feitas com `pamtester` (service `login`) através de `sudo`:
+
+```text
+Password: ... (5 falhas)
+The account is locked due to 5 failed logins.
+(10 minutes left to unlock)
+Password: ... Authentication failure
+```
+
+O `sudo faillock --user devuser` regista as cinco falhas. Depois do teste, a conta foi desbloqueada com `sudo faillock --user devuser --reset`.
+
+## 7. Limitações
+
+- **H2 e bit de execução:** os ficheiros da base de dados ficam com `rwxrwx---` (ver 5.3). Sem impacto na confidencialidade para utilizadores fora de `developers`.
+- **Distribuição:** os ficheiros PAM foram escritos com a base do Ubuntu 22.04 (Jammy), usada pela box `ubuntu/jammy64`. Não são portáveis diretamente para outras famílias de distribuições (ver secção 8).
+- **Password do `devuser`:** a password foi definida manualmente com `passwd`, e não pelo playbook. O `update_password: on_create` evita que o playbook a volte a alterar nas execuções seguintes.
+- **Sudo e PAM:** as alterações ao PAM afetam também `sudo` e `su`. Os testes foram feitos com a conta `vagrant` a usar chave SSH, que não passa pela verificação de password.
 
 ## 8. Diferenças entre distribuições (PAM)
 
-Os ficheiros `common-auth`, `common-account` e `common-password` foram escritos com a base do Ubuntu 22.04 (Jammy). Noutras distribuições:
+Os ficheiros `common-auth`, `common-account` e `common-password` foram escritos com a base do Ubuntu 22.04. Noutras distribuições:
 
 - **Debian e Ubuntu:** usam `pam-auth-update`, e os módulos ficam em `/etc/pam.d/common-*`. A ordem `[success=1 default=ignore]` depende da versão do `pam_unix`.
 - **RHEL, Rocky, Fedora:** usam `/etc/pam.d/system-auth` e `password-auth`, e `pam_faillock` já vem configurado com `authselect`. Os ficheiros desta role não se aplicam diretamente.
@@ -187,8 +232,6 @@ Para este CA3, a base é o Ubuntu 22.04 da box `ubuntu/jammy64`.
 
 ## 9. Pendente nesta parte
 
-- Testar a política de passwords com `devuser` e uma password real.
-- Testar o bloqueio com cinco tentativas falhadas.
 - Análise e implementação da alternativa de gestão de configuração (secção separada do README).
 - Autoavaliação de cada membro, a preencher no fecho do CA3.
 
