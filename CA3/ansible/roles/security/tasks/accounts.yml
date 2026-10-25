@@ -1,0 +1,17 @@
+---
+- name: Criar grupo developers
+  ansible.builtin.group:
+    name: "{{ developers_group }}"
+    state: present
+
+- name: Criar utilizador devuser no grupo developers
+  ansible.builtin.user:
+    name: "{{ dev_user }}"
+    shell: /bin/bash
+    create_home: true
+    groups: "{{ developers_group }}"
+    append: true
+    password: "{{ dev_user_password_hash }}"
+    update_password: on_create
+    state: present
+  no_log: true

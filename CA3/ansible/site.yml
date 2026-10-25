@@ -1,4 +1,11 @@
 ---
+- name: Aplicar politica de seguranca (grupo, utilizador, PAM)
+  hosts: database:application
+  become: true
+
+  roles:
+    - security
+
 - name: Configurar o servidor de base de dados
   hosts: database
   become: true

@@ -1,0 +1,18 @@
+---
+developers_group: developers
+dev_user: devuser
+
+# Hash SHA-512 gerado com: mkpasswd --method=sha-512
+# Por omissao a conta fica sem password (bloqueada). Para testar a politica:
+#   ansible-playbook ... -e dev_user_password_hash='<hash>'
+dev_user_password_hash: "!"
+
+# Politica de passwords (pam_pwquality / pam_pwhistory)
+pwquality_minlen: 12
+pwquality_minclass: 3
+pwhistory_remember: 5
+
+# Bloqueio de conta (pam_faillock)
+faillock_deny: 5
+faillock_unlock_time: 600
+faillock_fail_interval: 900
