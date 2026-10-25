@@ -341,17 +341,25 @@ Erro encontrado: na primeira aplicação na `app`, o Puppet tentou alterar a hom
 
 O Puppet em modo masterless cobre a parte de segurança do CA3, com idempotência verificada nas duas VMs. As diferenças mais importantes são o modelo declarativo, o `--noop` e a forma como os tipos de recurso tratam permissões. O principal problema observado é que dois gestores de configuração não devem tocar nos mesmos ficheiros. Para a entrega, a alternativa deve ser demonstrada separadamente da versão Ansible, e não aplicada em cima dela.
 
-## 10. Commits e entrega
-
-```bash
-git add CA3/ansible/roles/security CA3/ansible/site.yml CA3/ansible/.ansible-lint
-git commit -m "ca3: adicionar role security (grupo developers, devuser e politica PAM)" -m "Co-Authored-By: Claude Haiku 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01M2NpW2hmELTSebphGY78qg"
-git add CA3/ansible/roles/h2/tasks/main.yml CA3/ansible/roles/bookstore/tasks/main.yml
-git commit -m "ca3: restringir H2 e Bookstore ao grupo developers" -m "Co-Authored-By: Claude Haiku 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01M2NpW2hmELTSebphGY78qg"
-git add CA3/ansible/puppet
-git commit -m "ca3: implementar alternativa Puppet (masterless) para a parte de seguranca" -m "Co-Authored-By: Claude Haiku 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01M2NpW2hmELTSebphGY78qg"
-git add CA3/README.md
-git commit -m "docs: README do CA3 com a parte de seguranca e a alternativa Puppet" -m "Co-Authored-By: Claude Haiku 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01M2NpW2hmELTSebphGY78qg"
-```
-
-Os scripts `aplicar_seguranca.ps1` e `aplicar_puppet.ps1` não devem ser adicionados.
+## 10. Autoavaliação e divisão de trabalho
+ 
+### 10.1 Luiz Afonso (infraestrutura Ansible)
+ 
+- Roles `h2`, `bookstore` e `nginx`, e a instalação e o arranque dos serviços H2, Bookstore e Nginx.
+- Inventário `hosts.ini` e a estrutura base do `site.yml`.
+- Health check de `/books` através do Nginx.
+- Tarefa de compilação Gradle da Bookstore (origem do aviso `no-handler` no `.ansible-lint`).
+Contribuição estimada: __%
+ 
+### 10.2 João Paulo (segurança e alternativa)
+ 
+- Role `security`: grupo `developers`, utilizador `devuser`, política de complexidade (`pwquality`), histórico de passwords (`pwhistory`) e bloqueio após falhas (`faillock`).
+- Ajustes de permissões do H2 e da Bookstore (grupo `developers`, setgid em `/var/lib/h2`, `UMask` do serviço H2) e correção da idempotência.
+- Testes de segurança 6.1 a 6.6 e validação das VMs.
+- Análise comparativa e implementação da alternativa em Puppet (masterless), incluindo a secção 9.
+- Documentação: este README unificado e os scripts geradores.
+Contribuição estimada: __%
+ 
+### 10.3 Nota
+ 
+As percentagens devem somar 100% e ser acordadas pelo grupo. A descrição de cada membro deve ser confirmada pelo próprio antes da entrega.
