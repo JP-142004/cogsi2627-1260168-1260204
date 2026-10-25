@@ -113,7 +113,17 @@ ansible-playbook -i hosts.ini site.yml
 
 Na primeira execução, `db` reporta alterações nas permissões de `/var/lib/h2`, porque o modo é corrigido pela primeira vez. A segunda execução tem de dar `changed=0` nas três VMs.
 
-Na segunda execução, o recap do Ansible (`PLAY RECAP`) deve mostrar `changed=0` e `failed=0` em todas as VMs. Colar aqui o recap obtido na entrega final.
+Primeira execução depois da aplicação do Puppet (secção 9): `app` e `db` reportaram `changed=4`, porque o Ansible reescreveu os ficheiros PAM e de configuração que o Puppet tinha escrito. Esta é a interação entre os dois gestores descrita na secção 9.6.
+
+Segunda execução (validada):
+
+```text
+app   : ok=24  changed=0  failed=0  skipped=1
+db    : ok=23  changed=0  failed=0  skipped=0
+proxy : ok=7   changed=0  failed=0  skipped=0
+```
+
+O `skipped=1` em `app` é a compilação Gradle, que só corre quando o código muda ou o JAR não existe.
 
 ## 5. Decisões de design (Ansible)
 
@@ -143,7 +153,7 @@ A role `security` corre primeiro, com `hosts: database:application`. Assim o gru
 ansible database -i hosts.ini -b -m shell -a "sudo -u devuser cat /var/lib/h2/bookstore.mv.db >/dev/null && echo DEVUSER_OK || echo DEVUSER_DENIED; sudo -u nobody cat /var/lib/h2/bookstore.mv.db >/dev/null 2>&1 && echo NOBODY_OK || echo NOBODY_DENIED"
 ```
 
-Resultado esperado: `DEVUSER_OK` e `NOBODY_DENIED`.
+Resultado obtido: `DEVUSER_OK` e `NOBODY_DENIED`.
 
 ### 6.2 Grupos e permissões
 
@@ -155,7 +165,19 @@ sudo cat /etc/security/faillock.conf
 grep -E "minlen|minclass" /etc/security/pwquality.conf
 ```
 
-Resultado esperado: `devuser` e `bookstore` com o grupo `developers` nos grupos suplementares, `developers` com `devuser` e `bookstore` como membros, `faillock.conf` com `deny = 5` e `unlock_time = 600`, e `pwquality.conf` com `minlen = 12` e `minclass = 3`. Colar aqui os valores reais obtidos.
+Resultado obtido na `app`:
+
+```text
+uid=1002(devuser) gid=1003(devuser) groups=1003(devuser),1002(developers)
+developers:x:1002:devuser,bookstore
+minlen = 12
+minclass = 3
+deny = 5
+unlock_time = 600
+fail_interval = 900
+```
+
+O `faillock.conf` foi lido depois da primeira execução do Ansible, por isso traz o cabeçalho `# Gerido pelo Ansible`.
 
 ### 6.3 Aplicação
 
@@ -163,7 +185,7 @@ Resultado esperado: `devuser` e `bookstore` com o grupo `developers` nos grupos 
 curl -i http://localhost/books
 ```
 
-Resultado esperado: `HTTP/1.1 200 OK` em `/books` através do Nginx.
+Resultado obtido: `HTTP/1.1 200` em `http://192.168.56.20/books`, a partir da `app`. O Nginx está na VM `proxy`, por isso o `curl` para `localhost` na `app` falha com `Connection refused`, o que é esperado.
 
 ### 6.4 Política de complexidade
 
