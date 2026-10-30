@@ -1,0 +1,11 @@
+FROM eclipse-temurin:17-jdk AS build
+WORKDIR /build
+COPY . .
+RUN chmod +x gradlew && ./gradlew --no-daemon :app:packageApp
+
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /build/app/build/libs/ /app/libs/
+EXPOSE 59001
+ENTRYPOINT ["java", "-cp", "/app/libs/*:/app/libs/lib/*", "org.example.ChatServerApp"]
+CMD ["59001"]
