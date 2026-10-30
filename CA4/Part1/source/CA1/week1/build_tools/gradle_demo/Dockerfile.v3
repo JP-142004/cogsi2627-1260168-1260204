@@ -5,7 +5,9 @@ RUN chmod +x gradlew && ./gradlew --no-daemon :app:packageApp
 
 FROM eclipse-temurin:17-jre
 WORKDIR /app
+RUN groupadd --system app && useradd --system --gid app --no-create-home app
 COPY --from=build /build/app/build/libs/ /app/libs/
+USER app
 EXPOSE 59001
 ENTRYPOINT ["java", "-cp", "/app/libs/*:/app/libs/lib/*", "org.example.ChatServerApp"]
 CMD ["59001"]
