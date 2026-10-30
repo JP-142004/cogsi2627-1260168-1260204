@@ -28,11 +28,11 @@ experimentation environment**. You will progressively:
 
 To build and run this project, you need:
 
--   Java JDK 21 (toolchain-managed by Gradle)
+-   Java JDK 17 (as configured in `app/build.gradle`)
 -   Gradle 9 (if the provided Gradle Wrapper is not used)
 -   Internet access for dependency resolution (Maven Central)
 
-Note: Gradle will automatically download and use JDK 21 via toolchains
+Note: Gradle will automatically download and use JDK 17 via toolchains
 if properly configured.
 
 ## Build

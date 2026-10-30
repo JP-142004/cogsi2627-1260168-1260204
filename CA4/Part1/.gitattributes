@@ -1,3 +1,5 @@
 gradlew text eol=lf
 Dockerfile* text eol=lf
 *.ps1 text eol=crlf
+# Preserve the raw output produced by Docker, Gradle and Hibernate.
+evidence/*.txt -whitespace

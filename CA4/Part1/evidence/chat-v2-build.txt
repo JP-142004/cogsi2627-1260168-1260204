@@ -1,0 +1,34 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.v2
+#1 transferring dockerfile: 358B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre
+#2 DONE 0.8s
+
+#3 [1/3] FROM docker.io/library/eclipse-temurin:17-jre@sha256:4faa9eaf440514dd4f7ef71fecb92526e13679aea039bed5d2fc98e885c60dee
+#3 resolve docker.io/library/eclipse-temurin:17-jre@sha256:4faa9eaf440514dd4f7ef71fecb92526e13679aea039bed5d2fc98e885c60dee 0.0s done
+#3 DONE 0.0s
+
+#4 [2/3] WORKDIR /app
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 1.34MB 0.1s
+#5 transferring context: 2.38MB 0.2s done
+#5 DONE 0.2s
+
+#6 [3/3] COPY app/build/libs/ /app/libs/
+#6 DONE 0.2s
+
+#7 exporting to image
+#7 exporting layers 0.1s done
+#7 exporting manifest sha256:bffe1f98c78e8722ba7c496748c634326176b17d09056ea6011cbb88a04149d0 done
+#7 exporting config sha256:86fa3151652c56db121a06923594b9a86b612693523ded638fd3ed0c98b2afe6 done
+#7 exporting attestation manifest sha256:0cda8180d06e6aa8924f846d4e391ec782418b4e0a3409f7093c3d56932837ea done
+#7 exporting manifest list sha256:4f8491719f97b26531d4078700ca64982e20087be50bc9677f07da9e39f59745
+#7 exporting manifest list sha256:4f8491719f97b26531d4078700ca64982e20087be50bc9677f07da9e39f59745 done
+#7 naming to docker.io/library/ca4-chat:v2 done
+#7 unpacking to docker.io/library/ca4-chat:v2 0.0s done
+#7 DONE 0.1s

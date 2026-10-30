@@ -1,0 +1,74 @@
+[
+  {
+    "image": "ca4-chat:v1",
+    "imageId": "sha256:e4b6854d3a4398767554b94287e78d364b98fef536940a9756e838d4d285bc51",
+    "bytes": 1098309870,
+    "filesystemLayers": 11,
+    "dockerBuildSeconds": 32.55,
+    "hostBuildSeconds": 0,
+    "user": null,
+    "noCache": true,
+    "sourceCommit": "5cf7a4b6275d4239fb1f13ce67234649d66611c8",
+    "measuredAt": "2026-10-30T20:28:13.1185106+00:00"
+  },
+  {
+    "image": "ca4-chat:v2",
+    "imageId": "sha256:4f8491719f97b26531d4078700ca64982e20087be50bc9677f07da9e39f59745",
+    "bytes": 431462715,
+    "filesystemLayers": 8,
+    "dockerBuildSeconds": 1.91,
+    "hostBuildSeconds": 26.76,
+    "user": null,
+    "noCache": true,
+    "sourceCommit": "5cf7a4b6275d4239fb1f13ce67234649d66611c8",
+    "measuredAt": "2026-10-30T20:28:15.4117856+00:00"
+  },
+  {
+    "image": "ca4-chat:v3",
+    "imageId": "sha256:99fc480c594f474715168307f3b5e85a9da16a5f88f5b0bf5770d9a78ddc8a44",
+    "bytes": 431505442,
+    "filesystemLayers": 9,
+    "dockerBuildSeconds": 18.98,
+    "hostBuildSeconds": 0,
+    "user": "app",
+    "noCache": true,
+    "sourceCommit": "5cf7a4b6275d4239fb1f13ce67234649d66611c8",
+    "measuredAt": "2026-10-30T20:28:34.7562257+00:00"
+  },
+  {
+    "image": "ca4-bookstore:v1",
+    "imageId": "sha256:31121bb332867dae209eb7a373e82a03d9a462e4b92544f7d34ab60c4d46fa07",
+    "bytes": 1370393769,
+    "filesystemLayers": 11,
+    "dockerBuildSeconds": 45.45,
+    "hostBuildSeconds": 0,
+    "user": null,
+    "noCache": true,
+    "sourceCommit": "5cf7a4b6275d4239fb1f13ce67234649d66611c8",
+    "measuredAt": "2026-10-30T20:30:07.7586301+00:00"
+  },
+  {
+    "image": "ca4-bookstore:v2",
+    "imageId": "sha256:55355c9bade6cfc72b94629ff27bed6a9cb5b5ef0102057cf5978817b119a686",
+    "bytes": 524673566,
+    "filesystemLayers": 8,
+    "dockerBuildSeconds": 6.09,
+    "hostBuildSeconds": 47.02,
+    "user": null,
+    "noCache": true,
+    "sourceCommit": "5cf7a4b6275d4239fb1f13ce67234649d66611c8",
+    "measuredAt": "2026-10-30T20:30:14.2096540+00:00"
+  },
+  {
+    "image": "ca4-bookstore:v3",
+    "imageId": "sha256:ec9d1c1dad78d947da3901daf6e364e182bff56a0e717ce507fd262bb02be224",
+    "bytes": 524716288,
+    "filesystemLayers": 9,
+    "dockerBuildSeconds": 35.38,
+    "hostBuildSeconds": 0,
+    "user": "app",
+    "noCache": true,
+    "sourceCommit": "5cf7a4b6275d4239fb1f13ce67234649d66611c8",
+    "measuredAt": "2026-10-30T20:30:49.9376007+00:00"
+  }
+]

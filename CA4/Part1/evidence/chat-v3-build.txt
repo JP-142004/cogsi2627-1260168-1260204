@@ -1,0 +1,85 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.v3
+#1 transferring dockerfile: 574B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
+#3 DONE 0.3s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre
+#2 DONE 0.4s
+
+#4 [stage-1 1/4] FROM docker.io/library/eclipse-temurin:17-jre@sha256:4faa9eaf440514dd4f7ef71fecb92526e13679aea039bed5d2fc98e885c60dee
+#4 resolve docker.io/library/eclipse-temurin:17-jre@sha256:4faa9eaf440514dd4f7ef71fecb92526e13679aea039bed5d2fc98e885c60dee 0.0s done
+#4 DONE 0.0s
+
+#5 [stage-1 2/4] WORKDIR /app
+#5 CACHED
+
+#6 [build 1/4] FROM docker.io/library/eclipse-temurin:17-jdk@sha256:91011320978c10ec51d2cde1eb6f616db6d2a739a0e521096c343dd3fed9abe6
+#6 resolve docker.io/library/eclipse-temurin:17-jdk@sha256:91011320978c10ec51d2cde1eb6f616db6d2a739a0e521096c343dd3fed9abe6 0.0s done
+#6 DONE 0.0s
+
+#7 [build 2/4] WORKDIR /build
+#7 CACHED
+
+#8 [internal] load build context
+#8 transferring context: 88.58kB 0.0s done
+#8 DONE 0.0s
+
+#9 [build 3/4] COPY . .
+#9 DONE 0.0s
+
+#10 [build 4/4] RUN chmod +x gradlew && ./gradlew --no-daemon :app:packageApp
+#10 ...
+
+#11 [stage-1 3/4] RUN groupadd --system app && useradd --system --gid app --no-create-home app
+#11 DONE 0.2s
+
+#10 [build 4/4] RUN chmod +x gradlew && ./gradlew --no-daemon :app:packageApp
+#10 0.220 Downloading https://services.gradle.org/distributions/gradle-9.4.0-bin.zip
+#10 0.958 .............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
+#10 10.58 
+#10 10.58 Welcome to Gradle 9.4.0!
+#10 10.58 
+#10 10.58 Here are the highlights of this release:
+#10 10.58  - Java 26 support
+#10 10.58  - Non-class-based JVM tests
+#10 10.58  - Enhanced console progress bar
+#10 10.58 
+#10 10.58 For more details see https://docs.gradle.org/9.4.0/release-notes.html
+#10 10.58 
+#10 10.59 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.4.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+#10 11.08 Daemon will be stopped at the end of the build 
+#10 11.78 Calculating task graph as no cached configuration is available for tasks: :app:packageApp
+#10 16.88 > Task :app:copyDependencies
+#10 16.88 > Task :app:processResources
+#10 17.58 > Task :app:compileJava
+#10 17.58 > Task :app:classes
+#10 17.58 
+#10 17.58 > Task :app:jar
+#10 17.58 Generated application JAR: chat-server-1.0.jar
+#10 17.58 
+#10 17.58 > Task :app:packageApp
+#10 17.58 
+#10 17.58 BUILD SUCCESSFUL in 17s
+#10 17.58 4 actionable tasks: 4 executed
+#10 17.58 Configuration cache entry stored.
+#10 DONE 17.7s
+
+#12 [stage-1 4/4] COPY --from=build /build/app/build/libs/ /app/libs/
+#12 DONE 0.0s
+
+#13 exporting to image
+#13 exporting layers 0.1s done
+#13 exporting manifest sha256:c5abcfaddaa5d8233cc02769f807524f3730bab1bf61c44c397e219b019414d7 done
+#13 exporting config sha256:e74a3d3f6a8b58ffc1db8ea5815462cdf497f17ef36f3c8920848efe2ec56c21 done
+#13 exporting attestation manifest sha256:735e838d5e0ea032447c58fedbe1bdeb52a4687b26a09ad4621c359d95443bd0 done
+#13 exporting manifest list sha256:99fc480c594f474715168307f3b5e85a9da16a5f88f5b0bf5770d9a78ddc8a44 done
+#13 naming to docker.io/library/ca4-chat:v3 done
+#13 unpacking to docker.io/library/ca4-chat:v3 0.0s done
+#13 DONE 0.2s
