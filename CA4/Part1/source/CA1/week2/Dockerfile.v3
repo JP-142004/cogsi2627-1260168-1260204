@@ -1,0 +1,12 @@
+FROM eclipse-temurin:17-jdk AS build
+WORKDIR /build
+COPY . .
+RUN chmod +x gradlew && ./gradlew --no-daemon :app:bootJar
+
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+RUN groupadd --system app && useradd --system --gid app --no-create-home app
+COPY --from=build /build/app/build/libs/app-1.0.0.jar /app/bookstore.jar
+USER app
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app/bookstore.jar"]

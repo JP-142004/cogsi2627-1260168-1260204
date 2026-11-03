@@ -1,0 +1,34 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.v2
+#1 transferring dockerfile: 336B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre
+#2 DONE 0.8s
+
+#3 [1/3] FROM docker.io/library/eclipse-temurin:17-jre@sha256:4faa9eaf440514dd4f7ef71fecb92526e13679aea039bed5d2fc98e885c60dee
+#3 resolve docker.io/library/eclipse-temurin:17-jre@sha256:4faa9eaf440514dd4f7ef71fecb92526e13679aea039bed5d2fc98e885c60dee 0.0s done
+#3 DONE 0.0s
+
+#4 [2/3] WORKDIR /app
+#4 CACHED
+
+#5 [internal] load build context
+#5 transferring context: 1.38MB 0.1s
+#5 transferring context: 51.47MB 3.6s done
+#5 DONE 3.6s
+
+#6 [3/3] COPY app/build/libs/app-1.0.0.jar /app/bookstore.jar
+#6 DONE 0.2s
+
+#7 exporting to image
+#7 exporting layers
+#7 exporting layers 0.8s done
+#7 exporting manifest sha256:2aef7a32111c8b6f2564e90c27660fcac3b89f6d0bcf817e996dfba92b858b9f done
+#7 exporting config sha256:3fd6f3713f2c799aef3ff794176fafd636af8d266e984358692036aeb41d3bd4 done
+#7 exporting attestation manifest sha256:23bf918c2a5364c9bfd7b14188dbc6f90424c111c15dbeedf1514b9ebcca9e30 done
+#7 exporting manifest list sha256:55355c9bade6cfc72b94629ff27bed6a9cb5b5ef0102057cf5978817b119a686 done
+#7 naming to docker.io/library/ca4-bookstore:v2 done
+#7 unpacking to docker.io/library/ca4-bookstore:v2 0.1s done
+#7 DONE 1.0s

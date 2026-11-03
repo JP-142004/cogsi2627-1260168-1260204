@@ -1,0 +1,7 @@
+.gradle
+**/.gradle
+build
+**/build
+.git
+source.bundle
+maven-alternative

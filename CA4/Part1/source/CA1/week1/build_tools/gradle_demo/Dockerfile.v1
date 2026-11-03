@@ -1,0 +1,10 @@
+FROM eclipse-temurin:17-jdk
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+COPY source.bundle /tmp/source.bundle
+ARG SOURCE_REF=ca4-part1
+RUN git clone --branch ${SOURCE_REF} /tmp/source.bundle /source
+WORKDIR /source/CA1/week1/build_tools/gradle_demo
+RUN chmod +x gradlew && ./gradlew --no-daemon :app:packageApp
+EXPOSE 59001
+ENTRYPOINT ["java", "-cp", "app/build/libs/*:app/build/libs/lib/*", "org.example.ChatServerApp"]
+CMD ["59001"]

@@ -1,0 +1,6 @@
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY app/build/libs/ /app/libs/
+EXPOSE 59001
+ENTRYPOINT ["java", "-cp", "/app/libs/*:/app/libs/lib/*", "org.example.ChatServerApp"]
+CMD ["59001"]
