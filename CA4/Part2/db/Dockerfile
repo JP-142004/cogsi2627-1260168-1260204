@@ -7,8 +7,10 @@ RUN apk add --no-cache netcat-openbsd \
  && addgroup -S h2 && adduser -S -G h2 h2 \
  && mkdir -p /data && chown h2:h2 /data
 
+ENV H2_PORT=9092 H2_BASE_DIR=/data
+
 USER h2
 VOLUME ["/data"]
 EXPOSE 9092
 
-ENTRYPOINT ["sh", "-c", "exec java -cp /opt/h2.jar org.h2.tools.Server -tcp -tcpPort ${H2_PORT} -tcpAllowOthers -ifNotExists -baseDir /data"]
+ENTRYPOINT ["sh", "-c", "exec java -cp /opt/h2.jar org.h2.tools.Server -tcp -tcpPort ${H2_PORT} -tcpAllowOthers -ifNotExists -baseDir ${H2_BASE_DIR}"]
