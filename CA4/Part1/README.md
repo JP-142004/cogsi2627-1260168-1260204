@@ -182,3 +182,170 @@ O desenho e os comandos estão documentados. Podman não está instalado neste a
 - Parte 2: não desenvolvida nesta continuação.
 
 Depois de preparar a publicação, os comandos de referência para cada imagem são `docker tag ca4-chat:v3 <utilizador>/ca4-chat:v3` e `docker push <utilizador>/ca4-chat:v3`, repetindo para as outras versões e para a Bookstore. Estes comandos estão apenas documentados, não foram executados.
+
+
+---
+
+# Parte 2 — Docker Compose com proxy, web e db (João)
+
+## Objetivo
+
+Executar a Bookstore (versão Gradle do CA1) em três containers, orquestrados com Docker Compose, em vez das três máquinas Vagrant do CA2 Parte 2:
+
+- **proxy**: Nginx, ponto de entrada HTTP, publicado no host na porta 8084.
+- **web**: Bookstore Spring Boot, na porta interna 8080.
+- **db**: servidor H2 em modo TCP, na porta interna 9092, com os dados num volume Docker.
+
+Os ficheiros desta parte estão em `CA4/Part2/`, e o código vem de `CA4/Part1/source/CA1/week2`, copiado para `CA4/Part2/web/app/` sem a variante Maven.
+
+## Análise e desenho
+
+**Ordem de arranque.** O `web` só inicia quando o `db` está `healthy`, e o `proxy` só inicia quando o `web` está `healthy`. Usa-se `depends_on` com `condition: service_healthy`, porque `depends_on` sem condição só espera que o container arranque, não que o serviço esteja pronto.
+
+**Healthchecks.**
+- `db`: abre uma ligação TCP ao H2 e executa `SELECT 1` com o cliente do próprio H2 (`org.h2.tools.Shell`). O teste usa a base persistente, não uma base em memória. Cada verificação arranca uma JVM (intervalo de 5 s), um custo aceitável para o laboratório.
+- `web`: pede `/actuator/health` e confirma `"status":"UP"`.
+
+**Persistência.** O volume nomeado `h2-data` está montado em `/data` no db. O H2 usa `-baseDir ${H2_BASE_DIR}`, e a base `./bookstore` fica em `/data`. Um `docker compose down` (sem `-v`) preserva os dados.
+
+**Rede.** Os serviços encontram-se pelo nome (`web`, `db`), e os IPs fixos da rede `backend` (172.28.0.0/24) tornam as evidências previsíveis: `web` em 172.28.0.10 e `db` em 172.28.0.30.
+
+**Justificações.**
+- **Java 17** em todas as imagens, porque o `build.gradle` define `JavaLanguageVersion.of(17)` e a Parte 1 também usa 17.
+- **Utilizadores não-root** no web (`bookstore`) e no db (`h2`), para reduzir privilégios dentro do container.
+- **Variáveis de ambiente.** O `.env` (não versionado) define `PROXY_PORT` e as credenciais do datasource. O `.env.example` mostra os valores, e o `.gitignore` ignora `.env` mas permite `.env.example`.
+- **`DataInitializer` idempotente.** Antes, cada arranque inseria os livros de exemplo de novo, e com o volume persistente os dados duplicavam. Agora só insere se a tabela de livros estiver vazia.
+
+## Passo a passo
+
+### 1. Ramo e estrutura
+
+```powershell
+git switch main
+git pull --ff-only origin main
+git switch -c ca4-part2
+mkdir CA4\Part2\web\app, CA4\Part2\db, CA4\Part2\proxy, CA4\Part2\evidence
+```
+
+### 2. Código da Bookstore
+
+```powershell
+robocopy CA4\Part1\source\CA1\week2 CA4\Part2\web\app /E /XD maven-alternative
+```
+
+O `robocopy` devolve códigos 0 a 7 em caso de sucesso.
+
+### 3. Imagem do db (H2)
+
+`db/Dockerfile`: base `eclipse-temurin:17-jre-alpine`, H2 `2.2.224` (versão fixa), utilizador `h2` e pasta `/data`. O servidor arranca em TCP na porta 9092, com o diretório base definido por `H2_BASE_DIR`.
+
+```dockerfile
+FROM eclipse-temurin:17-jre-alpine
+
+ARG H2_VERSION=2.2.224
+RUN apk add --no-cache wget \
+ && wget -qO /opt/h2.jar https://repo1.maven.org/maven2/com/h2database/h2/${H2_VERSION}/h2-${H2_VERSION}.jar \
+ && addgroup -S h2 && adduser -S -G h2 h2 \
+ && mkdir -p /data && chown h2:h2 /data
+
+ENV H2_PORT=9092 H2_BASE_DIR=/data
+USER h2
+VOLUME ["/data"]
+EXPOSE 9092
+ENTRYPOINT ["sh", "-c", "exec java -cp /opt/h2.jar org.h2.tools.Server -tcp -tcpPort ${H2_PORT} -tcpAllowOthers -ifNotExists -baseDir ${H2_BASE_DIR}"]
+```
+
+### 4. Imagem do web (Bookstore)
+
+`web/Dockerfile` em duas fases: a primeira (`eclipse-temurin:17-jdk`) compila com `./gradlew :app:bootJar -x test` e copia o JAR sem o sufixo `plain`; a segunda (`eclipse-temurin:17-jre-alpine`) traz só o JRE e o JAR, com utilizador `bookstore`.
+
+`web/.dockerignore`, para não enviar caches e builds para o contexto:
+
+```
+app/build
+app/.gradle
+app/.idea
+.git
+```
+
+### 5. Imagem do proxy (Nginx)
+
+`proxy/Dockerfile`: base `nginx:1.27-alpine`, sem a configuração por defeito. `proxy/nginx.conf` faz `proxy_pass http://web:8080` com os cabeçalhos `X-Real-IP`, `X-Forwarded-For` e `X-Forwarded-Proto`.
+
+### 6. Compose
+
+`compose.yaml`, com os três serviços, a rede `backend` e o volume `h2-data`, os healthchecks e as dependências descritas acima. A porta do proxy vem de `PROXY_PORT` (padrão 8084).
+
+```powershell
+cd CA4\Part2
+Copy-Item .env.example .env
+docker compose config --quiet
+```
+
+### 7. Correção do `DataInitializer`
+
+No início do `CommandLineRunner` (`config/DataInitializer.java`):
+
+```java
+if (bookRepo.count() > 0) {
+    return;
+}
+```
+
+### 8. Subir e testar
+
+```powershell
+docker compose down -v
+docker compose up -d --build
+docker compose ps
+curl.exe -s http://localhost:8084/books
+```
+
+Resultado: `db` e `web` em `healthy`, com a lista dos dois livros de exemplo (ids 1 e 2).
+
+### 9. Persistência
+
+```powershell
+Invoke-RestMethod -Method Post -Uri http://localhost:8084/books -ContentType "application/json" -Body (@{title="Teste CA4"; author="Joao"; price=10.0} | ConvertTo-Json)
+curl.exe -s http://localhost:8084/books > evidence\books-antes.json
+docker compose down
+docker compose up -d
+curl.exe -s http://localhost:8084/books > evidence\books-depois.json
+```
+
+Resultado: os dois ficheiros têm os mesmos três livros (os de exemplo e o "Teste CA4", id 3), sem duplicados. Não usar `down -v` neste teste, porque apaga o volume.
+
+### 10. Conectividade, volume e recursos
+
+```powershell
+docker compose exec proxy getent hosts web > evidence\connectivity-proxy-web.txt
+docker compose exec web getent hosts db > evidence\connectivity-web-db.txt
+docker volume inspect bookstore-ca4_h2-data > evidence\volume-h2-data.json
+docker compose ps > evidence\compose-ps.txt
+docker stats --no-stream > evidence\stats.txt
+docker history bookstore-web:ca4 > evidence\history-web.txt
+```
+
+Resultado: o proxy resolve `web` para `172.28.0.10` e o web resolve `db` para `172.28.0.30`.
+
+## Problemas encontrados
+
+| Problema | Solução |
+| --- | --- |
+| Caminho do JAR errado no build | `:app:bootJar` e cópia do JAR de `app/build/libs/` |
+| Livros duplicados a cada arranque | Guarda `count() > 0` no `DataInitializer` |
+| Imagens com Java 21 | Alinhadas para Java 17 |
+| `H2_DB_PATH` sem efeito | Renomeada para `H2_BASE_DIR`, usada no `ENTRYPOINT` |
+| Healthcheck do db só testava a porta | `SELECT 1` com o cliente H2 |
+| Ficheiros `Dockerfile.v*` copiados por engano para `web/app/` | Removidos do Git |
+
+## Limitações
+
+- As credenciais do H2 são definidas pela primeira ligação feita pelo web, não pelo servidor.
+- O healthcheck do db arranca uma JVM a cada verificação.
+- Só o web tem `.dockerignore`; proxy e db não copiam código de compilação.
+- O `application.properties` continua com `jdbc:h2:mem:bookstore`, mas o Compose sobrepõe-no com `SPRING_DATASOURCE_URL`.
+
+## Autoavaliação (João)
+
+__% (a confirmar pelo grupo)
