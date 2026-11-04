@@ -13,7 +13,7 @@ services:
       backend:
         ipv4_address: 172.28.0.30
     healthcheck:
-      test: ["CMD-SHELL", "nc -z localhost 9092 || exit 1"]
+      test: ["CMD-SHELL", "java -cp /opt/h2.jar org.h2.tools.Shell -url 'jdbc:h2:tcp://localhost:9092/./bookstore' -user sa -password '' -sql 'SELECT 1' | grep -q 1 || exit 1"]
       interval: 5s
       timeout: 3s
       retries: 20
