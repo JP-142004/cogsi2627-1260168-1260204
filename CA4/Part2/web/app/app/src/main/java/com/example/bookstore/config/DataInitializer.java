@@ -30,7 +30,12 @@ public class DataInitializer {
             OrderRepository orderRepo
     ) {
         return args -> {
-
+            
+            // Idempotente: so insere os dados de exemplo se a base estiver vazia
+            if (bookRepo.count() > 0) {
+                return;
+            }
+            
             // Books
             Book book1 = new Book();
             book1.setTitle("Clean Code");
