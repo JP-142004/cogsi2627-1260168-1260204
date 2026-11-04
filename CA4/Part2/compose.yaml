@@ -6,7 +6,7 @@ services:
     image: bookstore-db:ca4
     environment:
       H2_PORT: "9092"
-      H2_DB_PATH: /data/bookstore
+      H2_BASE_DIR: /data
     volumes:
       - h2-data:/data
     networks:
@@ -35,7 +35,7 @@ services:
       backend:
         ipv4_address: 172.28.0.10
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/books >/dev/null || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep -q '\"status\":\"UP\"' || exit 1"]
       interval: 5s
       timeout: 3s
       retries: 20
