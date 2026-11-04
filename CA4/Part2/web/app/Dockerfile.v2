@@ -1,5 +1,0 @@
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-COPY app/build/libs/app-1.0.0.jar /app/bookstore.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/bookstore.jar"]

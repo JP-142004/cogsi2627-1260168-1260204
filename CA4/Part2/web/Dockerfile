@@ -1,10 +1,10 @@
 # Build multi-stage: a imagem final so tem o JRE e o JAR.
-FROM eclipse-temurin:21-jdk AS build
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /src
 COPY app/ ./
 RUN chmod +x gradlew && ./gradlew --no-daemon :app:bootJar -x test && cp $(ls app/build/libs/*.jar | grep -v plain) /src/app.jar
 
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 RUN apk add --no-cache wget \
  && addgroup -S bookstore && adduser -S -G bookstore bookstore
 WORKDIR /app
