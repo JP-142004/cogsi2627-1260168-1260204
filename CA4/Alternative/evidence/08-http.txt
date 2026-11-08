@@ -1,0 +1,16 @@
+﻿# 8. Pedidos HTTP pelo proxy
+
+PS> curl.exe -i http://localhost:8085/books
+HTTP/1.1 200 
+Server: nginx/1.27.5
+Date: Sun, 08 Nov 2026 16:30:09 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+
+[{"id":1,"title":"Clean Code","author":"Robert C. Martin","price":30.0},{"id":2,"title":"Effective Java","author":"Joshua Bloch","price":40.0}]
+
+
+PS> curl.exe http://localhost:8085/actuator/health
+{"status":"UP"}
+

@@ -1,0 +1,8 @@
+﻿# 2. Construir as tres imagens da Parte 2 com Podman (Buildah)
+
+PS> podman images
+REPOSITORY                 TAG         IMAGE ID      CREATED                 SIZE
+localhost/bookstore-proxy  ca4         cd828d21a3fe  Less than a second ago  49.7 MB
+localhost/bookstore-web    ca4         3a17cdb56121  6 seconds ago           239 MB
+localhost/bookstore-db     ca4         e8af4ec4cf77  About a minute ago      190 MB
+

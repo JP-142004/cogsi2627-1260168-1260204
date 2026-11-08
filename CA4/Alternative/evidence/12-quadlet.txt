@@ -1,0 +1,23 @@
+﻿# 12. Quadlet: o pod e o proxy como servicos systemd
+
+PS> copiar os ficheiros Quadlet para ~/.config/containers/systemd na maquina Podman
+bookstore-proxy.container
+bookstore.kube
+bookstore.network
+
+PS> systemctl --user daemon-reload && systemctl --user start bookstore-proxy.service
+bookstore-db healthy (tentativa 4)
+bookstore-web healthy (tentativa 7)
+
+PS> systemctl --user status (resumo)
+ÔùÅ bookstore.service - CA4 Bookstore: pod com H2 e Spring Boot (Quadlet)
+     Loaded: loaded (/home/user/.config/containers/systemd/bookstore.kube; generated)
+     Active: active (running) since Sun 2026-11-08 16:31:02 GMT; 31s ago
+             Ôö£ÔöÇ4832 /usr/bin/conmon --api-version 1 -c c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80 -u c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80 -r /usr/bin/crun -b /home/user/.local/share/containers/storage/overlay-containers/c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80/userdata -p /run/user/1000/containers/overlay-containers/c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80/userdata/pidfile -n 93832cc9dcec-service --exit-dir /run/user/1000/libpod/tmp/exits --persist-dir /run/user/1000/libpod/tmp/persist/c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80 --full-attach -l k8s-file:/home/user/.local/share/containers/storage/overlay-containers/c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80/userdata/ctr.log --log-level warning --syslog --runtime-arg --log-format=json --runtime-arg --log --runtime-arg=/run/user/1000/containers/overlay-containers/c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80/userdata/oci-log --conmon-pidfile /run/user/1000/containers/overlay-containers/c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80/userdata/conmon.pid --exit-command /usr/bin/podman --exit-command-arg --root --exit-command-arg /home/user/.local/share/containers/storage --exit-command-arg --runroot --exit-command-arg /run/user/1000/containers --exit-command-arg --log-level --exit-command-arg warning --exit-command-arg --cgroup-manager --exit-command-arg cgroupfs --exit-command-arg --tmpdir --exit-command-arg /run/user/1000/libpod/tmp --exit-command-arg --network-config-dir --exit-command-arg "" --exit-command-arg --network-backend --exit-command-arg netavark --exit-command-arg --volumepath --exit-command-arg /home/user/.local/share/containers/storage/volumes --exit-command-arg --db-backend --exit-command-arg sqlite --exit-command-arg --transient-store=false --exit-command-arg --hooks-dir --exit-command-arg /usr/share/containers/oci/hooks.d --exit-command-arg --runtime --exit-command-arg crun --exit-command-arg --storage-driver --exit-command-arg overlay --exit-command-arg --events-backend --exit-command-arg journald --exit-command-arg container --exit-command-arg cleanup --exit-command-arg --stopped-only --exit-command-arg c50122cc71038deb56ba48b810e965da47d8496e3ff83a015b26ead0b3c1cb80
+ÔùÅ bookstore-proxy.service - CA4 Bookstore: proxy Nginx (Quadlet)
+     Loaded: loaded (/home/user/.config/containers/systemd/bookstore-proxy.container; generated)
+     Active: active (running) since Sun 2026-11-08 16:31:02 GMT; 31s ago
+
+PS> curl.exe http://localhost:8085/books
+[{"id":1,"title":"Clean Code","author":"Robert C. Martin","price":30.0},{"id":2,"title":"Effective Java","author":"Joshua Bloch","price":40.0},{"id":3,"title":"Livro de teste Podman","author":"Joao","price":12.5}]
+

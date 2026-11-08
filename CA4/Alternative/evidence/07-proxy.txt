@@ -1,0 +1,12 @@
+﻿# 7. Arrancar o proxy fora do pod e publicar a porta 8085
+
+PS> podman run -d --name bookstore-proxy --network bookstore-net -p 8085:80 localhost/bookstore-proxy:ca4
+2f7a25c0691c62f1d5bf3295dfcedce7031ecc05c8f3a7ae43625e802e8b690d
+
+PS> podman ps --pod
+CONTAINER ID  IMAGE                          COMMAND               CREATED         STATUS                   PORTS                 NAMES               POD ID        PODNAME
+8d2c438cbfb2                                                       17 seconds ago  Up 14 seconds                                  aabc82c7cf2f-infra  aabc82c7cf2f  bookstore
+73017f220c3f  localhost/bookstore-db:ca4                           14 seconds ago  Up 14 seconds (healthy)  9092/tcp              bookstore-db        aabc82c7cf2f  bookstore
+b8c769fc59b1  localhost/bookstore-web:ca4                          11 seconds ago  Up 12 seconds (healthy)  8080/tcp              bookstore-web       aabc82c7cf2f  bookstore
+2f7a25c0691c  localhost/bookstore-proxy:ca4  nginx -g daemon o...  2 seconds ago   Up 2 seconds             0.0.0.0:8085->80/tcp  bookstore-proxy                   
+

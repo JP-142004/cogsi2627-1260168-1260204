@@ -1,0 +1,16 @@
+﻿# 3. Rede e volume geridos pelo Podman
+
+PS> podman network create bookstore-net
+bookstore-net
+PS> podman volume create bookstore-h2
+bookstore-h2
+
+PS> podman network ls
+NETWORK ID    NAME           DRIVER
+a186e07057e5  bookstore-net  bridge
+2f259bab93aa  podman         bridge
+
+PS> podman volume ls
+DRIVER      VOLUME NAME
+local       bookstore-h2
+

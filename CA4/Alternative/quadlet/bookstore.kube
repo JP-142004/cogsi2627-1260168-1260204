@@ -1,0 +1,12 @@
+# Pod "bookstore" (db + web) gerido pelo systemd.
+# O Quadlet transforma este ficheiro em bookstore.service, que corre
+#   podman kube play --network bookstore-net:alias=web <Yaml>
+[Unit]
+Description=CA4 Bookstore: pod com H2 e Spring Boot (Quadlet)
+
+[Kube]
+Yaml=%h/ca4-podman/bookstore-pod.yaml
+Network=bookstore.network:alias=web
+
+[Install]
+WantedBy=default.target
