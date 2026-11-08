@@ -44,7 +44,7 @@ Todos os caminhos desta secção são relativos à raiz do repositório.
 
 Na Semana 1, as três versões de cada aplicação foram construídas e passaram nos testes locais. A imagem da Bookstore v3 já usa um utilizador sem privilégios de root.
 
-Os commits da Semana 1 ficaram locais. Antes de começar noutro computador, é necessário receber uma cópia atualizada do repositório ou uma transferência Git combinada com o Luiz. Não assumir que esses commits já estão no GitHub. A orientação atual é não enviar alterações ao GitHub sem combinar com ele.
+Os commits da Semana 1 estão publicados no GitHub. A tag `ca4-part1` identifica a versão usada na publicação das imagens.
 
 ## 3. Preparar o ramo e a pasta
 
@@ -268,7 +268,7 @@ Depois de validar a entrega e resolver as publicações, marcar o commit final c
 
 ## 12. Alternativa tecnológica e fecho
 
-O CA4 também pede análise e desenho de alternativa à ferramenta de contentorização; implementar uma alternativa é o requisito adicional para a classificação máxima. A Semana 1 documenta um desenho com Podman, mas não o executou. Coordenar essa parte com o Luiz: decidir como cobrir a solução com três serviços e quais limitações apresentar. Não declarar a alternativa como validada sem a executar.
+O CA4 também pede análise e desenho de alternativa à ferramenta de contentorização; implementar uma alternativa é o requisito adicional para a classificação máxima. O [relatório do CA4](../README.md) documenta o desenho com Podman para as duas partes e os testes propostos. Coordenar essa parte com o Luiz: decidir como cobrir a solução com três serviços e quais limitações apresentar. Não declarar a alternativa como validada sem a executar.
 
 ### Lista final de verificação
 

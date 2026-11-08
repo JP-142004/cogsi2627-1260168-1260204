@@ -159,6 +159,8 @@ docker exec ca4-bookstore-demo id
 
 O comando `id` corre dentro de cada container com o utilizador configurado na imagem. Nas imagens v3 deves ver `app` com um UID diferente de zero. Na execução registada foi `999`. Assim, o processo do servidor tem permissões de um utilizador de sistema comum. A verificação automática compara também a presença de Git e de `javac`, ferramentas que foram usadas para construir as imagens.
 
+As portas internas do Chat (59001) e da Bookstore (8080) permitem arrancar ambos os servidores como `app`. Se uma falha na aplicação permitir executar comandos, esses comandos ficam sujeitos às permissões do UID 999. Por exemplo, o processo consegue ler os JARs para arrancar, mas as permissões dos ficheiros copiados por `root` impedem que os substitua. Nas v1 e v2 testadas, o servidor corre com UID 0. A v3 limita assim o impacto de uma falha dentro do container. O acesso ao host depende também dos volumes, dispositivos e capacidades concedidos ao container. Os comandos deste tutorial publicam as portas em loopback e dispensam volumes do host e o modo privilegiado.
+
 ## 8. Verificar as seis versões e interpretar as medições
 
 A demonstração manual usa a v3. Para testar as três versões de cada servidor, volta ao terminal da raiz e executa os comandos seguintes por ordem. Se reconstruíste imagens individualmente, volta a executar o script do passo 3 antes desta verificação para atualizar os identificadores em `images.json`.
