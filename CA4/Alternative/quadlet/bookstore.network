@@ -1,0 +1,3 @@
+# Rede Podman partilhada pelo pod "bookstore" e pelo proxy.
+[Network]
+NetworkName=bookstore-net

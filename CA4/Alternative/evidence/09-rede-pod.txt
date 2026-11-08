@@ -1,0 +1,15 @@
+﻿# 9. Comunicacao: dentro do pod por localhost, entre pod e proxy por nome
+
+PS> podman pod inspect bookstore (namespaces partilhados)
+Pod=bookstore  Partilhado=[ipc net uts]  Infra=8d2c438cbfb2782620de86e781beff4e35c20c8346ea5b31e82b5878d5f47a50
+
+PS> podman exec bookstore-web printenv SPRING_DATASOURCE_URL
+jdbc:h2:tcp://localhost:9092/./bookstore
+
+PS> podman exec bookstore-web wget -qO- http://localhost:8080/actuator/health
+{"status":"UP"}
+
+
+PS> podman exec bookstore-proxy getent hosts web
+10.89.0.2         web.dns.podman  web.dns.podman web
+

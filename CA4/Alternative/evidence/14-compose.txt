@@ -1,0 +1,53 @@
+﻿# 14. Suporte a Compose: o compose.yaml da Parte 2 com podman compose
+
+PS> podman compose version
+Docker Compose version v5.6.1
+
+PS> podman compose -f ..\Part2\compose.yaml -p bookstore-podcompose up -d  (PROXY_PORT=8086)
+podman : [4m>>>> Executing external compose provider "C:\\Users\\joaop\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker-compose.exe". Please 
+see podman-compose(1) for how to disable this message. <<<<
+No C:\Projetos\cogsi2627-1260168-1260204\CA4\Alternative\podman-demo.ps1:236 caractere:5
++     podman compose -f (Join-Path $Part2 'compose.yaml') -p bookstore- ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([4m>>>> Execut...s message. <<<<:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+[0m Network bookstore-podcompose_frontend Creating 
+ Volume bookstore-podcompose_h2-data Creating 
+ Volume bookstore-podcompose_h2-data Creating 
+ Network bookstore-podcompose_backend Creating 
+ Network bookstore-podcompose_frontend Creating 
+ Network bookstore-podcompose_backend Creating 
+ Network bookstore-podcompose_frontend Created 
+ Network bookstore-podcompose_frontend Created 
+ Network bookstore-podcompose_backend Created 
+ Network bookstore-podcompose_backend Created 
+ Volume bookstore-podcompose_h2-data Created 
+ Volume bookstore-podcompose_h2-data Created 
+ Container bookstore-podcompose-db-1 Creating 
+ Container bookstore-podcompose-db-1 Created 
+ Container bookstore-podcompose-web-1 Creating 
+ Container bookstore-podcompose-web-1 Created 
+ Container bookstore-podcompose-proxy-1 Creating 
+ Container bookstore-podcompose-proxy-1 Created 
+ Container bookstore-podcompose-db-1 Starting 
+ Container bookstore-podcompose-db-1 Started 
+ Container bookstore-podcompose-db-1 Waiting 
+ Container bookstore-podcompose-db-1 Healthy 
+ Container bookstore-podcompose-web-1 Starting 
+ Container bookstore-podcompose-web-1 Started 
+ Container bookstore-podcompose-web-1 Waiting 
+ Container bookstore-podcompose-web-1 Healthy 
+ Container bookstore-podcompose-proxy-1 Starting 
+ Container bookstore-podcompose-proxy-1 Started 
+
+PS> podman ps
+bookstore-podcompose-db-1  Up 18 seconds (healthy)  9092/tcp
+bookstore-podcompose-web-1  Up 17 seconds (healthy)  8080/tcp
+bookstore-podcompose-proxy-1  Up 5 seconds  0.0.0.0:8086->80/tcp
+
+PS> curl.exe http://localhost:8086/books
+[{"id":1,"title":"Clean Code","author":"Robert C. Martin","price":30.0},{"id":2,"title":"Effective Java","author":"Joshua Bloch","price":40.0}]
+
+

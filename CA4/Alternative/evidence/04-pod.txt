@@ -1,0 +1,13 @@
+﻿# 4. Criar o pod bookstore (web e db partilham a rede)
+
+PS> podman pod create --name bookstore --network bookstore-net --network-alias web
+aabc82c7cf2f7e0aa66886d2265767cc0903ffd5cefa535a079092dec7f495c2
+
+PS> podman pod ps
+POD ID        NAME        STATUS      CREATED                 INFRA ID      # OF CONTAINERS
+aabc82c7cf2f  bookstore   Created     Less than a second ago  8d2c438cbfb2  1
+
+PS> podman ps -a --pod  (o pod ja tem o container infra)
+CONTAINER ID  IMAGE       COMMAND     CREATED                 STATUS      PORTS       NAMES               POD ID        PODNAME
+8d2c438cbfb2                          Less than a second ago  Created                 aabc82c7cf2f-infra  aabc82c7cf2f  bookstore
+

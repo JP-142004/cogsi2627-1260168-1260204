@@ -1,0 +1,6 @@
+﻿# 6. Arrancar a Bookstore no mesmo pod (H2 em localhost)
+
+PS> podman run -d --pod bookstore --name bookstore-web -e SPRING_DATASOURCE_URL=jdbc:h2:tcp://localhost:9092/./bookstore ...
+b8c769fc59b1abfbe993c67bf8ee8b69bf23e26964c31459085d6395e8cab32a
+bookstore-web healthy (tentativa 3)
+

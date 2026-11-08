@@ -1,0 +1,58 @@
+# Pod "bookstore" com a base de dados (db) e a aplicacao (web).
+# Ponto de partida: podman kube generate bookstore (ver evidence/kube-generated.yaml).
+# Limpo a mao: retiradas variaveis do host, acrescentadas as probes e a politica de reinicio.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bookstore
+  labels:
+    app: bookstore
+spec:
+  restartPolicy: Always
+  containers:
+    - name: db
+      image: localhost/bookstore-db:ca4
+      env:
+        - name: H2_PORT
+          value: "9092"
+        - name: H2_BASE_DIR
+          value: /data
+      volumeMounts:
+        - name: h2-data
+          mountPath: /data
+      livenessProbe:
+        exec:
+          command:
+            - sh
+            - -c
+            - java -cp /opt/h2.jar org.h2.tools.Shell -url jdbc:h2:tcp://localhost:9092/./bookstore -user sa -password '' -sql 'SELECT 1' | grep -q 1
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 6
+    - name: web
+      image: localhost/bookstore-web:ca4
+      env:
+        # Dentro do pod, web e db partilham a rede: o H2 esta em localhost.
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:h2:tcp://localhost:9092/./bookstore
+        - name: SPRING_DATASOURCE_USERNAME
+          value: sa
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: ""
+        - name: SERVER_PORT
+          value: "8080"
+      livenessProbe:
+        exec:
+          command:
+            - sh
+            - -c
+            - wget -qO- http://localhost:8080/actuator/health | grep -q UP
+        initialDelaySeconds: 30
+        periodSeconds: 10
+        timeoutSeconds: 5
+        failureThreshold: 6
+  volumes:
+    - name: h2-data
+      persistentVolumeClaim:
+        claimName: bookstore-h2

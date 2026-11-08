@@ -1,0 +1,18 @@
+# Proxy Nginx fora do pod, ligado a mesma rede. So arranca depois do pod.
+[Unit]
+Description=CA4 Bookstore: proxy Nginx (Quadlet)
+Requires=bookstore.service
+After=bookstore.service
+
+[Container]
+Image=localhost/bookstore-proxy:ca4
+ContainerName=bookstore-proxy
+Network=bookstore.network
+PublishPort=8085:80
+
+[Service]
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

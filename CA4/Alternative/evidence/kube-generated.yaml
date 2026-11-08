@@ -1,0 +1,36 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-5.8.9
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    io.kubernetes.cri-o.SandboxID/bookstore-db: 8d2c438cbfb2782620de86e781beff4e35c20c8346ea5b31e82b5878d5f47a50
+    io.kubernetes.cri-o.SandboxID/bookstore-web: 8d2c438cbfb2782620de86e781beff4e35c20c8346ea5b31e82b5878d5f47a50
+  creationTimestamp: "2026-11-08T16:30:19Z"
+  labels:
+    app: bookstore
+  name: bookstore
+spec:
+  containers:
+  - image: localhost/bookstore-db:ca4
+    name: bookstore-db
+    securityContext: {}
+    volumeMounts:
+    - mountPath: /data
+      name: bookstore-h2-pvc
+  - env:
+    - name: SPRING_DATASOURCE_URL
+      value: jdbc:h2:tcp://localhost:9092/./bookstore
+    - name: SERVER_PORT
+      value: "8080"
+    - name: SPRING_DATASOURCE_USERNAME
+      value: sa
+    image: localhost/bookstore-web:ca4
+    name: bookstore-web
+    securityContext: {}
+  volumes:
+  - name: bookstore-h2-pvc
+    persistentVolumeClaim:
+      claimName: bookstore-h2

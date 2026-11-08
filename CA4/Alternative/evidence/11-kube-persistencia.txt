@@ -1,0 +1,25 @@
+﻿# 11. kube generate, apagar o pod, kube play e persistencia
+
+Livro criado com id 3
+
+PS> podman kube generate bookstore -f evidence\kube-generated.yaml
+
+PS> podman pod rm -f bookstore  (apaga web, db e infra; o volume fica)
+aabc82c7cf2f7e0aa66886d2265767cc0903ffd5cefa535a079092dec7f495c2
+PS> podman volume ls
+DRIVER      VOLUME NAME
+local       bookstore-h2
+
+PS> podman kube play --network bookstore-net:alias=web kube\bookstore-pod.yaml
+Pod:
+c7ffaffbcb653f72549870d130ae78a5939f15d631694a534133e2f9fd5c83af
+Containers:
+2ad3b098a2d247dc09118c7d80777853c428e69dd8d8b055627a9c5829115d98
+7f75a0f45e27ba6c27ee8e268d33ed665bb28f2cbe5e925c080a569a7445cfa0
+
+bookstore-db healthy (tentativa 4)
+bookstore-web healthy (tentativa 8)
+
+PS> curl.exe http://localhost:8085/books/3
+{"id":3,"title":"Livro de teste Podman","author":"Joao","price":12.5,"_links":{"self":{"href":"http://localhost/books/3"},"books":{"href":"http://localhost/books"}}}
+

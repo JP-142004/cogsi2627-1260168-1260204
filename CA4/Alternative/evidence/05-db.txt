@@ -1,0 +1,6 @@
+﻿# 5. Arrancar o H2 dentro do pod e esperar que fique healthy
+
+PS> podman run -d --pod bookstore --name bookstore-db -v bookstore-h2:/data --health-cmd ... localhost/bookstore-db:ca4
+73017f220c3f4767ccb5b8ea7c7ca8626ac84ae3a8f5af7704ee25599d465d9c
+bookstore-db healthy (tentativa 1)
+

@@ -1,0 +1,45 @@
+﻿# 10. Rootless: utilizador no container vs utilizador no host
+
+PS> podman top bookstore-web user huser args
+USER        HUSER       COMMAND
+bookstore   524387      java -jar /app/app.jar
+
+PS> podman top bookstore-db user huser args
+USER        HUSER       COMMAND
+h2          524387      java -cp /opt/h2.jar org.h2.tools.Server -tcp -tcpPort 9092 -tcpAllowOthers -ifNotExists -baseDir /data
+
+PS> podman unshare cat /proc/self/uid_map  (mapeamento de UIDs, na maquina Podman)
+         0       1000          1
+         1     524288      65536
+
+PS> na maquina Podman: processos dos containers (um conmon por container, sem daemon)
+user        3121     236 conmon
+user        3126     236 conmon
+524387      3128    3126 java
+user        3249     236 conmon
+524387      3251    3249 java
+user        3531     236 conmon
+user        3533    3531 nginx
+524388      3548    3533 nginx
+524388      3549    3533 nginx
+524388      3550    3533 nginx
+524388      3551    3533 nginx
+524388      3552    3533 nginx
+524388      3554    3533 nginx
+524388      3555    3533 nginx
+524388      3556    3533 nginx
+524388      3557    3533 nginx
+524388      3558    3533 nginx
+524388      3559    3533 nginx
+524388      3560    3533 nginx
+524388      3561    3533 nginx
+524388      3562    3533 nginx
+524388      3564    3533 nginx
+524388      3565    3533 nginx
+user        3608     236 conmon
+user        3612    3608 conmon
+user        3619     236 conmon
+user        3623    3619 conmon
+user        3631     236 conmon
+user        3635    3631 conmon
+
