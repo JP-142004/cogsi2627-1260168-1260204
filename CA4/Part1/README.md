@@ -205,3 +205,33 @@ docker ps -a --filter name=ca4-bookstore-demo
 ```
 
 As duas listagens devem ficar apenas com o cabeçalho. As seis imagens continuam disponíveis localmente. Para repetir a troca de mensagens ou voltar a experimentar a API com os dados iniciais, recomeça no passo 4.
+
+## 10. Publicar as imagens no Docker Hub
+
+O namespace desta entrega é `luizbsilv`. Cada aplicação usa um repositório, com as tags `v1`, `v2` e `v3`. Para repetir a publicação com a tua própria conta, substitui o valor de `$conta` pelo teu Docker ID antes de executar os comandos.
+
+```powershell
+docker login
+$conta = 'luizbsilv'
+foreach ($app in 'ca4-chat', 'ca4-bookstore') {
+    foreach ($versao in 'v1', 'v2', 'v3') {
+        $origem = "${app}:${versao}"
+        $destino = "$conta/$origem"
+        docker tag $origem $destino
+        if ($LASTEXITCODE -ne 0) { throw "Falhou a criação da tag $destino" }
+        docker push $destino
+        if ($LASTEXITCODE -ne 0) { throw "Falhou o envio de $destino" }
+    }
+}
+```
+
+`docker tag` atribui um segundo nome à imagem local que acabaste de testar. `docker push` envia as camadas para o repositório indicado nesse nome. O digest apresentado no fim identifica o manifesto publicado. Depois do envio, confirma as três versões nas páginas de tags do [Chat](https://hub.docker.com/r/luizbsilv/ca4-chat/tags) e da [Bookstore](https://hub.docker.com/r/luizbsilv/ca4-bookstore/tags).
+
+Para experimentar a Bookstore publicada a partir de outra máquina com Docker, descarrega a v3 e publica a porta do servidor no endereço local.
+
+```powershell
+docker pull luizbsilv/ca4-bookstore:v3
+docker run -d --name ca4-bookstore-demo -p 127.0.0.1:8083:8080 luizbsilv/ca4-bookstore:v3
+```
+
+Quando o servidor estiver pronto, repete os pedidos do passo 6. No fim, executa `docker stop ca4-bookstore-demo` e `docker rm ca4-bookstore-demo`.
