@@ -407,18 +407,41 @@ docker history bookstore-web:ca4 > evidence\history-web.txt
 
 ## 13. Publicar as imagens no Docker Hub
 
-*(Secção a completar depois da publicação, com a conta usada e os digests.)*
+As três imagens personalizadas foram publicadas na conta `joaopaulo14`, com a tag `v1`. As imagens base (`eclipse-temurin` e `nginx`) são oficiais e só foram reutilizadas, por isso não são publicadas.
 
 ```powershell
-$conta = '<docker-id>'
 docker login
+$conta = 'joaopaulo14'
 foreach ($svc in 'db','web','proxy') {
     docker tag "bookstore-${svc}:ca4" "$conta/ca4-bookstore-${svc}:v1"
     docker push "$conta/ca4-bookstore-${svc}:v1"
 }
 ```
 
-As imagens base (`eclipse-temurin` e `nginx`) são oficiais e só são reutilizadas. As três imagens publicadas são as personalizadas deste trabalho.
+- `docker tag` dá um segundo nome à imagem local, no formato `<conta>/<repositório>:<tag>`, que diz ao Docker para onde a enviar.
+- `docker push` envia as camadas que o Docker Hub ainda não tem. Na segunda e na terceira imagem, várias camadas aparecem como `Mounted from joaopaulo14/ca4-bookstore-db`: são camadas partilhadas (a mesma base JRE do Temurin), que o Docker Hub reaproveita em vez de as receber outra vez.
+
+Resultado observado:
+
+| Imagem | Digest |
+| --- | --- |
+| [`joaopaulo14/ca4-bookstore-db:v1`](https://hub.docker.com/r/joaopaulo14/ca4-bookstore-db/tags) | `sha256:2b021c9cce3e85e4035d19daaef915172403fd902241ea73514a327f3a398f50` |
+| [`joaopaulo14/ca4-bookstore-web:v1`](https://hub.docker.com/r/joaopaulo14/ca4-bookstore-web/tags) | `sha256:8fb2f62755d9828dc727ec33a9bf1cd77c2a021492bfcbb166b06f7902855811` |
+| [`joaopaulo14/ca4-bookstore-proxy:v1`](https://hub.docker.com/r/joaopaulo14/ca4-bookstore-proxy/tags) | `sha256:73914a96d2233b659b8a7f4d1e90009b2309e919c4b54cb89de008e415428e0a` |
+
+O digest identifica o conteúdo exato publicado: quem fizer `docker pull` com esse digest recebe exatamente estas imagens, mesmo que a tag `v1` venha a ser reutilizada.
+
+Para usar as imagens publicadas noutro computador, sem compilar nada:
+
+```powershell
+foreach ($svc in 'db','web','proxy') {
+    docker pull "joaopaulo14/ca4-bookstore-${svc}:v1"
+    docker tag "joaopaulo14/ca4-bookstore-${svc}:v1" "bookstore-${svc}:ca4"
+}
+docker compose up -d --no-build
+```
+
+O `--no-build` faz o Compose usar as imagens já presentes (`bookstore-*:ca4`, os nomes indicados em `image:` no `compose.yaml`) em vez de as construir a partir dos Dockerfiles.
 
 ## 14. Parar a demonstração
 
