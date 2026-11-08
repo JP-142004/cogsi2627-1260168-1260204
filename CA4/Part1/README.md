@@ -33,11 +33,11 @@ O **host** é o Windows onde vais correr os clientes. Uma **imagem** contém o s
 
 Abre os três Dockerfiles de uma aplicação e segue o percurso do código até ao processo Java.
 
-1. **v1 — clonar e compilar numa única imagem.** O script de construção cria um `source.bundle` com o histórico Git alcançável a partir da branch atual. Dentro da imagem `17-jdk`, o Dockerfile instala Git, copia o bundle, clona a branch a partir desse ficheiro e executa o Gradle. O clone funciona sem fornecer credenciais do GitHub ao Docker. O servidor arranca nessa mesma imagem, que conserva o bundle, o clone, o compilador e a cache da compilação. O histórico privado também fica acessível a quem receber a imagem.
+1. **v1 — clonar e compilar numa única imagem.** O script exporta do commit atual os fontes da aplicação, os ficheiros Gradle e o Wrapper. Cria um repositório Git independente com esses ficheiros, grava um único commit e gera o `source.bundle` a partir desse commit. Dentro da imagem `17-jdk`, o Dockerfile instala Git, copia o bundle, clona a branch a partir desse ficheiro e executa o Gradle. O clone funciona sem fornecer credenciais do GitHub ao Docker. O servidor arranca nessa mesma imagem, que conserva o bundle, o clone, o compilador e a cache da compilação. O histórico do grupo fica fora deste repositório de compilação.
 2. **v2 — compilar no Windows e copiar o resultado.** O Wrapper executa os testes e produz os JARs no host. O Dockerfile parte da imagem `17-jre`, que fornece o ambiente de execução Java, e copia os ficheiros já preparados. No Chat, a instrução `COPY` inclui a pasta `lib` porque o servidor carrega essas bibliotecas através de `java -cp`. Na Bookstore, basta copiar `app-1.0.0.jar` e iniciá-lo com `java -jar`.
 3. **v3 — compilar e executar em estágios separados.** O primeiro `FROM` cria um estágio chamado `build` com o JDK. Aí, o Gradle transforma os fontes em JARs. O segundo `FROM` começa com o JRE e usa `COPY --from=build` para ir buscar os artefactos. O Dockerfile cria ainda o utilizador de sistema `app` e define `USER app` antes do arranque do servidor. Podes verificar esse utilizador no passo 7.
 
-A v1 compila os caminhos originais em `CA1` do commit incluído no bundle. A v2 e a v3 usam as cópias de trabalho em `CA4/Part1/source/CA1`. Se alterares apenas uma dessas cópias, a v1 continuará a compilar o código original. Tem isso em conta ao comparar comportamentos entre versões.
+As três versões usam o projeto Gradle em `CA4/Part1/source/CA1`. A v1 lê o último commit da branch, enquanto a v2 e a v3 leem os ficheiros na pasta de trabalho. Faz commit das alterações à aplicação antes de construir para comparar as mesmas fontes.
 
 ## 3. Construir as seis imagens
 
@@ -47,7 +47,7 @@ Na raiz do repositório, executa o script de construção e espera que termine a
 ./CA4/Part1/Build-Images.ps1 -NoCache
 ```
 
-O script começa pelo Chat. Cria o bundle da branch, executa `:app:clean` para limpar o resultado anterior, corre `:app:test` e empacota a aplicação com `:app:packageApp`. Em seguida constrói as imagens com as tags `ca4-chat:v1`, `ca4-chat:v2` e `ca4-chat:v3`. Repete o processo para a Bookstore, usando `:app:bootJar` para produzir o JAR executável. A opção `-NoCache` passa `--no-cache` às construções Docker. As imagens base e os downloads guardados pelo Gradle no host podem já estar disponíveis.
+O script começa pelo Chat. Cria o bundle isolado do Chat, executa `:app:clean` para limpar o resultado anterior, corre `:app:test` e empacota a aplicação com `:app:packageApp`. Em seguida constrói as imagens com as tags `ca4-chat:v1`, `ca4-chat:v2` e `ca4-chat:v3`. Repete o processo para a Bookstore, usando `:app:bootJar` para produzir o JAR executável. A opção `-NoCache` passa `--no-cache` às construções Docker. As imagens base e os downloads guardados pelo Gradle no host podem já estar disponíveis.
 
 No fim deves ver seis linhas com a tag, os tempos, o tamanho em bytes e o número de camadas. Para confirmar que podes usar as imagens localmente, lista os dois repositórios de imagens.
 
@@ -98,6 +98,10 @@ Set-Location ./CA4/Part1/source/CA1/week1/build_tools/gradle_demo
 3. Na janela da Ana, escreve `Olá Rui` e carrega em Enter. Confirma que a mensagem aparece com o nome da Ana nas duas janelas.
 4. Responde a partir da janela do Rui. Se a resposta chegar à Ana, confirmaste o percurso completo nos dois sentidos, desde o cliente no Windows até ao servidor no container e de volta ao outro cliente.
 
+As duas janelas abaixo pertencem a clientes Swing ligados ao mesmo servidor v3. Em ambas podes ler a pergunta da Ana e a resposta do Rui.
+
+![Clientes da Ana e do Rui com as duas mensagens recebidas](evidence/chat-v3-clientes.png)
+
 ## 6. Criar e consultar um livro pela API
 
 Num terminal na raiz do repositório, guarda o endereço do servidor e consulta o estado da aplicação.
@@ -125,6 +129,17 @@ Invoke-RestMethod "$api/books/$($livro.id)" | Select-Object id, title, author, p
 ```
 
 O último pedido deve devolver o título `Teste CA4` e o mesmo identificador recebido na criação. Isto permite verificar a escrita e a leitura através da API. A Bookstore usa H2 em memória, pelo que o livro de teste existe enquanto o processo Java estiver ativo. Num novo arranque, a aplicação volta a carregar os dados de exemplo.
+
+Na execução da v3, a aplicação atribuiu o identificador 3 ao livro. Estes são os campos recolhidos nas três respostas. [Saída da sessão PowerShell](evidence/bookstore-v3-api.txt)
+
+~~~text
+GET /actuator/health
+{"status":"UP"}
+POST /books
+{"id":3,"title":"Teste CA4","author":"Grupo COGSI","price":12.5}
+GET /books/3
+{"id":3,"title":"Teste CA4","author":"Grupo COGSI","price":12.5}
+~~~
 
 ## 7. Observar os containers durante a utilização
 
@@ -164,9 +179,9 @@ Procura **seis linhas com `PASS`**, uma por tag. O segundo script cruza o identi
 | Que testes passaram e que recursos foram observados? | [Verificações por imagem](evidence/verification.json) |
 | O que aconteceu numa etapa específica? | Na [pasta de evidências](evidence/), abre o ficheiro da aplicação terminado em `-host-build.txt`, `-build.txt`, `-history.txt` ou `-runtime.txt`. |
 
-**Como ler o tamanho.** Na execução registada, o Chat ocupou 1047,43 MiB na v1, 411,47 MiB na v2 e 411,52 MiB na v3. A redução da v1 para a v2 acompanha a passagem do JDK com o clone Git e a cache Gradle para um JRE com os JARs. A v3 também compila dentro do Docker, mas só copia os artefactos para a imagem final. O tamanho indicado vem de `docker image inspect` e inclui as camadas da imagem. Camadas partilhadas por várias imagens podem ocupar espaço em disco uma única vez.
+**Como ler o tamanho.** Na execução registada, o Chat ocupou 1044,19 MiB na v1, 411,82 MiB na v2 e 411,86 MiB na v3. A redução da v1 para a v2 acompanha a passagem do JDK com o clone Git e a cache Gradle para um JRE com os JARs. A v3 também compila dentro do Docker, mas só copia os artefactos para a imagem final. O tamanho indicado vem de `docker image inspect` e inclui as camadas da imagem. Camadas partilhadas por várias imagens podem ocupar espaço em disco uma única vez.
 
-**Como ler o tempo.** Na Bookstore v2, a construção Docker demorou 6,09 s. Antes disso, o Windows gastou 47,02 s a compilar, testar e empacotar, dando um total de 53,11 s. Na v3, os 35,38 s de construção já incluem a compilação no primeiro estágio. Ao interpretar a diferença, considera que v1 e v3 executam a tarefa de empacotamento, enquanto a medição do host inclui também os testes. Foi feita uma medição por imagem, com as bases já disponíveis. Downloads e caches locais podem alterar os tempos quando repetires o exercício.
+**Como ler o tempo.** Na Bookstore v2, a construção Docker demorou 6,66 s. Antes disso, o Windows gastou 29,45 s a compilar, testar e empacotar, dando um total de 36,11 s. Na v3, os 41,99 s de construção já incluem a compilação no primeiro estágio. Ao interpretar a diferença, considera que v1 e v3 executam a tarefa de empacotamento, enquanto a medição do host inclui também os testes. Foi feita uma medição por imagem. Downloads e caches locais podem alterar os tempos quando repetires o exercício.
 
 **Como inspecionar as camadas.** Compara os históricos das três imagens do Chat. Podes repetir a experiência substituindo `ca4-chat` por `ca4-bookstore`.
 

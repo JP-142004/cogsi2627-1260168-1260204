@@ -6,7 +6,7 @@ if ($images.Count -ne 6 -or $checks.Count -ne 6) { throw 'São necessárias seis
 $lines = @(
     '# Resultados locais — CA4 Parte 1',
     '',
-    'Uma medição por imagem, sem cache das instruções de build; bases já disponíveis. Valores em MiB (1 MiB = 1048576 bytes).',
+    'Uma medição por imagem. O campo noCache em images.json indica se a cache das instruções Docker foi desativada. Valores em MiB (1 MiB = 1048576 bytes).',
     '',
     '| Imagem | Docker build (s) | Host, incluindo testes (s) | Total (s) | MiB | Camadas de ficheiros | UID | Resultado |',
     '| --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |'

@@ -5,28 +5,31 @@
 #1 DONE 0.0s
 
 #2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre
-#2 DONE 0.3s
+#2 ...
 
 #3 [internal] load metadata for docker.io/library/eclipse-temurin:17-jdk
-#3 DONE 0.5s
+#3 DONE 0.3s
 
-#4 [build 1/4] FROM docker.io/library/eclipse-temurin:17-jdk@sha256:91011320978c10ec51d2cde1eb6f616db6d2a739a0e521096c343dd3fed9abe6
-#4 resolve docker.io/library/eclipse-temurin:17-jdk@sha256:91011320978c10ec51d2cde1eb6f616db6d2a739a0e521096c343dd3fed9abe6 0.0s done
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre
+#2 DONE 0.5s
+
+#4 [stage-1 1/4] FROM docker.io/library/eclipse-temurin:17-jre@sha256:2a996a534890f1bee252fab23a0c01e773e9e1dc0e4700e8f0f6a2697c6cbf76
+#4 resolve docker.io/library/eclipse-temurin:17-jre@sha256:2a996a534890f1bee252fab23a0c01e773e9e1dc0e4700e8f0f6a2697c6cbf76 0.0s done
 #4 DONE 0.0s
 
-#5 [stage-1 1/4] FROM docker.io/library/eclipse-temurin:17-jre@sha256:4faa9eaf440514dd4f7ef71fecb92526e13679aea039bed5d2fc98e885c60dee
-#5 resolve docker.io/library/eclipse-temurin:17-jre@sha256:4faa9eaf440514dd4f7ef71fecb92526e13679aea039bed5d2fc98e885c60dee 0.0s done
-#5 DONE 0.0s
+#5 [stage-1 2/4] WORKDIR /app
+#5 CACHED
 
-#6 [build 2/4] WORKDIR /build
-#6 CACHED
+#6 [build 1/4] FROM docker.io/library/eclipse-temurin:17-jdk@sha256:43338b737d0f75d6883d3c4563bc66974113ca8ac296e82f39d161fb3d398f0d
+#6 resolve docker.io/library/eclipse-temurin:17-jdk@sha256:43338b737d0f75d6883d3c4563bc66974113ca8ac296e82f39d161fb3d398f0d 0.0s done
+#6 DONE 0.0s
 
-#7 [stage-1 2/4] WORKDIR /app
+#7 [build 2/4] WORKDIR /build
 #7 CACHED
 
 #8 [internal] load build context
-#8 transferring context: 98.64kB 0.0s done
-#8 DONE 0.0s
+#8 transferring context: 98.63kB 0.1s done
+#8 DONE 0.1s
 
 #9 [build 3/4] COPY . .
 #9 DONE 0.0s
@@ -35,41 +38,41 @@
 #10 DONE 0.2s
 
 #11 [build 4/4] RUN chmod +x gradlew && ./gradlew --no-daemon :app:bootJar
-#11 0.316 Downloading https://services.gradle.org/distributions/gradle-8.8-bin.zip
-#11 1.055 .............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
-#11 10.70 
-#11 10.70 Welcome to Gradle 8.8!
-#11 10.70 
-#11 10.70 Here are the highlights of this release:
-#11 10.70  - Running Gradle on Java 22
-#11 10.70  - Configurable Gradle daemon JVM
-#11 10.70  - Improved IDE performance for large projects
-#11 10.70 
-#11 10.70 For more details see https://docs.gradle.org/8.8/release-notes.html
-#11 10.70 
-#11 10.70 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-#11 11.30 Daemon will be stopped at the end of the build 
-#11 31.40 > Task :app:compileJava
-#11 31.40 > Task :app:processResources
-#11 31.40 > Task :app:classes
-#11 31.40 > Task :app:resolveMainClassName
-#11 32.85 > Task :app:bootJar
-#11 32.85 
-#11 32.85 BUILD SUCCESSFUL in 32s
-#11 32.85 4 actionable tasks: 4 executed
-#11 DONE 33.3s
+#11 0.313 Downloading https://services.gradle.org/distributions/gradle-8.8-bin.zip
+#11 1.049 .............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
+#11 12.24 
+#11 12.24 Welcome to Gradle 8.8!
+#11 12.24 
+#11 12.24 Here are the highlights of this release:
+#11 12.24  - Running Gradle on Java 22
+#11 12.24  - Configurable Gradle daemon JVM
+#11 12.24  - Improved IDE performance for large projects
+#11 12.24 
+#11 12.24 For more details see https://docs.gradle.org/8.8/release-notes.html
+#11 12.24 
+#11 12.34 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+#11 12.94 Daemon will be stopped at the end of the build 
+#11 37.04 > Task :app:compileJava
+#11 37.04 > Task :app:processResources
+#11 37.04 > Task :app:classes
+#11 37.04 > Task :app:resolveMainClassName
+#11 38.91 > Task :app:bootJar
+#11 38.91 
+#11 38.91 BUILD SUCCESSFUL in 38s
+#11 38.91 4 actionable tasks: 4 executed
+#11 DONE 39.3s
 
 #12 [stage-1 4/4] COPY --from=build /build/app/build/libs/app-1.0.0.jar /app/bookstore.jar
-#12 DONE 0.0s
+#12 DONE 0.1s
 
 #13 exporting to image
 #13 exporting layers
-#13 exporting layers 0.7s done
-#13 exporting manifest sha256:8d8a6f18b4203b5fbe9b718627a400410e81a8b7d22d952b92c410d47b5dadff done
-#13 exporting config sha256:ca87bdf2972208201e4350493f7174a416e39cd521789fa4306a192d1d7ec3d0 done
-#13 exporting attestation manifest sha256:1aef65cf136416e25c4e71ff65fa65a8f6d0c39b177699d8cafeef17e7d9d778 done
-#13 exporting manifest list sha256:ec9d1c1dad78d947da3901daf6e364e182bff56a0e717ce507fd262bb02be224 done
+#13 exporting layers 1.0s done
+#13 exporting manifest sha256:7d0384585b9cb2c1db33d6088abb7ce4038c63daf221787d15a4a05e7199b4ed 0.0s done
+#13 exporting config sha256:0d52cc386984b997935d9ff16580dfb95dbb54d08f3d45678587ef0623568093 0.0s done
+#13 exporting attestation manifest sha256:96b8af4157f022d8dd1e72b2ada6e4cfcc62cc5bbb89f87cf4cce0925f0c61cd done
+#13 exporting manifest list sha256:ed5d2876ccffd66c5d00c1aa6e6bba0f440b06986e5de673367122a41b1c2eef 0.0s done
 #13 naming to docker.io/library/ca4-bookstore:v3 done
 #13 unpacking to docker.io/library/ca4-bookstore:v3
 #13 unpacking to docker.io/library/ca4-bookstore:v3 0.2s done
-#13 DONE 0.9s
+#13 DONE 1.3s
