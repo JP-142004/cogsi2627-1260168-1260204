@@ -23,9 +23,32 @@ foreach ($name in @('chat', 'bookstore')) {
     $context = Join-Path $partRoot $apps[$name].Path
     Push-Location $context
     try {
-        # The bundle stays local and is excluded from Git and v3 build contexts.
-        & git -C $repoRoot bundle create (Join-Path $context 'source.bundle') $sourceRef
-        Assert-Exit 'Criação do bundle'
+        # Start a separate history containing only the Gradle project at HEAD.
+        $snapshot = New-TemporaryFile
+        $staging = Join-Path ([IO.Path]::GetTempPath()) ([guid]::NewGuid().ToString())
+        try {
+            $files = @('app', 'gradle', 'gradlew', 'gradlew.bat', 'settings.gradle')
+            if ($name -eq 'chat') { $files += 'gradle.properties' }
+            $tree = "HEAD:CA4/Part1/$($apps[$name].Path)"
+            & git -C $repoRoot archive --format=zip "--output=$($snapshot.FullName)" $tree -- @files
+            Assert-Exit 'Exportação dos fontes'
+            [IO.Compression.ZipFile]::ExtractToDirectory($snapshot.FullName, $staging)
+            & git init --quiet --initial-branch=$sourceRef $staging
+            Assert-Exit 'Criação do repositório isolado'
+            & git -C $staging add -f -- .
+            Assert-Exit 'Preparação dos fontes'
+            & git -C $staging -c user.name=CA4 -c user.email=ca4@example.invalid -c commit.gpgsign=false commit --quiet -m "Gradle sources for $name"
+            Assert-Exit 'Criação do commit isolado'
+            & git -C $staging bundle create (Join-Path $context 'source.bundle') $sourceRef
+            Assert-Exit 'Criação do bundle'
+        } finally {
+            Remove-Item -LiteralPath $snapshot.FullName
+            if ((Test-Path -LiteralPath $staging) -and
+                ((Resolve-Path -LiteralPath $staging).Path -eq $staging) -and
+                ([IO.Path]::GetDirectoryName($staging) -eq [IO.Path]::GetTempPath().TrimEnd('\', '/'))) {
+                Remove-Item -LiteralPath $staging -Recurse -Force
+            }
+        }
         $timer = [Diagnostics.Stopwatch]::StartNew()
         & ./gradlew.bat --no-daemon :app:clean :app:test $apps[$name].Task 2>&1 |
             Tee-Object -FilePath (Join-Path $evidence "$name-host-build.txt")

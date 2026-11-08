@@ -1,5 +1,5 @@
 The chat server is running...
-20:31:48.898 [pool-1-thread-2] INFO  org.example.ChatServer.Handler - A new user has joined: LuizCA4
-20:31:48.901 [pool-1-thread-3] INFO  org.example.ChatServer.Handler - A new user has joined: ClienteCA4
-20:31:48.984 [pool-1-thread-3] INFO  org.example.ChatServer.Handler - ClienteCA4 has left the chat
-20:31:48.984 [pool-1-thread-2] INFO  org.example.ChatServer.Handler - LuizCA4 has left the chat
+15:24:38.908 [pool-1-thread-1] INFO  org.example.ChatServer.Handler - A new user has joined: LuizCA4
+15:24:38.912 [pool-1-thread-3] INFO  org.example.ChatServer.Handler - A new user has joined: ClienteCA4
+15:24:38.997 [pool-1-thread-1] INFO  org.example.ChatServer.Handler - LuizCA4 has left the chat
+15:24:38.997 [pool-1-thread-3] INFO  org.example.ChatServer.Handler - ClienteCA4 has left the chat
