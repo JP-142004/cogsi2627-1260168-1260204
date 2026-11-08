@@ -87,7 +87,7 @@ Invoke-RestMethod http://localhost:8083/actuator/health
 Invoke-RestMethod http://localhost:8083/books
 ```
 
-A base H2 desta parte está em memória: os dados desaparecem quando o processo termina. A persistência e a separação de serviços pertencem à Parte 2.
+A base H2 desta parte está em memória: os dados desaparecem quando o processo termina.
 
 Para terminar apenas os containers desta demonstração:
 
@@ -148,30 +148,6 @@ docker stats --no-stream ca4-chat-demo ca4-bookstore-demo
 
 A verificação automática guarda amostras reais em `verification.json`, depois da atividade dos clientes. São observações pontuais, não máximos de carga. O `docker stats` em tempo real já tinha sido experimentado no Chat v2 antes desta continuação; a recolha automática permite reproduzir e registar a observação para as seis imagens.
 
-## Solução alternativa: análise e desenho com Podman
-
-Podman permite reutilizar os Dockerfiles e oferece execução sem um daemon central permanente no Linux. No Windows necessita de uma máquina Linux gerida por `podman machine`. A execução rootless e `USER app` atuam em níveis diferentes: a primeira reduz os privilégios do motor/utilizador no host Linux; a segunda define o utilizador do processo na imagem.
-
-O desenho mantém as três estratégias por aplicação, portas publicadas para clientes locais e inspeção de recursos. Para v3, a construção pode usar explicitamente o ficheiro de exclusão correspondente:
-
-```powershell
-podman machine init
-podman machine start
-# Executar no contexto do Chat:
-podman build --ignorefile Dockerfile.v3.dockerignore -f Dockerfile.v3 -t localhost/ca4-chat:v3 .
-podman run -d --name ca4-chat-podman -p 127.0.0.1:59004:59001 localhost/ca4-chat:v3
-podman stats --no-stream ca4-chat-podman
-podman history localhost/ca4-chat:v3
-```
-
-Na Bookstore, o equivalente usa a tag `localhost/ca4-bookstore:v3` e `8084:8080`. Os clientes e testes HTTP/TCP continuam no host, apontando para essas portas. Para v1/v2, reutilizam-se os bundles ou artefactos preparados no host e seleciona-se o respetivo `--ignorefile`. A alternativa permite comparar os mesmos artefactos, mas deve ser medida separadamente: diferenças de VM, armazenamento e rede alteram os resultados.
-
-Fontes: [construção com Podman](https://docs.podman.io/en/stable/markdown/podman-build.1.html) e [Podman no Windows](https://github.com/podman-container-tools/podman/blob/main/docs/tutorials/podman-for-windows.md).
-
-### Estado da implementação alternativa
-
-O desenho e os comandos estão documentados. Podman não está instalado neste ambiente, pelo que a alternativa **não foi executada nem validada**. Não se reivindica o requisito adicional de implementação da alternativa para a classificação máxima. Não foi instalada uma segunda plataforma de containers nesta continuação.
-
 ## Entrega e pendências explícitas
 
 - Construção, comparação, inspeção e testes locais: consultar as evidências.
@@ -179,6 +155,5 @@ O desenho e os comandos estão documentados. Podman não está instalado neste a
 - Issues e envio ao GitHub: não realizados, conforme a instrução de manter o trabalho local.
 - Tag `ca4-part1`: reservar para o fecho da entrega, após resolver a publicação e rever as pendências; o ramo já tem esse nome.
 - Autoavaliação: Luiz Afonso — percentagem a confirmar pelo grupo; João — percentagem a confirmar pelo grupo. Os valores devem representar o trabalho efetivo de cada membro e não foram inventados.
-- Parte 2: não desenvolvida nesta continuação.
 
 Depois de preparar a publicação, os comandos de referência para cada imagem são `docker tag ca4-chat:v3 <utilizador>/ca4-chat:v3` e `docker push <utilizador>/ca4-chat:v3`, repetindo para as outras versões e para a Bookstore. Estes comandos estão apenas documentados, não foram executados.
