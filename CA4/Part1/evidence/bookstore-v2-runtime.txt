@@ -7,24 +7,24 @@
 
  :: Spring Boot ::                (v3.3.0)
 
-2026-10-30T20:32:02.647Z  INFO 1 --- [bookstore-api] [           main] c.e.bookstore.BookstoreApplication       : Starting BookstoreApplication v1.0.0 using Java 17.0.20.1 with PID 1 (/app/bookstore.jar started by root in /app)
-2026-10-30T20:32:02.658Z  INFO 1 --- [bookstore-api] [           main] c.e.bookstore.BookstoreApplication       : No active profile set, falling back to 1 default profile: "default"
-2026-10-30T20:32:03.321Z  INFO 1 --- [bookstore-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-10-30T20:32:03.360Z  INFO 1 --- [bookstore-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 3 JPA repository interfaces.
-2026-10-30T20:32:03.884Z  INFO 1 --- [bookstore-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2026-10-30T20:32:03.897Z  INFO 1 --- [bookstore-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-10-30T20:32:03.897Z  INFO 1 --- [bookstore-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
-2026-10-30T20:32:03.928Z  INFO 1 --- [bookstore-api] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-10-30T20:32:03.929Z  INFO 1 --- [bookstore-api] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1213 ms
-2026-10-30T20:32:04.024Z  INFO 1 --- [bookstore-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2026-10-30T20:32:04.153Z  INFO 1 --- [bookstore-api] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:bookstore user=SA
-2026-10-30T20:32:04.155Z  INFO 1 --- [bookstore-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2026-10-30T20:32:04.163Z  INFO 1 --- [bookstore-api] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:bookstore'
-2026-10-30T20:32:04.349Z  INFO 1 --- [bookstore-api] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-10-30T20:32:04.396Z  INFO 1 --- [bookstore-api] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2026-10-30T20:32:04.420Z  INFO 1 --- [bookstore-api] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-10-30T20:32:04.591Z  INFO 1 --- [bookstore-api] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-10-30T20:32:05.105Z  INFO 1 --- [bookstore-api] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-08T15:24:49.607Z  INFO 1 --- [bookstore-api] [           main] c.e.bookstore.BookstoreApplication       : Starting BookstoreApplication v1.0.0 using Java 17.0.21 with PID 1 (/app/bookstore.jar started by root in /app)
+2026-11-08T15:24:49.611Z  INFO 1 --- [bookstore-api] [           main] c.e.bookstore.BookstoreApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-11-08T15:24:50.274Z  INFO 1 --- [bookstore-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-08T15:24:50.311Z  INFO 1 --- [bookstore-api] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 3 JPA repository interfaces.
+2026-11-08T15:24:50.832Z  INFO 1 --- [bookstore-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-11-08T15:24:50.842Z  INFO 1 --- [bookstore-api] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-08T15:24:50.842Z  INFO 1 --- [bookstore-api] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.24]
+2026-11-08T15:24:50.871Z  INFO 1 --- [bookstore-api] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-08T15:24:50.872Z  INFO 1 --- [bookstore-api] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1196 ms
+2026-11-08T15:24:50.973Z  INFO 1 --- [bookstore-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-08T15:24:51.100Z  INFO 1 --- [bookstore-api] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:bookstore user=SA
+2026-11-08T15:24:51.101Z  INFO 1 --- [bookstore-api] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-08T15:24:51.109Z  INFO 1 --- [bookstore-api] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:bookstore'
+2026-11-08T15:24:51.256Z  INFO 1 --- [bookstore-api] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-08T15:24:51.294Z  INFO 1 --- [bookstore-api] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2026-11-08T15:24:51.319Z  INFO 1 --- [bookstore-api] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-08T15:24:51.525Z  INFO 1 --- [bookstore-api] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-08T15:24:52.157Z  INFO 1 --- [bookstore-api] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 Hibernate: 
     create table book (
         id bigint not null,
@@ -74,11 +74,11 @@ Hibernate:
        add constraint FKol7arli7ptfejk3kwuo2n2mx3 
        foreign key (order_id) 
        references orders
-2026-10-30T20:32:05.132Z  INFO 1 --- [bookstore-api] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-10-30T20:32:05.437Z  WARN 1 --- [bookstore-api] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-10-30T20:32:05.979Z  INFO 1 --- [bookstore-api] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-10-30T20:32:06.034Z  INFO 1 --- [bookstore-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2026-10-30T20:32:06.044Z  INFO 1 --- [bookstore-api] [           main] c.e.bookstore.BookstoreApplication       : Started BookstoreApplication in 3.687 seconds (process running for 4.046)
+2026-11-08T15:24:52.187Z  INFO 1 --- [bookstore-api] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-08T15:24:52.468Z  WARN 1 --- [bookstore-api] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-08T15:24:53.082Z  INFO 1 --- [bookstore-api] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-11-08T15:24:53.142Z  INFO 1 --- [bookstore-api] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-11-08T15:24:53.152Z  INFO 1 --- [bookstore-api] [           main] c.e.bookstore.BookstoreApplication       : Started BookstoreApplication in 3.866 seconds (process running for 4.171)
 Hibernate: 
     select
         next value for book_seq
@@ -133,9 +133,9 @@ Hibernate:
         (order_id, books_id) 
     values
         (?, ?)
-2026-10-30T20:32:06.392Z  INFO 1 --- [bookstore-api] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-10-30T20:32:06.392Z  INFO 1 --- [bookstore-api] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-10-30T20:32:06.393Z  INFO 1 --- [bookstore-api] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-11-08T15:24:54.193Z  INFO 1 --- [bookstore-api] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-08T15:24:54.193Z  INFO 1 --- [bookstore-api] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-08T15:24:54.194Z  INFO 1 --- [bookstore-api] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 Hibernate: 
     select
         b1_0.id,

@@ -1,15 +1,15 @@
 # Resultados locais — CA4 Parte 1
 
-Uma medição por imagem, sem cache das instruções de build; bases já disponíveis. Valores em MiB (1 MiB = 1048576 bytes).
+Uma medição por imagem. O campo noCache em images.json indica se a cache das instruções Docker foi desativada. Valores em MiB (1 MiB = 1048576 bytes).
 
 | Imagem | Docker build (s) | Host, incluindo testes (s) | Total (s) | MiB | Camadas de ficheiros | UID | Resultado |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| ca4-chat:v1 | 32,55 | 0,00 | 32,55 | 1047,43 | 11 | 0 | PASS |
-| ca4-chat:v2 | 1,91 | 26,76 | 28,67 | 411,47 | 8 | 0 | PASS |
-| ca4-chat:v3 | 18,98 | 0,00 | 18,98 | 411,52 | 9 | 999 | PASS |
-| ca4-bookstore:v1 | 45,45 | 0,00 | 45,45 | 1306,91 | 11 | 0 | PASS |
-| ca4-bookstore:v2 | 6,09 | 47,02 | 53,11 | 500,37 | 8 | 0 | PASS |
-| ca4-bookstore:v3 | 35,38 | 0,00 | 35,38 | 500,41 | 9 | 999 | PASS |
+| ca4-chat:v1 | 61,98 | 0,00 | 61,98 | 1044,19 | 11 | 0 | PASS |
+| ca4-chat:v2 | 8,13 | 22,08 | 30,21 | 411,82 | 8 | 0 | PASS |
+| ca4-chat:v3 | 24,96 | 0,00 | 24,96 | 411,86 | 9 | 999 | PASS |
+| ca4-bookstore:v1 | 66,73 | 0,00 | 66,73 | 1303,81 | 11 | 0 | PASS |
+| ca4-bookstore:v2 | 6,66 | 29,45 | 36,11 | 500,71 | 8 | 0 | PASS |
+| ca4-bookstore:v3 | 41,99 | 0,00 | 41,99 | 500,75 | 9 | 999 | PASS |
 
 ## Verificação funcional
 
@@ -24,12 +24,12 @@ Uma medição por imagem, sem cache das instruções de build; bases já dispon�
 
 | Imagem | CPU | Memória / limite | Rede | I/O de blocos |
 | --- | ---: | --- | --- | --- |
-| ca4-chat:v1 | 0.10% | 56.92MiB / 15.33GiB | 2.57kB / 1.78kB | 16.2MB / 0B |
-| ca4-chat:v2 | 0.14% | 58.78MiB / 15.33GiB | 2.7kB / 1.78kB | 24.4MB / 0B |
-| ca4-chat:v3 | 0.16% | 53.77MiB / 15.33GiB | 2.73kB / 1.71kB | 0B / 0B |
-| ca4-bookstore:v1 | 0.13% | 402.6MiB / 15.33GiB | 4.23kB / 3.65kB | 147kB / 0B |
-| ca4-bookstore:v2 | 0.17% | 381.2MiB / 15.33GiB | 4.29kB / 3.59kB | 52.7MB / 0B |
-| ca4-bookstore:v3 | 0.16% | 433.2MiB / 15.33GiB | 4.16kB / 3.59kB | 4.1kB / 0B |
+| ca4-chat:v1 | 0.17% | 59.71MiB / 15.33GiB | 2.87kB / 1.74kB | 13.8MB / 0B |
+| ca4-chat:v2 | 0.14% | 57.39MiB / 15.33GiB | 2.72kB / 1.74kB | 0B / 0B |
+| ca4-chat:v3 | 0.15% | 60.38MiB / 15.33GiB | 2.5kB / 1.74kB | 0B / 0B |
+| ca4-bookstore:v1 | 0.35% | 417.2MiB / 15.33GiB | 4.62kB / 3.65kB | 0B / 0B |
+| ca4-bookstore:v2 | 0.19% | 444.4MiB / 15.33GiB | 4.53kB / 3.69kB | 0B / 0B |
+| ca4-bookstore:v3 | 0.20% | 467.4MiB / 15.33GiB | 4.55kB / 3.71kB | 4.1kB / 0B |
 
 Os testes unitários existentes passaram no host: um no Chat e um na Bookstore. A verificação funcional acrescenta clientes TCP e pedidos HTTP reais às seis imagens.
 
