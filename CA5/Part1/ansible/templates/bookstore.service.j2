@@ -1,0 +1,14 @@
+[Unit]
+Description=Bookstore Spring Boot ({{ env_name }})
+After=network.target
+
+[Service]
+User=bookstore
+WorkingDirectory=/opt/bookstore
+ExecStart=/usr/bin/java -jar /opt/bookstore/bookstore.jar --server.port=8080
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

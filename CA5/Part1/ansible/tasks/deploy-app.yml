@@ -1,0 +1,53 @@
+- name: Verificar que o JAR existe no controlador
+  stat:
+    path: "{{ jar_path }}"
+  delegate_to: localhost
+  become: false
+  register: jar_stat
+
+- name: Falhar se o JAR não existir
+  fail:
+    msg: "JAR não encontrado em {{ jar_path }}"
+  when: not jar_stat.stat.exists
+
+- name: Parar a aplicação atual
+  systemd:
+    name: bookstore
+    state: stopped
+  failed_when: false
+
+- name: Aguardar libertação da porta 8080
+  wait_for:
+    port: 8080
+    state: stopped
+    timeout: 30
+
+- name: Copiar nova versão da aplicação
+  copy:
+    src: "{{ jar_path }}"
+    dest: /opt/bookstore/bookstore.jar
+    owner: bookstore
+    group: bookstore
+    mode: "0644"
+
+- name: Registar a versão implantada (rastreabilidade)
+  copy:
+    content: "{{ app_version }}\n"
+    dest: /opt/bookstore/VERSION
+    owner: bookstore
+    group: bookstore
+    mode: "0644"
+
+- name: Iniciar a aplicação
+  systemd:
+    name: bookstore
+    state: started
+
+- name: Health check (/actuator/health = UP)
+  uri:
+    url: "http://localhost:8080/actuator/health"
+    return_content: true
+  register: health
+  until: health.status == 200 and (health.json.status | default('')) == 'UP'
+  retries: 20
+  delay: 5

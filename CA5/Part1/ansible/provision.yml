@@ -1,0 +1,39 @@
+- name: Provisionar VMs blue e green
+  hosts: bookstore
+  become: true
+  tasks:
+    - name: Instalar Java 17 e curl
+      apt:
+        name: [openjdk-17-jre-headless, curl]
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Criar utilizador de sistema bookstore
+      user:
+        name: bookstore
+        system: true
+        shell: /usr/sbin/nologin
+        create_home: false
+
+    - name: Criar diretório da aplicação
+      file:
+        path: /opt/bookstore
+        state: directory
+        owner: bookstore
+        group: bookstore
+        mode: "0755"
+
+    - name: Instalar unit systemd
+      template:
+        src: templates/bookstore.service.j2
+        dest: /etc/systemd/system/bookstore.service
+        mode: "0644"
+      vars:
+        env_name: "{{ group_names | intersect(['blue', 'green']) | first }}"
+
+    - name: Recarregar systemd e ativar o serviço no arranque
+      systemd:
+        name: bookstore
+        daemon_reload: true
+        enabled: true

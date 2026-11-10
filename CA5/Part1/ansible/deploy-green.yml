@@ -1,0 +1,7 @@
+- name: Deploy da versão candidata na VM green
+  hosts: green
+  become: true
+  vars:
+    app_version: "{{ version | default('manual') }}"
+  tasks:
+    - import_tasks: tasks/deploy-app.yml

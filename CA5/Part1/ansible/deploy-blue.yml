@@ -1,0 +1,7 @@
+- name: Deploy da versão atual na VM blue (ambiente ativo)
+  hosts: blue
+  become: true
+  vars:
+    app_version: "{{ version | default('initial') }}"
+  tasks:
+    - import_tasks: tasks/deploy-app.yml
