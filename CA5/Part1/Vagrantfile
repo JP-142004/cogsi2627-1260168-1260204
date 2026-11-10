@@ -1,0 +1,27 @@
+# CA5 Part1 - Infraestrutura blue/green
+# blue  -> ambiente ativo (versão atual em produção)
+# green -> ambiente candidato (alvo dos deploys do Jenkins)
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.box_version = "20241002.0.0"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.ssh.insert_key = true
+
+  VMS = {
+    "blue"  => "192.168.56.11",
+    "green" => "192.168.56.12"
+  }
+
+  VMS.each do |name, ip|
+    config.vm.define name do |node|
+      node.vm.hostname = "cogsi-ca5-#{name}"
+      node.vm.network "private_network", ip: ip
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.name   = "cogsi-ca5-#{name}"
+        vb.memory = 1024
+        vb.cpus   = 1
+      end
+    end
+  end
+end
