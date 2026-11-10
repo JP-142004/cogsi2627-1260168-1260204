@@ -50,7 +50,7 @@ pipeline {
             // Só chega aqui se os testes passaram -> só builds aprovados recebem "stable-vX.Y"
             steps {
                 sh '''
-                    mkdir -p dist
+                    rm -rf dist && mkdir -p dist
                     JAR=$(ls ${APP_DIR}/app/build/libs/*.jar | grep -v plain)
                     cp "$JAR" "dist/bookstore-${VERSION}.jar"
                     printf "version=%s\\nbuild=%s\\ncommit=%s\\n" \
