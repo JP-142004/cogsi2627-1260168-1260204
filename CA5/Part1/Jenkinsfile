@@ -1,0 +1,112 @@
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(name: 'DEPLOY', defaultValue: false,
+                     description: 'Fazer deploy da versão construída na VM green')
+    }
+
+    environment {
+        REPO_URL    = 'https://github.com/JP-142004/cogsi2627-1260168-1260204.git'
+        APP_DIR     = 'CA5/Part1/bookstore'
+        ANSIBLE_DIR = 'CA5/Part1/ansible'
+        VERSION     = "stable-v1.${env.BUILD_NUMBER}"
+        GREEN_URL   = 'http://192.168.56.12:8080'
+    }
+
+    options {
+        disableConcurrentBuilds()
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'development', url: env.REPO_URL, credentialsId: 'github-ca5'
+            }
+        }
+
+        stage('Assemble') {
+            steps {
+                dir(env.APP_DIR) {
+                    sh 'chmod +x gradlew && ./gradlew clean assemble --no-daemon'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir(env.APP_DIR) {
+                    sh './gradlew test --no-daemon'
+                }
+            }
+            post {
+                always {
+                    junit "${env.APP_DIR}/app/build/test-results/test/*.xml"
+                }
+            }
+        }
+
+        stage('Archive') {
+            // Só chega aqui se os testes passaram -> só builds aprovados recebem "stable-vX.Y"
+            steps {
+                sh '''
+                    mkdir -p dist
+                    JAR=$(ls ${APP_DIR}/app/build/libs/*.jar | grep -v plain)
+                    cp "$JAR" "dist/bookstore-${VERSION}.jar"
+                    printf "version=%s\\nbuild=%s\\ncommit=%s\\n" \
+                        "$VERSION" "$BUILD_NUMBER" "$(git rev-parse HEAD)" > dist/version.txt
+                '''
+                archiveArtifacts artifacts: 'dist/*', fingerprint: true
+                archiveArtifacts artifacts: "${env.APP_DIR}/app/build/reports/tests/test/**",
+                                 allowEmptyArchive: true
+                script {
+                    currentBuild.description = env.VERSION
+                }
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                expression { params.DEPLOY }
+            }
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'ca5-green-ssh',
+                                                   keyFileVariable: 'SSH_KEY')]) {
+                    dir(env.ANSIBLE_DIR) {
+                        sh '''
+                            ansible-playbook -i hosts.ini deploy-green.yml \
+                              -e "jar_path=$WORKSPACE/dist/bookstore-$VERSION.jar" \
+                              -e "version=$VERSION" \
+                              -e "ansible_ssh_private_key_file=$SSH_KEY"
+                        '''
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            script {
+                if (params.DEPLOY) {
+                    echo "Deployment Verification: health check em ${env.GREEN_URL}"
+                    sh '''
+                        for i in $(seq 1 20); do
+                          if curl -fs "$GREEN_URL/actuator/health" | grep -q '"status":"UP"'; then
+                            echo "Health check OK: aplicação UP na VM green ($VERSION)"
+                            exit 0
+                          fi
+                          echo "Tentativa $i/20: aplicação ainda não respondeu, a aguardar 5s..."
+                          sleep 5
+                        done
+                        echo "Health check FALHOU na VM green"
+                        exit 1
+                    '''
+                }
+            }
+        }
+        cleanup {
+            echo "Notification: pipeline #${env.BUILD_NUMBER} terminou com o resultado ${currentBuild.currentResult} (versão ${env.VERSION}, DEPLOY=${params.DEPLOY})"
+        }
+    }
+}
