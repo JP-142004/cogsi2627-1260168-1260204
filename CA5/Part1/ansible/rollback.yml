@@ -1,0 +1,111 @@
+# CA5 Part1 - Rollback da VM green para uma versão estável arquivada no Jenkins
+#
+# Uso (no WSL, dentro de CA5/Part1/ansible):
+#   export JENKINS_USER=<login do Jenkins>
+#   export JENKINS_TOKEN=<API token do Jenkins>
+#   ansible-playbook -i hosts.ini rollback.yml -e rollback_build=1
+#
+# As credenciais do Jenkins são lidas de variáveis de ambiente,
+# nunca ficam escritas no repositório.
+
+- name: Rollback da VM green para uma versão estável do Jenkins
+  hosts: green
+  become: true
+
+  vars:
+    jenkins_url: "{{ lookup('env', 'JENKINS_URL') | default('http://localhost:8080', true) }}"
+    jenkins_job: "ca5-part1-pipeline"
+    jenkins_user: "{{ lookup('env', 'JENKINS_USER') }}"
+    jenkins_token: "{{ lookup('env', 'JENKINS_TOKEN') }}"
+    build_url: "{{ jenkins_url }}/job/{{ jenkins_job }}/{{ rollback_build }}"
+    download_dir: "/tmp/ca5-rollback"
+
+  pre_tasks:
+    - name: Validar parâmetros e credenciais
+      assert:
+        that:
+          - rollback_build is defined
+          - jenkins_user | length > 0
+          - jenkins_token | length > 0
+        fail_msg: >-
+          Indique o build com -e rollback_build=N e defina
+          JENKINS_USER e JENKINS_TOKEN no ambiente.
+
+    # 1. Identificar a versão: o build tem de existir e ter terminado com sucesso
+    - name: Consultar o estado do build no Jenkins
+      uri:
+        url: "{{ build_url }}/api/json?tree=result,description"
+        user: "{{ jenkins_user }}"
+        password: "{{ jenkins_token }}"
+        force_basic_auth: true
+        return_content: true
+      register: build_info
+      delegate_to: localhost
+      become: false
+      no_log: false
+
+    - name: Garantir que o build escolhido é estável (SUCCESS)
+      assert:
+        that:
+          - build_info.json.result == 'SUCCESS'
+        fail_msg: >-
+          O build #{{ rollback_build }} terminou com {{ build_info.json.result }}.
+          Só é permitido fazer rollback para builds estáveis.
+
+    - name: Ler o version.txt arquivado nesse build
+      uri:
+        url: "{{ build_url }}/artifact/dist/version.txt"
+        user: "{{ jenkins_user }}"
+        password: "{{ jenkins_token }}"
+        force_basic_auth: true
+        return_content: true
+      register: version_file
+      delegate_to: localhost
+      become: false
+
+    - name: Extrair a versão a restaurar
+      set_fact:
+        app_version: "{{ version_file.content | regex_search('version=(\\S+)', '\\1') | first }}"
+
+    - name: Mostrar a versão que vai ser restaurada
+      debug:
+        msg: "Rollback da VM green para {{ app_version }} (build #{{ rollback_build }})"
+
+    # 2. Obter o artefato do Jenkins (antes de parar a aplicação atual)
+    - name: Criar pasta temporária no controlador
+      file:
+        path: "{{ download_dir }}"
+        state: directory
+        mode: "0755"
+      delegate_to: localhost
+      become: false
+
+    - name: Descarregar o JAR estável do Jenkins
+      get_url:
+        url: "{{ build_url }}/artifact/dist/bookstore-{{ app_version }}.jar"
+        dest: "{{ download_dir }}/bookstore-{{ app_version }}.jar"
+        url_username: "{{ jenkins_user }}"
+        url_password: "{{ jenkins_token }}"
+        force_basic_auth: true
+        mode: "0644"
+      delegate_to: localhost
+      become: false
+
+    - name: Definir o caminho do JAR para o deploy
+      set_fact:
+        jar_path: "{{ download_dir }}/bookstore-{{ app_version }}.jar"
+
+  # 3 e 4. Parar, libertar a porta, substituir, reiniciar e fazer health check
+  #        (mesmas tarefas usadas no deploy normal)
+  tasks:
+    - import_tasks: tasks/deploy-app.yml
+
+  post_tasks:
+    - name: Confirmar a versão em execução na VM green
+      command: cat /opt/bookstore/VERSION
+      register: running_version
+      changed_when: false
+
+    - name: Resultado do rollback
+      debug:
+        msg: "Rollback concluído: VM green a executar {{ running_version.stdout }} com health check UP"

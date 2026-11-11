@@ -1,0 +1,88 @@
+
+PLAY [Rollback da VM green para uma versão estável do Jenkins] *****************
+
+TASK [Gathering Facts] *********************************************************
+ok: [cogsi-ca5-green]
+
+TASK [Validar parâmetros e credenciais] ****************************************
+ok: [cogsi-ca5-green] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Consultar o estado do build no Jenkins] **********************************
+ok: [cogsi-ca5-green -> localhost]
+
+TASK [Garantir que o build escolhido é estável (SUCCESS)] **********************
+ok: [cogsi-ca5-green] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Ler o version.txt arquivado nesse build] *********************************
+ok: [cogsi-ca5-green -> localhost]
+
+TASK [Extrair a versão a restaurar] ********************************************
+ok: [cogsi-ca5-green]
+
+TASK [Mostrar a versão que vai ser restaurada] *********************************
+ok: [cogsi-ca5-green] => {
+    "msg": "Rollback da VM green para stable-v1.1 (build #1)"
+}
+
+TASK [Criar pasta temporária no controlador] ***********************************
+changed: [cogsi-ca5-green -> localhost]
+
+TASK [Descarregar o JAR estável do Jenkins] ************************************
+changed: [cogsi-ca5-green -> localhost]
+
+TASK [Definir o caminho do JAR para o deploy] **********************************
+ok: [cogsi-ca5-green]
+
+TASK [Verificar que o JAR existe no controlador] *******************************
+ok: [cogsi-ca5-green -> localhost]
+
+TASK [Falhar se o JAR não existir] *********************************************
+skipping: [cogsi-ca5-green]
+
+TASK [Parar a aplicação atual] *************************************************
+changed: [cogsi-ca5-green]
+
+TASK [Aguardar libertação da porta 8080] ***************************************
+ok: [cogsi-ca5-green]
+
+TASK [Copiar nova versão da aplicação] *****************************************
+changed: [cogsi-ca5-green]
+
+TASK [Registar a versão implantada (rastreabilidade)] **************************
+changed: [cogsi-ca5-green]
+
+TASK [Iniciar a aplicação] *****************************************************
+changed: [cogsi-ca5-green]
+
+TASK [Health check (/actuator/health = UP)] ************************************
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (20 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (19 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (18 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (17 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (16 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (15 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (14 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (13 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (12 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (11 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (10 retries left).
+FAILED - RETRYING: [cogsi-ca5-green]: Health check (/actuator/health = UP) (9 retries left).
+ok: [cogsi-ca5-green]
+
+TASK [Confirmar a versão em execução na VM green] ******************************
+ok: [cogsi-ca5-green]
+
+TASK [Resultado do rollback] ***************************************************
+ok: [cogsi-ca5-green] => {
+    "msg": "Rollback concluído: VM green a executar stable-v1.1 com health check UP"
+}
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-green            : ok=19   changed=6    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
