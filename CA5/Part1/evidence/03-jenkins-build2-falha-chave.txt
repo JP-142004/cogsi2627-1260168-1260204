@@ -1,0 +1,175 @@
+Started by user João Paulo Arantes Martins
+Obtained CA5/Part1/Jenkinsfile from git https://github.com/JP-142004/cogsi2627-1260168-1260204.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/ca5-part1-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-ca5
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/ca5-part1-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JP-142004/cogsi2627-1260168-1260204.git # timeout=10
+Fetching upstream changes from https://github.com/JP-142004/cogsi2627-1260168-1260204.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JP-142004/cogsi2627-1260168-1260204.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/development^{commit} # timeout=10
+Checking out Revision 759d01f4d0e80c8cea3b8484a814af8283b3af74 (refs/remotes/origin/development)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 759d01f4d0e80c8cea3b8484a814af8283b3af74 # timeout=10
+Commit message: "CA5 Part1: adiciona pipeline Jenkins com deploy na VM green"
+ > git rev-list --no-walk 759d01f4d0e80c8cea3b8484a814af8283b3af74 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-ca5
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/ca5-part1-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/JP-142004/cogsi2627-1260168-1260204.git # timeout=10
+Fetching upstream changes from https://github.com/JP-142004/cogsi2627-1260168-1260204.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/JP-142004/cogsi2627-1260168-1260204.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/development^{commit} # timeout=10
+Checking out Revision 759d01f4d0e80c8cea3b8484a814af8283b3af74 (refs/remotes/origin/development)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 759d01f4d0e80c8cea3b8484a814af8283b3af74 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D development # timeout=10
+ > git checkout -b development 759d01f4d0e80c8cea3b8484a814af8283b3af74 # timeout=10
+Commit message: "CA5 Part1: adiciona pipeline Jenkins com deploy na VM green"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Assemble)
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/ca5-part1-pipeline/CA5/Part1/bookstore
+[Pipeline] {
+[Pipeline] sh
++ chmod +x gradlew
++ ./gradlew clean assemble --no-daemon
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:clean
+> Task :app:compileJava
+> Task :app:processResources
+> Task :app:classes
+> Task :app:resolveMainClassName
+> Task :app:bootJar
+> Task :app:bootStartScripts
+> Task :app:bootDistTar
+> Task :app:bootDistZip
+> Task :app:jar
+> Task :app:startScripts
+> Task :app:distTar
+> Task :app:distZip
+> Task :app:assemble
+
+BUILD SUCCESSFUL in 20s
+12 actionable tasks: 12 executed
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/ca5-part1-pipeline/CA5/Part1/bookstore
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew test --no-daemon
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :app:compileJava UP-TO-DATE
+> Task :app:processResources UP-TO-DATE
+> Task :app:classes UP-TO-DATE
+> Task :app:compileTestJava
+> Task :app:processTestResources NO-SOURCE
+> Task :app:testClasses
+> Task :app:test
+
+BUILD SUCCESSFUL in 12s
+4 actionable tasks: 2 executed, 2 up-to-date
+[Pipeline] }
+[Pipeline] // dir
+Post stage
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Archive)
+[Pipeline] sh
++ mkdir -p dist
++ ls CA5/Part1/bookstore/app/build/libs/app-1.0.0-plain.jar CA5/Part1/bookstore/app/build/libs/app-1.0.0.jar
++ grep -v plain
++ JAR=CA5/Part1/bookstore/app/build/libs/app-1.0.0.jar
++ cp CA5/Part1/bookstore/app/build/libs/app-1.0.0.jar dist/bookstore-stable-v1.2.jar
++ git rev-parse HEAD
++ printf version=%s\nbuild=%s\ncommit=%s\n stable-v1.2 2 759d01f4d0e80c8cea3b8484a814af8283b3af74
+[Pipeline] archiveArtifacts
+Archiving artifacts
+Recording fingerprints
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] script
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] withCredentials
+Masking supported pattern matches of $SSH_KEY
+[Pipeline] {
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/ca5-part1-pipeline/CA5/Part1/ansible
+[Pipeline] {
+[Pipeline] sh
++ ansible-playbook -i hosts.ini deploy-green.yml -e jar_path=/var/lib/jenkins/workspace/ca5-part1-pipeline/dist/bookstore-stable-v1.2.jar -e version=stable-v1.2 -e ansible_ssh_private_key_file=****
+
+PLAY [Deploy da versão candidata na VM green] **********************************
+
+TASK [Gathering Facts] *********************************************************
+fatal: [cogsi-ca5-green]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Warning: Permanently added '192.168.56.12' (ED25519) to the list of known hosts.\r\nLoad key \"****\": error in libcrypto\r\nvagrant@192.168.56.12: Permission denied (publickey).", "unreachable": true}
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-green            : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Notification: pipeline #2 terminou com o resultado FAILURE (versão stable-v1.2, DEPLOY=true)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 4
+Finished: FAILURE

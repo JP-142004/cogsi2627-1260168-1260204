@@ -1,0 +1,31 @@
+
+PLAY [Provisionar VMs blue e green] ********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [cogsi-ca5-green]
+ok: [cogsi-ca5-blue]
+
+TASK [Instalar Java 17 e curl] *************************************************
+ok: [cogsi-ca5-green]
+ok: [cogsi-ca5-blue]
+
+TASK [Criar utilizador de sistema bookstore] ***********************************
+ok: [cogsi-ca5-green]
+ok: [cogsi-ca5-blue]
+
+TASK [Criar diretório da aplicação] ********************************************
+ok: [cogsi-ca5-green]
+ok: [cogsi-ca5-blue]
+
+TASK [Instalar unit systemd] ***************************************************
+ok: [cogsi-ca5-green]
+ok: [cogsi-ca5-blue]
+
+TASK [Recarregar systemd e ativar o serviço no arranque] ***********************
+ok: [cogsi-ca5-green]
+ok: [cogsi-ca5-blue]
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-blue             : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+cogsi-ca5-green            : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
