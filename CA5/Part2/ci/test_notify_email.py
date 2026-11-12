@@ -49,6 +49,11 @@ class NotificationTests(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, 'exige autenticação'):
             self.execute({'SMTP_HOST': 'smtp.office365.com'})
 
+    def test_reference_is_rebuilt_from_public_repository_and_tag(self):
+        smtp, _, _, _ = self.execute({'NEEDS_JSON': json.dumps({'image': {'result': 'success', 'outputs': {'tag': 'build-42'}}}),
+                                     'BOOKSTORE_IMAGE_REPOSITORY': 'example/app'})
+        self.assertIn('example/app:build-42', smtp.send_message.call_args.args[0].get_content())
+
     def test_password_without_tls_is_rejected(self):
         with self.assertRaisesRegex(SystemExit, 'exige TLS'):
             self.execute({'SMTP_USERNAME': 'ci@example.test', 'SMTP_PASSWORD': 'dummy-password'})

@@ -20,5 +20,5 @@ with Path(os.environ['GITHUB_ENV']).open('a', encoding='utf-8') as output:
     for name, value in values.items():
         output.write(f'{name}={value}\n')
 with Path(os.environ['GITHUB_OUTPUT']).open('a', encoding='utf-8') as output:
-    output.write(f"image={values['IMAGE_REFERENCE']}\ntag={tag}\n")
+    output.write(f"tag={tag}\n")
 print(f"Imagem desta execução: {values['IMAGE_REFERENCE']}")

@@ -18,7 +18,13 @@ sender = os.environ.get('NOTIFY_FROM', '').strip()
 if not host or not recipient or not sender:
     raise SystemExit('Configura SMTP_HOST, NOTIFY_TO e NOTIFY_FROM antes de executar a alternativa.')
 image_job = dependencies.get('image', {})
-image = (image_job.get('outputs', {}).get('image') or 'não construída') if image_job.get('result') == 'success' else 'não construída'
+image = 'não construída'
+if image_job.get('result') == 'success':
+    outputs = image_job.get('outputs', {})
+    if outputs.get('image'):
+        image = outputs['image']
+    elif outputs.get('tag') and os.environ.get('BOOKSTORE_IMAGE_REPOSITORY'):
+        image = os.environ['BOOKSTORE_IMAGE_REPOSITORY'] + ':' + outputs['tag']
 message = EmailMessage()
 message['From'] = sender
 message['To'] = recipient

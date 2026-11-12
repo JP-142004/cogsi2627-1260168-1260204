@@ -173,13 +173,12 @@ py -3 CA5/Alternative/collect-local-evidence.py --include-failure
 
 Depois da validação local, foi autorizada a publicação exclusivamente na branch `ca5-part2`. O evento push inclui essa branch para testar o serviço GitHub Actions sem integrar código na main. O deploy continua condicionado à main. Alterações apenas a Markdown ou às pastas de evidências não repetem os jobs.
 
-Os Secrets `DOCKERHUB_USERNAME` e `DOCKERHUB_TOKEN` foram configurados com autorização explícita. A chave SSH fica exclusivamente local, por decisão do utilizador. Os parâmetros Microsoft 365 foram definidos, mas a autorização de envio ainda não está disponível. Não se considera o e-mail externo validado enquanto não houver autenticação e receção confirmadas.
+O Secret `DOCKERHUB_TOKEN` foi configurado com autorização explícita. O nome público do utilizador fica na variável `DOCKERHUB_USERNAME`. A chave SSH fica exclusivamente local, por decisão do utilizador. Os parâmetros Microsoft 365 foram definidos, mas a autorização de envio ainda não está disponível. Não se considera o e-mail externo validado enquanto não houver autenticação e receção confirmadas.
 
 ### 5.1. Secrets
 
 | Nome | Conteúdo |
 |---|---|
-| `DOCKERHUB_USERNAME` | Utilizador Docker Hub |
 | `DOCKERHUB_TOKEN` | Access token com permissão para publicar a imagem |
 | `CA5_PRODUCTION_SSH_KEY` | Opcional para outro modo de configuração; não criado nesta entrega: a chave foi mantida local |
 | `SMTP_USERNAME` | Utilizador do servidor SMTP, quando há autenticação |
@@ -191,6 +190,7 @@ Os Secrets `DOCKERHUB_USERNAME` e `DOCKERHUB_TOKEN` foram configurados com autor
 | Nome | Valor ou finalidade |
 |---|---|
 | `CA5_IMAGE_REPOSITORY` | Por omissão, `luizbsilv/ca5-bookstore` |
+| `DOCKERHUB_USERNAME` | Nome público do utilizador Docker Hub |
 | `CA5_REGISTRY_URL` | Por omissão, Docker Hub HTTPS |
 | `CA5_PRODUCTION_HOST` | IP ou host SSH acessível a partir do runner |
 | `CA5_PRODUCTION_SSH_PORT` | Porta SSH; por omissão, 22 |
@@ -204,7 +204,7 @@ Para SMTP com SSL direto, configura a porta adequada e `SMTP_SSL=true`. A implem
 
 Para a conta institucional Microsoft 365 foi preparado `smtp.office365.com:587`, com STARTTLS. O script suporta OAuth com client credentials: obtém um access token por HTTPS e autentica por XOAUTH2. Isso exige uma aplicação Entra, autorização `SMTP.SendAsApp`, consentimento administrativo e acesso à caixa, conforme a [documentação Microsoft](https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth). A disponibilidade SMTP depende das políticas do ISEP; não foi alterada qualquer política institucional. Não se assume que a palavra-passe habitual do Outlook permita enviar por SMTP.
 
-Sem credenciais de envio, o job de notificação falha com uma mensagem de configuração explícita. A compilação, os testes e a publicação da imagem mantêm resultados independentes. Os seis testes em `ci/test_notify_email.py` exercitam a seleção do estado, o caso de imagem ignorada, a exigência de autenticação/TLS, XOAUTH2 e a ausência de segredos nos erros. O fluxo OAuth foi simulado nesses testes; a autorização real Microsoft ainda precisa de validação.
+Sem credenciais de envio, o job de notificação falha com uma mensagem de configuração explícita. A compilação, os testes e a publicação da imagem mantêm resultados independentes. Os sete testes em `ci/test_notify_email.py` exercitam a seleção do estado, o caso de imagem ignorada, a reconstrução da referência a partir da tag, a exigência de autenticação/TLS, XOAUTH2 e a ausência de segredos nos erros. O fluxo OAuth foi simulado nesses testes; a autorização real Microsoft ainda precisa de validação.
 
 ### 5.3. Runner de produção
 
@@ -223,6 +223,8 @@ Enquanto a integração não for autorizada, mantém as alterações na `ca5-par
 O [run 43290201961](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961) foi disparado por push na `ca5-part2`, no commit `2638c92`. Assemble, os dois jobs da matriz e Build/archive/push passaram. Os três testes da aplicação passaram; o SHA-256 do JAR recuperado foi comparado com o metadado e o digest da imagem foi confirmado no Docker Hub. O deploy ficou skipped.
 
 O resultado global foi **failure**, devido ao job de notificação: os parâmetros Microsoft 365 estão definidos, mas falta a credencial/autorização de envio. Esta falha é preservada nas evidências; não é apresentada como um pipeline totalmente aprovado.
+
+Nas primeiras execuções, o nome público do utilizador Docker tinha sido configurado como Secret. O GitHub identificou esse nome na referência da imagem e bloqueou o output entre jobs. O nome foi movido para uma variável e o Secret de username foi removido. O workflow passa agora apenas a tag como output; a referência completa é reconstruída no job de notificação. O token permanece protegido como Secret.
 
 | Evidência | Resultado |
 |---|---|

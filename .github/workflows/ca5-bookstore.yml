@@ -98,7 +98,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     outputs:
-      image: ${{ steps.identity.outputs.image }}
       tag: ${{ steps.identity.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
@@ -122,7 +121,7 @@ jobs:
           retention-days: 7
       - name: Publicar a imagem
         env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME || secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: python3 "$PART_DIR/ci/push-image.py"
       - uses: actions/upload-artifact@v4
@@ -175,7 +174,7 @@ jobs:
           echo "SSH_KEY=$key" >> "$GITHUB_ENV"
       - name: Deploy
         env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME || secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: bash "$PART_DIR/ci/deploy.sh" deploy
       - name: Deployment Verification
