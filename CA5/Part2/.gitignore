@@ -1,3 +1,4 @@
 # Saídas temporárias dos testes paralelos e do pipeline.
 .ci/
 .ansible/
+.local/

@@ -47,6 +47,12 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+// Mantém os dois processos de teste paralelos dentro dos recursos do laboratório.
+tasks.withType(Test).configureEach {
+    maxHeapSize = '384m'
+    maxParallelForks = 1
+}
+
 tasks.named('processResources') {
     filesMatching('application.properties') {
         filter(ReplaceTokens, tokens: replacementTokens)

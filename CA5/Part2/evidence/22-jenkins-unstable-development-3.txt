@@ -1,0 +1,237 @@
+Started by an SCM change
+ > git rev-parse --resolve-git-dir /var/jenkins_home/caches/git-fe11accf2b2078edf614f8f9e60ce5fd/.git # timeout=10
+Setting origin to /srv/scm.git
+ > git config remote.origin.url /srv/scm.git # timeout=10
+Fetching origin...
+Fetching upstream changes from origin
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git config --get remote.origin.url # timeout=10
+ > git fetch --no-tags --force --progress -- origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/development
+Seen branch in repository origin/main
+Seen 2 remote branches
+Obtained CA5/Part2/Jenkinsfile from ebaa552ae2634bf18975181c51e43b9023495c01
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/ca5-local_development
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 40 min
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] deleteDir
+[Pipeline] script
+[Pipeline] {
+[Pipeline] checkout
+[2026-11-12T17:45:09.095Z] Selected Git installation does not exist. Using Default
+[2026-11-12T17:45:09.095Z] The recommended git tool is: NONE
+[2026-11-12T17:45:09.095Z] No credentials specified
+[2026-11-12T17:45:09.095Z] Cloning the remote Git repository
+[2026-11-12T17:45:09.095Z] Cloning with configured refspecs honoured and without tags
+[2026-11-12T17:45:09.095Z] Cloning repository /srv/scm.git
+[2026-11-12T17:45:09.095Z]  > git init /var/jenkins_home/workspace/ca5-local_development # timeout=10
+[2026-11-12T17:45:09.106Z] Fetching upstream changes from /srv/scm.git
+[2026-11-12T17:45:09.106Z]  > git --version # timeout=10
+[2026-11-12T17:45:09.108Z]  > git --version # 'git version 2.47.3'
+[2026-11-12T17:45:09.108Z]  > git fetch --no-tags --force --progress -- /srv/scm.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-12T17:45:10.182Z]  > git config remote.origin.url /srv/scm.git # timeout=10
+[2026-11-12T17:45:10.184Z]  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-12T17:45:10.187Z] Avoid second fetch
+[2026-11-12T17:45:10.187Z] Checking out Revision ebaa552ae2634bf18975181c51e43b9023495c01 (development)
+[2026-11-12T17:45:10.187Z]  > git config core.sparsecheckout # timeout=10
+[2026-11-12T17:45:10.189Z]  > git checkout -f ebaa552ae2634bf18975181c51e43b9023495c01 # timeout=10
+[2026-11-12T17:45:10.200Z] Commit message: "CA5 local: unit-failure"
+[2026-11-12T17:45:10.200Z]  > git rev-list --no-walk 3885c43a17b3069a502c1151d93fd0b108ae2c00 # timeout=10
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] sh
+[2026-11-12T17:45:10.565Z] + chmod +x CA5/Part2/ci/deploy.sh CA5/Part2/ci/gradle.sh
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Assemble)
+[Pipeline] dir
+[2026-11-12T17:45:10.625Z] Running in /var/jenkins_home/workspace/ca5-local_development/CA5/Part2/bookstore
+[Pipeline] {
+[Pipeline] sh
+[2026-11-12T17:45:10.899Z] + /var/jenkins_home/workspace/ca5-local_development/CA5/Part2/ci/gradle.sh assemble
+[2026-11-12T17:45:11.450Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-11-12T17:45:12.362Z] Daemon will be stopped at the end of the build
+[2026-11-12T17:45:16.486Z] > Task :app:clean UP-TO-DATE
+[2026-11-12T17:45:18.349Z] > Task :app:compileJava
+[2026-11-12T17:45:18.350Z] > Task :app:processResources
+[2026-11-12T17:45:18.350Z] > Task :app:classes
+[2026-11-12T17:45:18.350Z] > Task :app:resolveMainClassName
+[2026-11-12T17:45:18.901Z] > Task :app:bootJar
+[2026-11-12T17:45:20.245Z] > Task :app:bootStartScripts
+[2026-11-12T17:45:20.495Z] > Task :app:bootDistTar
+[2026-11-12T17:45:21.839Z] > Task :app:bootDistZip
+[2026-11-12T17:45:21.839Z] > Task :app:jar
+[2026-11-12T17:45:21.839Z] > Task :app:startScripts
+[2026-11-12T17:45:22.089Z] > Task :app:distTar
+[2026-11-12T17:45:23.433Z] > Task :app:distZip
+[2026-11-12T17:45:23.433Z] > Task :app:assemble
+[2026-11-12T17:45:23.433Z]
+[2026-11-12T17:45:23.433Z] BUILD SUCCESSFUL in 12s
+[2026-11-12T17:45:23.433Z] 12 actionable tasks: 11 executed, 1 up-to-date
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] stash
+[2026-11-12T17:45:23.807Z] Stashed 53 file(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] parallel
+[Pipeline] { (Branch: Unit)
+[Pipeline] { (Branch: Integration)
+[Pipeline] stage
+[Pipeline] { (Unit)
+[Pipeline] stage
+[Pipeline] { (Integration)
+[Pipeline] dir
+[2026-11-12T17:45:23.960Z] Running in /var/jenkins_home/workspace/ca5-local_development/.ci/unit
+[Pipeline] {
+[Pipeline] dir
+[2026-11-12T17:45:23.974Z] Running in /var/jenkins_home/workspace/ca5-local_development/.ci/integration
+[Pipeline] {
+[Pipeline] deleteDir
+[Pipeline] deleteDir
+[Pipeline] unstash
+[Pipeline] unstash
+[Pipeline] dir
+[2026-11-12T17:45:24.050Z] Running in /var/jenkins_home/workspace/ca5-local_development/.ci/unit/CA5/Part2/bookstore
+[Pipeline] {
+[Pipeline] dir
+[2026-11-12T17:45:24.073Z] Running in /var/jenkins_home/workspace/ca5-local_development/.ci/integration/CA5/Part2/bookstore
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-12T17:45:24.373Z] + /var/jenkins_home/workspace/ca5-local_development/CA5/Part2/ci/gradle.sh test
+[2026-11-12T17:45:24.397Z] + /var/jenkins_home/workspace/ca5-local_development/CA5/Part2/ci/gradle.sh integrationTest
+[2026-11-12T17:45:24.924Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-11-12T17:45:24.948Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-11-12T17:45:25.475Z] Daemon will be stopped at the end of the build
+[2026-11-12T17:45:25.499Z] Daemon will be stopped at the end of the build
+[2026-11-12T17:45:30.670Z] > Task :app:classes
+[2026-11-12T17:45:30.694Z] > Task :app:classes
+[2026-11-12T17:45:31.245Z] > Task :app:compileIntegrationTestJava
+[2026-11-12T17:45:31.245Z] > Task :app:processIntegrationTestResources NO-SOURCE
+[2026-11-12T17:45:31.245Z] > Task :app:integrationTestClasses
+[2026-11-12T17:45:32.013Z] > Task :app:compileTestJava
+[2026-11-12T17:45:32.013Z] > Task :app:processTestResources NO-SOURCE
+[2026-11-12T17:45:32.013Z] > Task :app:testClasses
+[2026-11-12T17:45:32.925Z]
+[2026-11-12T17:45:32.925Z] > Task :app:test FAILED
+[2026-11-12T17:45:32.925Z]
+[2026-11-12T17:45:32.925Z] ClientTest > testClientNif() FAILED
+[2026-11-12T17:45:32.925Z]     org.opentest4j.AssertionFailedError at ClientTest.java:18
+[2026-11-12T17:45:32.925Z]
+[2026-11-12T17:45:32.925Z] 1 test completed, 1 failed
+[2026-11-12T17:45:32.925Z]
+[2026-11-12T17:45:32.925Z] FAILURE: Build failed with an exception.
+[2026-11-12T17:45:32.925Z]
+[2026-11-12T17:45:32.925Z] * What went wrong:
+[2026-11-12T17:45:32.925Z] Execution failed for task ':app:test'.
+[2026-11-12T17:45:32.925Z] > There were failing tests. See the report at: file:///var/jenkins_home/workspace/ca5-local_development/.ci/unit/CA5/Part2/bookstore/app/build/reports/tests/test/index.html
+[2026-11-12T17:45:32.925Z]
+[2026-11-12T17:45:32.925Z] * Try:
+[2026-11-12T17:45:32.925Z] > Run with --scan to get full insights.
+[2026-11-12T17:45:32.925Z]
+[2026-11-12T17:45:32.925Z] BUILD FAILED in 8s
+[2026-11-12T17:45:32.925Z] 2 actionable tasks: 2 executed
+[Pipeline] }
+[2026-11-12T17:45:33.195Z] ERROR: script returned exit code 1
+[2026-11-12T17:45:33.196Z] Setting overall build result to UNSTABLE
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // dir
+Post stage
+[Pipeline] junit
+[2026-11-12T17:45:33.309Z] Recording test results
+[2026-11-12T17:45:33.328Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-12T17:45:36.441Z] OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[2026-11-12T17:45:36.441Z] 2026-11-12T17:45:36.108Z  INFO 4883 --- [bookstore-api] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2026-11-12T17:45:36.441Z] 2026-11-12T17:45:36.110Z  INFO 4883 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+[2026-11-12T17:45:36.441Z] 2026-11-12T17:45:36.114Z  INFO 4883 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[2026-11-12T17:45:36.441Z] > Task :app:integrationTest
+[2026-11-12T17:45:36.441Z]
+[2026-11-12T17:45:36.441Z] BUILD SUCCESSFUL in 12s
+[2026-11-12T17:45:36.441Z] 2 actionable tasks: 2 executed
+[Pipeline] }
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // dir
+Post stage
+[Pipeline] junit
+[2026-11-12T17:45:36.797Z] Recording test results
+[2026-11-12T17:45:36.812Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build and Tag Docker Image)
+Stage "Build and Tag Docker Image" skipped due to earlier stage(s) marking the build as unstable
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Archive)
+Stage "Archive" skipped due to earlier stage(s) marking the build as unstable
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Image)
+Stage "Push Docker Image" skipped due to earlier stage(s) marking the build as unstable
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+Stage "Deploy" skipped due to earlier stage(s) marking the build as unstable
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+[2026-11-12T17:45:37.229Z] Archiving artifacts
+[Pipeline] script
+[Pipeline] {
+[Pipeline] emailext
+[2026-11-12T17:45:37.307Z] Sending email to: luiz@ca5.local
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: UNSTABLE

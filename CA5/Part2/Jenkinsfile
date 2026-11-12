@@ -1,0 +1,177 @@
+pipeline {
+    agent { label 'ca5-linux' }
+
+    options {
+        skipDefaultCheckout(true)
+        disableConcurrentBuilds()
+        skipStagesAfterUnstable()
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+        timeout(time: 40, unit: 'MINUTES')
+        timestamps()
+    }
+
+    parameters {
+        string(name: 'IMAGE_REPOSITORY', defaultValue: env.CA5_IMAGE_REPOSITORY ?: 'luizbsilv/ca5-bookstore', description: 'Repositório da imagem, sem tag')
+        string(name: 'REGISTRY_URL', defaultValue: env.CA5_REGISTRY_URL ?: 'https://index.docker.io/v1/', description: 'Docker Hub ou registo local do laboratório')
+        string(name: 'PRODUCTION_HOST', defaultValue: env.CA5_PRODUCTION_HOST ?: '192.168.56.20', description: 'Host SSH da VM de produção')
+        string(name: 'PRODUCTION_SSH_PORT', defaultValue: env.CA5_PRODUCTION_SSH_PORT ?: '22', description: 'Porta SSH da VM')
+        string(name: 'EMAIL_RECIPIENT', defaultValue: env.CA5_NOTIFY_TO ?: '', description: 'Destinatário das notificações; obrigatório')
+    }
+
+    triggers {
+        // Alternativa demonstrável quando o Jenkins local não pode receber webhooks.
+        pollSCM('H/2 * * * *')
+    }
+
+    environment {
+        PART_DIR = 'CA5/Part2'
+        APP_DIR = 'CA5/Part2/bookstore'
+        DEPLOYED = 'false'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                deleteDir()
+                script {
+                    def revision = checkout scm
+                    env.SOURCE_COMMIT = revision.GIT_COMMIT
+                    env.SOURCE_BRANCH = env.BRANCH_NAME
+                    env.CI_BUILD_NUMBER = env.BUILD_NUMBER
+                    def branchSlug = env.BRANCH_NAME.toLowerCase().replaceAll('[^a-z0-9_.-]', '-').take(40)
+                    env.BOOKSTORE_IMAGE_TAG = "jenkins-${branchSlug}-${env.BUILD_NUMBER}-${revision.GIT_COMMIT.take(7)}"
+                    env.NOTIFICATION_RECIPIENT = params.EMAIL_RECIPIENT?.trim() ?: env.CA5_NOTIFY_TO ?: ''
+                    env.BOOKSTORE_IMAGE_REPOSITORY = env.CA5_IMAGE_REPOSITORY ?: params.IMAGE_REPOSITORY.trim()
+                    env.IMAGE_REFERENCE = "${env.BOOKSTORE_IMAGE_REPOSITORY}:${env.BOOKSTORE_IMAGE_TAG}"
+                    env.DOCKER_REGISTRY_URL = env.CA5_REGISTRY_URL ?: params.REGISTRY_URL.trim()
+                    env.PRODUCTION_HOST = env.CA5_PRODUCTION_HOST ?: params.PRODUCTION_HOST.trim()
+                    env.PRODUCTION_SSH_PORT = env.CA5_PRODUCTION_SSH_PORT ?: params.PRODUCTION_SSH_PORT.trim()
+                    if (!env.NOTIFICATION_RECIPIENT.trim()) {
+                        error('Configura EMAIL_RECIPIENT antes de executar o pipeline.')
+                    }
+                    if (env.CA5_LOCAL_LAB == 'true' &&
+                        (!env.BOOKSTORE_IMAGE_REPOSITORY.startsWith('localhost:15000/') || env.DOCKER_REGISTRY_URL != 'http://localhost:15000')) {
+                        error('O laboratório local só permite publicar no registo em loopback.')
+                    }
+                    currentBuild.description = env.BOOKSTORE_IMAGE_TAG
+                }
+                sh 'chmod +x "$PART_DIR"/ci/*.sh'
+            }
+        }
+
+        stage('Assemble') {
+            steps {
+                dir(env.APP_DIR) {
+                    sh '"$WORKSPACE/$PART_DIR/ci/gradle.sh" assemble'
+                }
+                // Só transfere fontes, wrapper e a compilação de main: evita duplicar JARs e distribuições.
+                stash name: 'assembled-app', includes: "${env.APP_DIR}/gradle/**,${env.APP_DIR}/gradlew,${env.APP_DIR}/settings.gradle,${env.APP_DIR}/app/build.gradle,${env.APP_DIR}/app/src/**,${env.APP_DIR}/app/build/classes/java/main/**,${env.APP_DIR}/app/build/resources/main/**"
+            }
+        }
+
+        stage('Test') {
+            parallel {
+                stage('Unit') {
+                    steps {
+                        dir('.ci/unit') {
+                            deleteDir()
+                            unstash 'assembled-app'
+                            dir(env.APP_DIR) {
+                                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE', catchInterruptions: false) {
+                                    sh '"$WORKSPACE/$PART_DIR/ci/gradle.sh" test'
+                                }
+                            }
+                        }
+                    }
+                    post {
+                        always {
+                            junit testResults: ".ci/unit/${env.APP_DIR}/app/build/test-results/test/*.xml", allowEmptyResults: false
+                        }
+                    }
+                }
+                stage('Integration') {
+                    steps {
+                        dir('.ci/integration') {
+                            deleteDir()
+                            unstash 'assembled-app'
+                            dir(env.APP_DIR) {
+                                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE', catchInterruptions: false) {
+                                    sh '"$WORKSPACE/$PART_DIR/ci/gradle.sh" integrationTest'
+                                }
+                            }
+                        }
+                    }
+                    post {
+                        always {
+                            junit testResults: ".ci/integration/${env.APP_DIR}/app/build/test-results/integrationTest/*.xml", allowEmptyResults: false
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build and Tag Docker Image') {
+            steps {
+                sh 'docker build --label "org.opencontainers.image.revision=$SOURCE_COMMIT" --tag "$IMAGE_REFERENCE" "$APP_DIR"'
+            }
+        }
+
+        stage('Archive') {
+            steps {
+                sh 'python3 "$PART_DIR/ci/image-metadata.py"'
+                archiveArtifacts artifacts: 'dist/Dockerfile,dist/build.json', fingerprint: true
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-ca5', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_TOKEN')]) {
+                    sh 'python3 "$PART_DIR/ci/push-image.py"'
+                }
+                archiveArtifacts artifacts: 'dist/push.json', fingerprint: true
+            }
+        }
+
+        stage('Deploy') {
+            when { branch 'main' }
+            steps {
+                withCredentials([
+                    usernamePassword(credentialsId: 'dockerhub-ca5', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_TOKEN'),
+                    sshUserPrivateKey(credentialsId: 'ca5-production-ssh', keyFileVariable: 'SSH_KEY')
+                ]) {
+                    sh '"$PART_DIR/ci/deploy.sh" deploy'
+                }
+                script { env.DEPLOYED = 'true' }
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: '.ci/**/app/build/ci/*-timing.json,.ci/**/app/build/reports/tests/**', allowEmptyArchive: true
+        }
+        success {
+            script {
+                if (env.DEPLOYED == 'true') {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'ca5-production-ssh', keyFileVariable: 'SSH_KEY')]) {
+                        sh '"$PART_DIR/ci/deploy.sh" verify'
+                    }
+                }
+            }
+        }
+        cleanup {
+            script {
+                if (env.NOTIFICATION_RECIPIENT?.trim()) {
+                    emailext(
+                        to: env.NOTIFICATION_RECIPIENT,
+                        subject: "CA5 ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: "Resultado: ${currentBuild.currentResult}\nBranch: ${env.BRANCH_NAME}\nCommit: ${env.SOURCE_COMMIT ?: 'indisponível'}\nImagem: ${env.IMAGE_REFERENCE ?: 'não construída'}\nDeploy: ${env.DEPLOYED}\nBuild: ${env.BUILD_URL}\n",
+                        mimeType: 'text/plain'
+                    )
+                } else {
+                    echo 'Notificação não enviada: EMAIL_RECIPIENT não está configurado.'
+                }
+            }
+        }
+    }
+}

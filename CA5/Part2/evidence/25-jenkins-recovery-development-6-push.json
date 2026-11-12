@@ -1,0 +1,6 @@
+{
+  "image": "localhost:15000/luizbsilv/ca5-bookstore:jenkins-development-6-5ec9c0b",
+  "repo_digests": [
+    "localhost:15000/luizbsilv/ca5-bookstore@sha256:70ae72d37291ad94f4935ec67e786321732d0386cdb739c8214ca1885912dac9"
+  ]
+}

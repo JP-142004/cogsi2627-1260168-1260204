@@ -1,0 +1,11 @@
+{
+  "provider": "jenkins",
+  "image": "localhost:15000/luizbsilv/ca5-bookstore:jenkins-development-6-5ec9c0b",
+  "image_id": "sha256:70ae72d37291ad94f4935ec67e786321732d0386cdb739c8214ca1885912dac9",
+  "tag": "jenkins-development-6-5ec9c0b",
+  "commit": "5ec9c0b1efdbea22d0866d90b7abe8b242a449b4",
+  "branch": "development",
+  "build": "6",
+  "created_utc": "2026-11-12T17:55:42.098345+00:00",
+  "jar_sha256": "630fcddbb4180f4c939b1fae7d28286c618e4ef554cc8095ba1d3c9e8a9b60c6"
+}

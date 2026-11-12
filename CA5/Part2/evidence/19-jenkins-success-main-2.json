@@ -1,0 +1,126 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "actions": [
+    {
+      "_class": "hudson.model.CauseAction"
+    },
+    {
+      "_class": "hudson.model.ParametersAction"
+    },
+    {
+      "_class": "jenkins.scm.api.SCMRevisionAction"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.workflow.libs.LibrariesAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.cps.EnvActionImpl"
+    },
+    {
+      "_class": "hudson.plugins.git.util.BuildData"
+    },
+    {},
+    {
+      "_class": "hudson.tasks.junit.TestResultAction",
+      "failCount": 0,
+      "skipCount": 0,
+      "totalCount": 3
+    },
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.displayurlapi.actions.RunDisplayAction"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+    },
+    {},
+    {}
+  ],
+  "artifacts": [
+    {
+      "fileName": "integrationTest-timing.json",
+      "relativePath": ".ci/integration/CA5/Part2/bookstore/app/build/ci/integrationTest-timing.json"
+    },
+    {
+      "fileName": "com.example.bookstore.BookstoreApiIntegrationTest.html",
+      "relativePath": ".ci/integration/CA5/Part2/bookstore/app/build/reports/tests/integrationTest/classes/com.example.bookstore.BookstoreApiIntegrationTest.html"
+    },
+    {
+      "fileName": "base-style.css",
+      "relativePath": ".ci/integration/CA5/Part2/bookstore/app/build/reports/tests/integrationTest/css/base-style.css"
+    },
+    {
+      "fileName": "style.css",
+      "relativePath": ".ci/integration/CA5/Part2/bookstore/app/build/reports/tests/integrationTest/css/style.css"
+    },
+    {
+      "fileName": "index.html",
+      "relativePath": ".ci/integration/CA5/Part2/bookstore/app/build/reports/tests/integrationTest/index.html"
+    },
+    {
+      "fileName": "report.js",
+      "relativePath": ".ci/integration/CA5/Part2/bookstore/app/build/reports/tests/integrationTest/js/report.js"
+    },
+    {
+      "fileName": "com.example.bookstore.html",
+      "relativePath": ".ci/integration/CA5/Part2/bookstore/app/build/reports/tests/integrationTest/packages/com.example.bookstore.html"
+    },
+    {
+      "fileName": "test-timing.json",
+      "relativePath": ".ci/unit/CA5/Part2/bookstore/app/build/ci/test-timing.json"
+    },
+    {
+      "fileName": "com.example.bookstore.model.ClientTest.html",
+      "relativePath": ".ci/unit/CA5/Part2/bookstore/app/build/reports/tests/test/classes/com.example.bookstore.model.ClientTest.html"
+    },
+    {
+      "fileName": "base-style.css",
+      "relativePath": ".ci/unit/CA5/Part2/bookstore/app/build/reports/tests/test/css/base-style.css"
+    },
+    {
+      "fileName": "style.css",
+      "relativePath": ".ci/unit/CA5/Part2/bookstore/app/build/reports/tests/test/css/style.css"
+    },
+    {
+      "fileName": "index.html",
+      "relativePath": ".ci/unit/CA5/Part2/bookstore/app/build/reports/tests/test/index.html"
+    },
+    {
+      "fileName": "report.js",
+      "relativePath": ".ci/unit/CA5/Part2/bookstore/app/build/reports/tests/test/js/report.js"
+    },
+    {
+      "fileName": "com.example.bookstore.model.html",
+      "relativePath": ".ci/unit/CA5/Part2/bookstore/app/build/reports/tests/test/packages/com.example.bookstore.model.html"
+    },
+    {
+      "fileName": "build.json",
+      "relativePath": "dist/build.json"
+    },
+    {
+      "fileName": "Dockerfile",
+      "relativePath": "dist/Dockerfile"
+    },
+    {
+      "fileName": "push.json",
+      "relativePath": "dist/push.json"
+    }
+  ],
+  "building": false,
+  "duration": 160481,
+  "number": 2,
+  "result": "SUCCESS",
+  "timestamp": 1794505223012,
+  "url": "http://localhost:18080/job/ca5-local/job/main/2/"
+}

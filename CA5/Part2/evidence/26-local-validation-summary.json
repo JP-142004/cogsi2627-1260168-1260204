@@ -1,0 +1,292 @@
+{
+  "scope": "laboratório local; repositório SCM e registo de imagens locais",
+  "cases": [
+    {
+      "branch": "main",
+      "build": 2,
+      "result": "SUCCESS",
+      "causes": [],
+      "stages": [
+        {
+          "name": "Checkout",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Assemble",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Test",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Unit",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Integration",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Build and Tag Docker Image",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Archive",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Push Docker Image",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Deploy",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Declarative: Post Actions",
+          "status": "SUCCESS"
+        }
+      ]
+    },
+    {
+      "branch": "development",
+      "build": 2,
+      "result": "SUCCESS",
+      "causes": [],
+      "stages": [
+        {
+          "name": "Checkout",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Assemble",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Test",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Unit",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Integration",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Build and Tag Docker Image",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Archive",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Push Docker Image",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Deploy",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "name": "Declarative: Post Actions",
+          "status": "SUCCESS"
+        }
+      ]
+    },
+    {
+      "branch": "development",
+      "build": 4,
+      "result": "UNSTABLE",
+      "causes": [
+        "Started by an SCM change"
+      ],
+      "stages": [
+        {
+          "name": "Checkout",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Assemble",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Test",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Unit",
+          "status": "UNSTABLE"
+        },
+        {
+          "name": "Integration",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Build and Tag Docker Image",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Archive",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Push Docker Image",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Deploy",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Declarative: Post Actions",
+          "status": "SUCCESS"
+        }
+      ]
+    },
+    {
+      "branch": "development",
+      "build": 5,
+      "result": "FAILURE",
+      "causes": [
+        "Started by an SCM change"
+      ],
+      "stages": [
+        {
+          "name": "Checkout",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Assemble",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Test",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Unit",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Integration",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Build and Tag Docker Image",
+          "status": "FAILED"
+        },
+        {
+          "name": "Archive",
+          "status": "FAILED"
+        },
+        {
+          "name": "Push Docker Image",
+          "status": "FAILED"
+        },
+        {
+          "name": "Deploy",
+          "status": "FAILED"
+        },
+        {
+          "name": "Declarative: Post Actions",
+          "status": "SUCCESS"
+        }
+      ]
+    },
+    {
+      "branch": "development",
+      "build": 6,
+      "result": "SUCCESS",
+      "causes": [
+        "Started by an SCM change"
+      ],
+      "stages": [
+        {
+          "name": "Checkout",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Assemble",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Test",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Unit",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Integration",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Build and Tag Docker Image",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Archive",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Push Docker Image",
+          "status": "SUCCESS"
+        },
+        {
+          "name": "Deploy",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "name": "Declarative: Post Actions",
+          "status": "SUCCESS"
+        }
+      ]
+    }
+  ],
+  "parallel_intervals": {
+    "test": {
+      "task": "test",
+      "started_epoch": 1794505327.517299,
+      "finished_epoch": 1794505335.5339673,
+      "exit_code": 0
+    },
+    "integrationTest": {
+      "task": "integrationTest",
+      "started_epoch": 1794505327.5586553,
+      "finished_epoch": 1794505339.8883755,
+      "exit_code": 0
+    }
+  },
+  "parallel_overlap_seconds": 7.975,
+  "production_unchanged_during_development_cases": true,
+  "production_container": "f3fa64b36c38b618b981973f09e47aff0266bfc56d1f9d9e30f259c8eff44927 2026-11-12T17:42:43.633279019Z localhost:15000/luizbsilv/ca5-bookstore:jenkins-main-2-3885c43",
+  "notifications": [
+    {
+      "subject": "CA5 SUCCESS: ca5-local/development #6",
+      "created": "2026-11-12T17:55:44.602Z",
+      "text": "Resultado: SUCCESS\r\nBranch: development\r\nCommit: 5ec9c0b1efdbea22d0866d90b7abe8b242a449b4\r\nImagem: localhost:15000/luizbsilv/ca5-bookstore:jenkins-development-6-5ec9c0b\r\nDeploy: false\r\nBuild: http://localhost:18080/job/ca5-local/job/development/6/"
+    },
+    {
+      "subject": "CA5 FAILURE: ca5-local/development #5",
+      "created": "2026-11-12T17:53:45.203Z",
+      "text": "Resultado: FAILURE\r\nBranch: development\r\nCommit: a224c9f65bd77c5700c995fa4e7449ce20bee95a\r\nImagem: localhost:15000/luizbsilv/ca5-bookstore:jenkins-development-5-a224c9f\r\nDeploy: false\r\nBuild: http://localhost:18080/job/ca5-local/job/development/5/"
+    },
+    {
+      "subject": "CA5 UNSTABLE: ca5-local/development #4",
+      "created": "2026-11-12T17:49:37.394Z",
+      "text": "Resultado: UNSTABLE\r\nBranch: development\r\nCommit: 9d6ff75f050d1f71c090d97d4de1c57eee17d1f2\r\nImagem: localhost:15000/luizbsilv/ca5-bookstore:jenkins-development-4-9d6ff75\r\nDeploy: false\r\nBuild: http://localhost:18080/job/ca5-local/job/development/4/"
+    }
+  ],
+  "registry_tags": [
+    "gha-development-1794506084-1-6bcf0e5",
+    "jenkins-development-2-3885c43",
+    "jenkins-development-6-5ec9c0b",
+    "jenkins-main-2-3885c43"
+  ],
+  "github_writes": false
+}

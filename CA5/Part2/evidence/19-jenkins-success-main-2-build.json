@@ -1,0 +1,11 @@
+{
+  "provider": "jenkins",
+  "image": "localhost:15000/luizbsilv/ca5-bookstore:jenkins-main-2-3885c43",
+  "image_id": "sha256:a2990ffd7f074433a811f24c3eebf18a3dc7c6ead515f77c68c5c6ca6e928290",
+  "tag": "jenkins-main-2-3885c43",
+  "commit": "3885c43a17b3069a502c1151d93fd0b108ae2c00",
+  "branch": "main",
+  "build": "2",
+  "created_utc": "2026-11-12T17:42:26.524985+00:00",
+  "jar_sha256": "435a479f70db95491e815ef07c8e90ff3ec2b62a7f8c4a9500d236242fc8ae4a"
+}

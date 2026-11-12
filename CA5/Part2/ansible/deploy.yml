@@ -6,6 +6,7 @@
   vars:
     dockerhub_username: "{{ lookup('ansible.builtin.env', 'DOCKERHUB_USERNAME') }}"
     dockerhub_token: "{{ lookup('ansible.builtin.env', 'DOCKERHUB_TOKEN') }}"
+    docker_registry_url: "{{ lookup('ansible.builtin.env', 'DOCKER_REGISTRY_URL') | default('https://index.docker.io/v1/', true) }}"
   pre_tasks:
     - name: Validar a imagem pedida
       ansible.builtin.import_tasks: tasks/validate-image.yml
@@ -31,6 +32,7 @@
       block:
         - name: Autenticar no Docker Hub
           community.docker.docker_login:
+            registry_url: "{{ docker_registry_url }}"
             username: "{{ dockerhub_username }}"
             password: "{{ dockerhub_token }}"
             config_path: "{{ docker_auth_directory.path }}/config.json"
