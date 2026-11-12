@@ -1,0 +1,15 @@
+{
+  "timestamp_utc": "2026-11-12T19:47:58.182713+00:00",
+  "checked_files": 706,
+  "credential_matches": 0,
+  "python_files_compiled": 15,
+  "readme_file_links_checked": 79,
+  "github_image_output_masking_resolved": true,
+  "validated_source_commit": "afae5447bd41a848f8eb7cac9675480ecf1d790c",
+  "github_run": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43292932843",
+  "scope": "Apenas ca5-part2; evidências/documentação não modificam a main",
+  "application_tests": "3 aprovados",
+  "notification_tests": "7 aprovados no job Assemble",
+  "email_external": "Pendente: falta autorização de envio Microsoft 365",
+  "runner_registration": "Pendente: falta acesso administrativo"
+}

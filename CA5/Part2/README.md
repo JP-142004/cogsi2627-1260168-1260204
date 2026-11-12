@@ -18,7 +18,7 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Deploy com Ansible | Validado manualmente e pelo Jenkins no laboratório local |
 | Jenkins Multibranch e testes em paralelo | Validados com refs locais `main`/`development` e com a ca5-part2 real do GitHub |
 | Publicação automática e deploy exclusivo na `main` | Publicação Docker Hub validada pelo Jenkins e Actions na branch; deploy main validado no laboratório, integração na main ainda não autorizada |
-| Disparo automático | Poll SCM validado com commits na cópia local de teste |
+| Disparo automático | Poll SCM validado com commits locais e push real na ca5-part2 do GitHub |
 | Notificações | E-mails SMTP recebidos no Mailpit para SUCCESS, FAILURE e UNSTABLE |
 | Alternativa GitHub Actions | Execução real na branch com build, testes e publicação aprovados; job de e-mail falha por faltar autorização Microsoft 365 |
 
@@ -229,6 +229,8 @@ O primeiro build do Jenkins encontrou o destinatário vazio na criação inicial
 | [25-jenkins-recovery-development-6.txt](evidence/25-jenkins-recovery-development-6.txt) | Recuperação depois de restaurar a cópia de teste |
 | [26-local-validation-summary.json](evidence/26-local-validation-summary.json) | Causas automáticas, paralelismo, e-mails e produção preservada |
 | [32-jenkins-github-ca5-part2-1.txt](evidence/32-jenkins-github-ca5-part2-1.txt) | Checkout GitHub real, testes, arquivo, push Docker Hub e deploy ignorado |
+| [33-jenkins-github-poll-ca5-part2-2.json](evidence/33-jenkins-github-poll-ca5-part2-2.json) | Disparo automático por alteração SCM após push real, com SUCCESS |
+| [34-jenkins-github-output-fix-ca5-part2-3.json](evidence/34-jenkins-github-output-fix-ca5-part2-3.json) | Novo SUCCESS automático no commit afae544, com publicação Docker Hub |
 
 As variantes `.json`, `-stages.json`, `-build.json`, `-push.json` e `-timing.json` guardam os dados estruturados dos builds indicados.
 

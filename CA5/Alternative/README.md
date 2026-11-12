@@ -226,12 +226,17 @@ O resultado global foi **failure**, devido ao job de notificação: os parâmetr
 
 Nas primeiras execuções, o nome público do utilizador Docker tinha sido configurado como Secret. O GitHub identificou esse nome na referência da imagem e bloqueou o output entre jobs. O nome foi movido para uma variável e o Secret de username foi removido. O workflow passa agora apenas a tag como output; a referência completa é reconstruída no job de notificação. O token permanece protegido como Secret.
 
+A [execução 43292932843](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43292932843), no commit `afae544`, repetiu com sucesso a compilação, os testes e a publicação após essa correção. O job de e-mail continua com failure por faltar a autorização de envio; o deploy continua skipped.
+
 | Evidência | Resultado |
 |---|---|
 | [05-github-configuration.json](evidence/05-github-configuration.json) | Nomes dos Secrets e configuração sem os seus valores secretos |
 | [06-github-43290201961.json](evidence/06-github-43290201961.json) | Jobs reais, JUnit, JAR, imagem e digest |
 | [06-github-43290201961.txt](evidence/06-github-43290201961.txt) | Logs da execução real, incluindo a falha SMTP |
 | [07-production-runner-local-check.txt](evidence/07-production-runner-local-check.txt) | Binário do runner, utilizador, Python e SSH locais; sem registo GitHub |
+| [06-github-43292932843.json](evidence/06-github-43292932843.json) | Resultados reais após corrigir os outputs e a classificação do username |
+| [08-branch-isolation.json](evidence/08-branch-isolation.json) | Main preservada, único Secret Docker Hub, Poll SCM real e produção sem alterações |
+| [09-publication-review.json](evidence/09-publication-review.json) | Revisão dos ficheiros, integridade das evidências e confirmação da correção dos outputs |
 
 Para recolher outra execução concluída desta branch:
 

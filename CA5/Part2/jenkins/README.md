@@ -109,7 +109,7 @@ As variáveis `CA5_*` do Compose fornecem os ajustes exclusivamente ao projeto `
 |---|---|---|
 | `dockerhub-ca5` | Username with password | No laboratório, credencial aleatória do registo local; no Docker Hub, utilizador e access token |
 | `ca5-production-ssh` | SSH Username with private key | Utilizador `vagrant` e chave da VM production |
-| `github-ca5` | Credencial do repositório | Necessária apenas no futuro job com GitHub como origem |
+| `github-ca5` | Credencial do repositório | Necessária se a origem GitHub for privada; a origem atual é pública |
 
 O bootstrap lê os segredos de ficheiros montados como secrets do Compose e guarda-os no Credentials. A imagem não contém os valores. O push usa uma pasta temporária de autenticação e elimina-a no fim; o Ansible remove a configuração temporária da VM num bloco `always`.
 
@@ -191,6 +191,8 @@ py -3 jenkins/local-api.py export --project ca5-github --branch ca5-part2 --numb
 ```
 
 O build `ca5-github/ca5-part2 #1` terminou SUCCESS, com checkout do commit `2638c92`, três testes aprovados, arquivo e publicação Docker Hub. Deploy ficou ignorado por a branch não ser main. A notificação foi recebida no Mailpit; isso não demonstra entrega externa. As evidências estão em `../evidence/32-jenkins-github-ca5-part2-1.*`.
+
+O build `#2`, no commit `acbc0c6`, foi iniciado automaticamente por Poll SCM depois do push real. Terminou SUCCESS e preservou a produção. A causa `Started by an SCM change` está em [33-jenkins-github-poll-ca5-part2-2.json](../evidence/33-jenkins-github-poll-ca5-part2-2.json).
 
 ## 9. Referências
 

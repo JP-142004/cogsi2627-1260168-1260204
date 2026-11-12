@@ -1,0 +1,11 @@
+{
+  "provider": "jenkins",
+  "image": "luizbsilv/ca5-bookstore:jenkins-ca5-part2-2-acbc0c6",
+  "image_id": "sha256:b7d7d7ca153e3b47684c762526e11bc93e6c27f7197e71df63da5e2905b09948",
+  "tag": "jenkins-ca5-part2-2-acbc0c6",
+  "commit": "acbc0c662e6ee6152aa6746c0f6232211d1d5790",
+  "branch": "ca5-part2",
+  "build": "2",
+  "created_utc": "2026-11-12T19:38:48.382201+00:00",
+  "jar_sha256": "291ae3ebeac04231664c3dc1dcadf807bf276ce7db0521634258cb44a315cb38"
+}
