@@ -170,7 +170,7 @@ Para retomar, usa novamente `start-local.ps1`. Evita `down --volumes` se quisere
 Esta fase fica deliberadamente para depois da validação local:
 
 1. Publicar os commits da branch de trabalho e preparar a integração do Jenkinsfile nas branches `main` e `development` do grupo.
-2. Criar uma credencial de leitura do repositório privado no Jenkins.
+2. Se o repositório for privado, criar uma credencial de leitura. O repositório atual é público e a validação usa leitura anónima.
 3. Criar um segundo projeto Multibranch, com GitHub Branch Source, filtrando `main` e `development` e usando `CA5/Part2/Jenkinsfile`.
 4. Usar um nome diferente de `ca5-local`, por exemplo `ca5-github`: o Jenkinsfile limita os ajustes locais ao primeiro projeto. Configurar o repositório de imagem e os parâmetros do job externo.
 5. Guardar o access token Docker Hub na credencial `dockerhub-ca5`, numa pasta de credenciais própria do job externo, e definir o repositório de imagem real.
@@ -178,7 +178,19 @@ Esta fase fica deliberadamente para depois da validação local:
 7. Demonstrar o Poll SCM a partir de pushes reais nas duas branches e arquivar essas evidências finais.
 8. Fazer a revisão final e marcar o commit com `ca5-part2`.
 
-Os testes locais demonstram o funcionamento do Jenkinsfile, das condições por branch, do Ansible, do registo e do SMTP. A receção de eventos do GitHub e a execução do mesmo pipeline contra o Docker Hub ainda exigem essa demonstração após a publicação.
+Os testes locais demonstram o funcionamento do Jenkinsfile, das condições por branch, do Ansible, do registo e do SMTP. A demonstração contra GitHub e Docker Hub foi iniciada posteriormente, com o âmbito limitado à branch de trabalho, como descrito a seguir.
+
+### Validação publicada exclusivamente na ca5-part2
+
+Depois de autorizada a publicação na branch, foi criado o projeto `ca5-github`, filtrado exclusivamente para `ca5-part2`. O script `connect-github.py` lê a credencial Docker Hub do gestor local e guarda-a no âmbito desse projeto. O projeto `ca5-local` conserva a credencial do registo de teste.
+
+```powershell
+py -3 jenkins/connect-github.py
+py -3 jenkins/local-api.py status --project ca5-github
+py -3 jenkins/local-api.py export --project ca5-github --branch ca5-part2 --number 1 --prefix 32-jenkins-github
+```
+
+O build `ca5-github/ca5-part2 #1` terminou SUCCESS, com checkout do commit `2638c92`, três testes aprovados, arquivo e publicação Docker Hub. Deploy ficou ignorado por a branch não ser main. A notificação foi recebida no Mailpit; isso não demonstra entrega externa. As evidências estão em `../evidence/32-jenkins-github-ca5-part2-1.*`.
 
 ## 9. Referências
 

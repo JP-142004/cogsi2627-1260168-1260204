@@ -2,7 +2,7 @@
 
 Neste tutorial vais criar um pipeline Jenkins que compila a Bookstore, executa os testes unitários e de integração em paralelo, constrói uma imagem Docker e publica-a no Docker Hub. Na branch `main`, o pipeline vai implantar essa imagem numa VM de produção criada com Vagrant, usando Ansible, e verificar a saúde da aplicação.
 
-O trabalho decorre na branch `ca5-part2` e está associado à [issue #21](https://github.com/JP-142004/cogsi2627-1260168-1260204/issues/21). A base é a Parte 1, integrada na `main` pelo commit `f020c07`. A alternativa ao Jenkins será desenvolvida separadamente com GitHub Actions.
+O trabalho decorre na branch `ca5-part2` e está associado à [issue #21](https://github.com/JP-142004/cogsi2627-1260168-1260204/issues/21). A base é a Parte 1, integrada na `main` pelo commit `f020c07`. A alternativa ao Jenkins foi implementada com GitHub Actions e está documentada em [CA5/Alternative](../Alternative/README.md).
 
 ## 1. Estado da implementação
 
@@ -16,11 +16,11 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | VM de produção | Criada e validada por SSH: 1 GB, 1 CPU, IP `192.168.56.20` |
 | Provisionamento com Ansible | Validado na VM: Docker instalado e ativo |
 | Deploy com Ansible | Validado manualmente e pelo Jenkins no laboratório local |
-| Jenkins Multibranch e testes em paralelo | Validados com refs locais `main` e `development` |
-| Publicação automática e deploy exclusivo na `main` | Validados com registo local; execução integrada contra GitHub/Docker Hub fica para a publicação |
+| Jenkins Multibranch e testes em paralelo | Validados com refs locais `main`/`development` e com a ca5-part2 real do GitHub |
+| Publicação automática e deploy exclusivo na `main` | Publicação Docker Hub validada pelo Jenkins e Actions na branch; deploy main validado no laboratório, integração na main ainda não autorizada |
 | Disparo automático | Poll SCM validado com commits na cópia local de teste |
 | Notificações | E-mails SMTP recebidos no Mailpit para SUCCESS, FAILURE e UNSTABLE |
-| Alternativa GitHub Actions | Workflow implementado; validação local documentada em `CA5/Alternative` |
+| Alternativa GitHub Actions | Execução real na branch com build, testes e publicação aprovados; job de e-mail falha por faltar autorização Microsoft 365 |
 
 ## 2. Arquitetura prevista
 
@@ -181,9 +181,9 @@ As notificações são enviadas por Email Extension. No laboratório, o Mailpit 
 
 ### 7.3. O que fica para a publicação
 
-Depois de terminares a validação local, vais publicar a branch de trabalho e integrar o Jenkinsfile nas branches `main` e `development` do grupo. Configurarás o Multibranch com GitHub Branch Source, credencial de leitura do repositório privado e o caminho `CA5/Part2/Jenkinsfile`. O job externo usará Docker Hub e as credenciais reais, sem as substituições `CA5_*` do laboratório.
+Foi autorizada a publicação exclusivamente na `ca5-part2`, mantendo a main sem alterações. O projeto Jenkins `ca5-github` obtém o código dessa branch do repositório público e usa o caminho `CA5/Part2/Jenkinsfile`, com credencial Docker Hub limitada ao projeto. O primeiro build terminou SUCCESS e publicou a imagem; o deploy foi ignorado. A integração posterior nas branches main/development exige autorização e validação próprias.
 
-A prova de pushes reais no GitHub a originarem os builds e a publicação automática no Docker Hub pertence a essa fase final. A tag `ca5-part2` será criada depois dessa revisão, não durante os testes locais.
+A execução real de push no Actions e a publicação automática Docker Hub estão documentadas na alternativa. A main e o deploy integrado continuam para a fase posterior. A tag `ca5-part2` será criada depois da revisão e validação finais.
 
 ## 8. Ambiente e problemas encontrados
 
@@ -228,6 +228,7 @@ O primeiro build do Jenkins encontrou o destinatário vazio na criação inicial
 | [24-jenkins-docker-failure-development-5.txt](evidence/24-jenkins-docker-failure-development-5.txt) | Falha Docker deliberada só na cópia local |
 | [25-jenkins-recovery-development-6.txt](evidence/25-jenkins-recovery-development-6.txt) | Recuperação depois de restaurar a cópia de teste |
 | [26-local-validation-summary.json](evidence/26-local-validation-summary.json) | Causas automáticas, paralelismo, e-mails e produção preservada |
+| [32-jenkins-github-ca5-part2-1.txt](evidence/32-jenkins-github-ca5-part2-1.txt) | Checkout GitHub real, testes, arquivo, push Docker Hub e deploy ignorado |
 
 As variantes `.json`, `-stages.json`, `-build.json`, `-push.json` e `-timing.json` guardam os dados estruturados dos builds indicados.
 
@@ -263,7 +264,7 @@ Notificações recebidas por SMTP na caixa local:
 | Notificações de resultado | Email Extension e SMTP | SUCCESS, FAILURE e UNSTABLE recebidos no Mailpit |
 | Segredos fora do código | Credentials, secrets e configurações temporárias | Sem segredos versionados; limpeza validada |
 | Alternativa sem Jenkins | [GitHub Actions](../Alternative/README.md) | Implementação e emulação local documentadas |
-| Integração externa e tag final | Fase posterior à validação local | GitHub, SMTP real e execução final Docker Hub pendentes |
+| Integração externa e tag final | Branch publicada e imagem Docker Hub validada | SMTP externo, registo do runner e integração main/tag final pendentes |
 
 ## 11. Referências
 

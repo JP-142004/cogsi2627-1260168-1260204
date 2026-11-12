@@ -1,0 +1,16 @@
+name: cogsi-ca5-production-runner
+services:
+  runner:
+    image: cogsi-ca5-production-runner:local
+    build: .
+    mem_limit: 768m
+    environment:
+      CA5_LOCAL_SSH_KEY: /run/secrets/production_key
+    secrets:
+      - registration_token
+      - production_key
+secrets:
+  registration_token:
+    file: ../../Part2/.local/secrets/github_runner_registration_token
+  production_key:
+    file: ../../Part2/.local/secrets/production_key

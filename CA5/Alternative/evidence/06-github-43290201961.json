@@ -1,0 +1,507 @@
+{
+  "conclusion": "failure",
+  "createdAt": "2026-11-12T19:26:36Z",
+  "databaseId": 43290201961,
+  "event": "push",
+  "headBranch": "ca5-part2",
+  "headSha": "2638c920734dc1b0de0877a9c98c6c3415c5d034",
+  "jobs": [
+    {
+      "completedAt": "2026-11-12T19:27:33Z",
+      "conclusion": "success",
+      "databaseId": 131434106898,
+      "name": "Assemble",
+      "startedAt": "2026-11-12T19:26:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-12T19:26:40Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-12T19:26:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:26:42Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-12T19:26:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:26:42Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-java@v5",
+          "number": 3,
+          "startedAt": "2026-11-12T19:26:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:26:43Z",
+          "conclusion": "success",
+          "name": "Validar os estados e a autenticação da notificação",
+          "number": 4,
+          "startedAt": "2026-11-12T19:26:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:28Z",
+          "conclusion": "success",
+          "name": "Compilar e empacotar",
+          "number": 5,
+          "startedAt": "2026-11-12T19:26:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:29Z",
+          "conclusion": "success",
+          "name": "Preparar o mesmo JAR e classes para os jobs seguintes",
+          "number": 6,
+          "startedAt": "2026-11-12T19:27:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:31Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 7,
+          "startedAt": "2026-11-12T19:27:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:31Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-java@v5",
+          "number": 13,
+          "startedAt": "2026-11-12T19:27:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:31Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 14,
+          "startedAt": "2026-11-12T19:27:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:31Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "startedAt": "2026-11-12T19:27:31Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961/job/131434106898"
+    },
+    {
+      "completedAt": "2026-11-12T19:28:43Z",
+      "conclusion": "success",
+      "databaseId": 131434660119,
+      "name": "Tests (integrationTest)",
+      "startedAt": "2026-11-12T19:27:35Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-12T19:27:37Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-12T19:27:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:38Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-12T19:27:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:38Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-java@v5",
+          "number": 3,
+          "startedAt": "2026-11-12T19:27:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:41Z",
+          "conclusion": "success",
+          "name": "Run actions/download-artifact@v4",
+          "number": 4,
+          "startedAt": "2026-11-12T19:27:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:42Z",
+          "conclusion": "success",
+          "name": "Recuperar as classes compiladas",
+          "number": 5,
+          "startedAt": "2026-11-12T19:27:41Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:38Z",
+          "conclusion": "success",
+          "name": "Executar os testes",
+          "number": 6,
+          "startedAt": "2026-11-12T19:27:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:38Z",
+          "conclusion": "success",
+          "name": "Publicar resumo JUnit",
+          "number": 7,
+          "startedAt": "2026-11-12T19:28:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:40Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 8,
+          "startedAt": "2026-11-12T19:28:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:40Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-java@v5",
+          "number": 15,
+          "startedAt": "2026-11-12T19:28:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:40Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 16,
+          "startedAt": "2026-11-12T19:28:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:40Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-11-12T19:28:40Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961/job/131434660119"
+    },
+    {
+      "completedAt": "2026-11-12T19:28:25Z",
+      "conclusion": "success",
+      "databaseId": 131434660280,
+      "name": "Tests (test)",
+      "startedAt": "2026-11-12T19:27:34Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-12T19:27:36Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-12T19:27:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:37Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-12T19:27:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:38Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-java@v5",
+          "number": 3,
+          "startedAt": "2026-11-12T19:27:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:39Z",
+          "conclusion": "success",
+          "name": "Run actions/download-artifact@v4",
+          "number": 4,
+          "startedAt": "2026-11-12T19:27:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:27:39Z",
+          "conclusion": "success",
+          "name": "Recuperar as classes compiladas",
+          "number": 5,
+          "startedAt": "2026-11-12T19:27:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:22Z",
+          "conclusion": "success",
+          "name": "Executar os testes",
+          "number": 6,
+          "startedAt": "2026-11-12T19:27:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:22Z",
+          "conclusion": "success",
+          "name": "Publicar resumo JUnit",
+          "number": 7,
+          "startedAt": "2026-11-12T19:28:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:23Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 8,
+          "startedAt": "2026-11-12T19:28:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:23Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-java@v5",
+          "number": 15,
+          "startedAt": "2026-11-12T19:28:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:23Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 16,
+          "startedAt": "2026-11-12T19:28:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:23Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-11-12T19:28:23Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961/job/131434660280"
+    },
+    {
+      "completedAt": "2026-11-12T19:29:12Z",
+      "conclusion": "success",
+      "databaseId": 131435345721,
+      "name": "Build, archive and push image",
+      "startedAt": "2026-11-12T19:28:45Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-12T19:28:47Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-12T19:28:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:48Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-12T19:28:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:49Z",
+          "conclusion": "success",
+          "name": "Run actions/download-artifact@v4",
+          "number": 3,
+          "startedAt": "2026-11-12T19:28:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:49Z",
+          "conclusion": "success",
+          "name": "Run tar -xzf prepared-app.tgz -C \"$APP_DIR\"",
+          "number": 4,
+          "startedAt": "2026-11-12T19:28:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:28:49Z",
+          "conclusion": "success",
+          "name": "Identificar a imagem desta execução",
+          "number": 5,
+          "startedAt": "2026-11-12T19:28:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:04Z",
+          "conclusion": "success",
+          "name": "Construir a imagem",
+          "number": 6,
+          "startedAt": "2026-11-12T19:28:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:04Z",
+          "conclusion": "success",
+          "name": "Arquivar Dockerfile e metadados",
+          "number": 7,
+          "startedAt": "2026-11-12T19:29:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:05Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 8,
+          "startedAt": "2026-11-12T19:29:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:10Z",
+          "conclusion": "success",
+          "name": "Publicar a imagem",
+          "number": 9,
+          "startedAt": "2026-11-12T19:29:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:10Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 10,
+          "startedAt": "2026-11-12T19:29:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:11Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 20,
+          "startedAt": "2026-11-12T19:29:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:11Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "startedAt": "2026-11-12T19:29:11Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961/job/131435345721"
+    },
+    {
+      "completedAt": "2026-11-12T19:29:26Z",
+      "conclusion": "failure",
+      "databaseId": 131435634926,
+      "name": "Email notification",
+      "startedAt": "2026-11-12T19:29:15Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-12T19:29:19Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-12T19:29:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:23Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-12T19:29:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:23Z",
+          "conclusion": "failure",
+          "name": "Enviar o resultado final",
+          "number": 3,
+          "startedAt": "2026-11-12T19:29:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:23Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 6,
+          "startedAt": "2026-11-12T19:29:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-12T19:29:23Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 7,
+          "startedAt": "2026-11-12T19:29:23Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961/job/131435634926"
+    },
+    {
+      "completedAt": "2026-11-12T19:29:12Z",
+      "conclusion": "skipped",
+      "databaseId": 131435636757,
+      "name": "Deploy and verify production",
+      "startedAt": "2026-11-12T19:29:12Z",
+      "status": "completed",
+      "steps": [],
+      "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961/job/131435636757"
+    }
+  ],
+  "status": "completed",
+  "updatedAt": "2026-11-12T19:29:27Z",
+  "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961",
+  "provider": "github-actions",
+  "junit": {
+    "test": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "integrationTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "jar_matches_prepared_artifact": true,
+  "build_metadata": {
+    "provider": "github-actions",
+    "image": "luizbsilv/ca5-bookstore:gha-ca5-part2-43290201961-1-2638c92",
+    "image_id": "sha256:cf3a4fcc71d9758ffa0121299fa04bba15bc9d05c97c58abd96ba8a9ad4dfc51",
+    "tag": "gha-ca5-part2-43290201961-1-2638c92",
+    "commit": "2638c920734dc1b0de0877a9c98c6c3415c5d034",
+    "branch": "ca5-part2",
+    "build": "1.1",
+    "created_utc": "2026-11-12T19:29:04.518627+00:00",
+    "jar_sha256": "a242a094762412b940981a6c3b176b6474d5e2106ad42c38506a29eb01896c24"
+  },
+  "published_image": {
+    "image": "luizbsilv/ca5-bookstore:gha-ca5-part2-43290201961-1-2638c92",
+    "repo_digests": [
+      "luizbsilv/ca5-bookstore@sha256:cf3a4fcc71d9758ffa0121299fa04bba15bc9d05c97c58abd96ba8a9ad4dfc51"
+    ]
+  },
+  "dockerhub_manifest_digest": "sha256:cf3a4fcc71d9758ffa0121299fa04bba15bc9d05c97c58abd96ba8a9ad4dfc51",
+  "deploy_skipped": true,
+  "email_delivered": false,
+  "email_limitation": "Autorização SMTP Microsoft 365 ainda não configurada; não se considera o run inteiramente bem-sucedido."
+}

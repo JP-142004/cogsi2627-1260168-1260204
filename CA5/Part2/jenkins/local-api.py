@@ -15,6 +15,7 @@ part = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('operation', choices=['status', 'scan', 'build', 'logs', 'lint', 'export'])
 parser.add_argument('--branch', default='main')
+parser.add_argument('--project', choices=['ca5-local', 'ca5-github'], default='ca5-local')
 parser.add_argument('--number', default='lastBuild')
 parser.add_argument('--prefix', default='19-jenkins')
 args = parser.parse_args()
@@ -32,7 +33,7 @@ def request(path, data=None, content_type=None):
         headers['Content-Type'] = content_type
     return opener.open(Request(base + path, data=data, headers=headers), timeout=45).read()
 
-job = 'job/ca5-local/'
+job = 'job/' + args.project + '/'
 build = job + 'job/' + quote(args.branch, safe='') + '/' + args.number + '/'
 try:
     if args.operation == 'status':

@@ -163,7 +163,15 @@ jobs:
         run: |
           key="$RUNNER_TEMP/ca5-production-key"
           umask 077
-          printf '%s\n' "$PRODUCTION_SSH_KEY" > "$key"
+          if [ -n "$PRODUCTION_SSH_KEY" ]; then
+            printf '%s\n' "$PRODUCTION_SSH_KEY" > "$key"
+          elif [ -r "${CA5_LOCAL_SSH_KEY:-}" ]; then
+            cp "$CA5_LOCAL_SSH_KEY" "$key"
+          else
+            echo 'Configura a chave local do runner; não foi enviada uma chave SSH para o GitHub.' >&2
+            exit 1
+          fi
+          chmod 600 "$key"
           echo "SSH_KEY=$key" >> "$GITHUB_ENV"
       - name: Deploy
         env:

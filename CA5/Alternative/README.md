@@ -181,7 +181,7 @@ Os Secrets `DOCKERHUB_USERNAME` e `DOCKERHUB_TOKEN` foram configurados com autor
 |---|---|
 | `DOCKERHUB_USERNAME` | Utilizador Docker Hub |
 | `DOCKERHUB_TOKEN` | Access token com permissão para publicar a imagem |
-| `CA5_PRODUCTION_SSH_KEY` | Chave privada completa da VM production |
+| `CA5_PRODUCTION_SSH_KEY` | Opcional para outro modo de configuração; não criado nesta entrega: a chave foi mantida local |
 | `SMTP_USERNAME` | Utilizador do servidor SMTP, quando há autenticação |
 | `SMTP_PASSWORD` | Credencial SMTP, quando há autenticação |
 | `SMTP_OAUTH_CLIENT_SECRET` | Segredo de uma aplicação Microsoft Entra autorizada a enviar por SMTP, no modo OAuth |
@@ -212,21 +212,42 @@ Regista um self-hosted runner Linux nas definições Actions do repositório e a
 
 Confirma que o runner consegue alcançar o SSH da VM. Se correr num container Docker Desktop, usa o encaminhamento do Vagrant e as variáveis de host/porta, como foi feito no laboratório. O workflow prepara Python 3.13 e Ansible Core 2.19.4; a compilação continua em Java 17 nos runners de build.
 
-Antes de demonstrar o deploy desta alternativa, suspende o job de deploy Jenkins que utiliza a mesma VM. O registo do runner exige acesso administrativo ao repositório. A conta atual tem permissão de push, mas a API de runners devolveu HTTP 403. O administrador terá de registar esse runner. A disponibilização da chave SSH exige nova autorização; não foi enviada para o GitHub.
+Antes de demonstrar o deploy desta alternativa, suspende o job de deploy Jenkins que utiliza a mesma VM. O registo do runner exige acesso administrativo ao repositório. A conta atual tem permissão de push, mas a API de runners devolveu HTTP 403. O administrador terá de registar esse runner.
+
+Foi preparada e construída a [configuração do runner em Docker](production-runner/README.md), com versão oficial identificada por digest. A ligação SSH à VM foi exercitada localmente com o utilizador sem privilégios do runner. A chave é montada localmente e copiada temporariamente pelo workflow através de `CA5_LOCAL_SSH_KEY`; não foi enviada para o GitHub. O runner só ficará disponível para jobs depois do registo administrativo.
 
 Enquanto a integração não for autorizada, mantém as alterações na `ca5-part2`. A execução real da main e a tag final ficam pendentes; não substituas a condição de deploy para fazer uma demonstração na branch de trabalho.
+
+### 5.4. Execução real na branch de trabalho
+
+O [run 43290201961](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961) foi disparado por push na `ca5-part2`, no commit `2638c92`. Assemble, os dois jobs da matriz e Build/archive/push passaram. Os três testes da aplicação passaram; o SHA-256 do JAR recuperado foi comparado com o metadado e o digest da imagem foi confirmado no Docker Hub. O deploy ficou skipped.
+
+O resultado global foi **failure**, devido ao job de notificação: os parâmetros Microsoft 365 estão definidos, mas falta a credencial/autorização de envio. Esta falha é preservada nas evidências; não é apresentada como um pipeline totalmente aprovado.
+
+| Evidência | Resultado |
+|---|---|
+| [05-github-configuration.json](evidence/05-github-configuration.json) | Nomes dos Secrets e configuração sem os seus valores secretos |
+| [06-github-43290201961.json](evidence/06-github-43290201961.json) | Jobs reais, JUnit, JAR, imagem e digest |
+| [06-github-43290201961.txt](evidence/06-github-43290201961.txt) | Logs da execução real, incluindo a falha SMTP |
+| [07-production-runner-local-check.txt](evidence/07-production-runner-local-check.txt) | Binário do runner, utilizador, Python e SSH locais; sem registo GitHub |
+
+Para recolher outra execução concluída desta branch:
+
+```powershell
+py -3 CA5/Alternative/collect-github-evidence.py ID_DA_EXECUCAO
+```
 
 ## 6. Limitações e reflexão
 
 | Aspeto | Cobertura e limite |
 |---|---|
 | Compilação, testes, artefactos, imagem e Ansible | Implementados no workflow e executados por act com serviços locais |
-| Eventos GitHub reais | Definidos no YAML; só podem ser demonstrados após publicação |
-| Checkout autenticado do repositório privado | O act copia a árvore local; não valida a autenticação do serviço GitHub |
-| Artefactos do serviço GitHub | Validação local usa o servidor de artefactos do act; quotas e retenção do serviço não são exercitadas |
-| Docker Hub no workflow | O mesmo script foi testado contra o registo local; a execução Actions contra Docker Hub fica para a publicação |
-| Self-hosted runner registado | A etiqueta é emulada por um container local; o registo e a ligação ao GitHub ficam para a fase externa |
-| E-mail externo | SMTP real exercitado contra Mailpit; entrega para um destinatário externo depende da configuração do servidor de envio |
+| Eventos GitHub reais | Push na ca5-part2 demonstrado; main ainda sem integração |
+| Checkout do GitHub | Exercitado no repositório público; um futuro repositório privado exige permissões adequadas |
+| Artefactos do serviço GitHub | Upload, download e integridade do JAR exercitados; retenção configurada para sete dias |
+| Docker Hub no workflow | Imagem publicada pelo serviço GitHub e digest confirmado |
+| Self-hosted runner registado | Imagem construída e SSH local validado; registo bloqueado pela falta de acesso administrativo |
+| E-mail externo | Captura Mailpit validada; Microsoft 365 preparado, mas sem autorização de envio; job externo falha explicitamente |
 | Estado UNSTABLE | Não existe equivalente direto no Actions; um teste falhado gera failure e bloqueia publicação/deploy |
 | Persistência H2 | Mantém a limitação da solução base: dados em memória perdem-se ao substituir o container |
 | Duas ferramentas sobre a mesma produção | Não há um bloqueio comum entre Jenkins e Actions; as demonstrações usam um responsável de deploy de cada vez |

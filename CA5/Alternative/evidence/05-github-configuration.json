@@ -1,0 +1,24 @@
+{
+  "scope": "Configuração GitHub autorizada; sem alterar main",
+  "repository": "JP-142004/cogsi2627-1260168-1260204",
+  "secrets_configured": [
+    "DOCKERHUB_USERNAME",
+    "DOCKERHUB_TOKEN"
+  ],
+  "variables": {
+    "CA5_IMAGE_REPOSITORY": "luizbsilv/ca5-bookstore",
+    "CA5_REGISTRY_URL": "https://index.docker.io/v1/",
+    "CA5_PRODUCTION_HOST": "192.168.56.20",
+    "CA5_PRODUCTION_SSH_PORT": "22",
+    "SMTP_HOST": "smtp.office365.com",
+    "SMTP_PORT": "587",
+    "SMTP_STARTTLS": "true",
+    "SMTP_SSL": "false",
+    "SMTP_USERNAME": "Configurado; endereço omitido nesta evidência",
+    "NOTIFY_FROM": "Configurado; endereço omitido nesta evidência",
+    "NOTIFY_TO": "Configurado; endereço omitido nesta evidência"
+  },
+  "ssh_private_key": "Mantida exclusivamente local, por escolha explícita do utilizador",
+  "smtp_authentication": "Pendente: autorização Microsoft 365/credencial SMTP não disponível",
+  "runner_registration": "Pendente: conta com push, sem admin; API runners devolveu HTTP 403"
+}

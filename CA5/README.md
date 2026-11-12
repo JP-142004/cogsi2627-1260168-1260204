@@ -34,10 +34,10 @@ O relatório da alternativa identifica explicitamente as diferenças de estados,
 |---|---|
 | Parte 1 e tag `ca5-part1` | Integradas na main |
 | Parte 2 — aplicação, Docker, VM e Ansible | Implementados e validados |
-| Parte 2 — Jenkins Multibranch | Implementado e validado no laboratório local |
-| Alternativa GitHub Actions | Workflow implementado e validação local documentada |
+| Parte 2 — Jenkins Multibranch | Validado localmente e contra a branch real do GitHub, com publicação Docker Hub |
+| Alternativa GitHub Actions | Validada por act e executada no GitHub na ca5-part2: compilação, testes, artefactos e Docker Hub passaram; e-mail pendente |
 | Publicação das novas alterações no GitHub | Autorizada exclusivamente na branch `ca5-part2`; main sem alterações |
-| Prova dos eventos GitHub e execução externa final | A realizar depois da publicação |
+| Prova dos eventos GitHub e execução externa final | Push na ca5-part2 demonstrado; main e deploy externo ficam para depois da integração |
 | SMTP para destinatário externo | Parâmetros Microsoft 365 definidos; autorização de envio pendente; captura local validada |
 | Tag final `ca5-part2` | A criar depois da revisão e validação externas |
 
