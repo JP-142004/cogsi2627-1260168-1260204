@@ -2,7 +2,11 @@ name: CA5 Bookstore CI/CD
 
 on:
   push:
-    branches: [main, development]
+    branches: [main, development, ca5-part2]
+    paths-ignore:
+      - '**/*.md'
+      - 'CA5/Part2/evidence/**'
+      - 'CA5/Alternative/evidence/**'
   workflow_dispatch:
 
 permissions:
@@ -31,6 +35,8 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Validar os estados e a autenticação da notificação
+        run: python3 "$PART_DIR/ci/test_notify_email.py"
       - name: Compilar e empacotar
         working-directory: CA5/Part2/bookstore
         run: bash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" assemble
@@ -188,8 +194,11 @@ jobs:
           SMTP_PORT: ${{ vars.SMTP_PORT || '587' }}
           SMTP_STARTTLS: ${{ vars.SMTP_STARTTLS || 'true' }}
           SMTP_SSL: ${{ vars.SMTP_SSL || 'false' }}
-          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME || vars.SMTP_USERNAME }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_OAUTH_TENANT_ID: ${{ vars.SMTP_OAUTH_TENANT_ID }}
+          SMTP_OAUTH_CLIENT_ID: ${{ vars.SMTP_OAUTH_CLIENT_ID }}
+          SMTP_OAUTH_CLIENT_SECRET: ${{ secrets.SMTP_OAUTH_CLIENT_SECRET }}
           NOTIFY_FROM: ${{ vars.NOTIFY_FROM }}
           NOTIFY_TO: ${{ vars.NOTIFY_TO }}
         run: python3 "$PART_DIR/ci/notify-email.py"

@@ -11,10 +11,10 @@ pipeline {
     }
 
     parameters {
-        string(name: 'IMAGE_REPOSITORY', defaultValue: env.CA5_IMAGE_REPOSITORY ?: 'luizbsilv/ca5-bookstore', description: 'Repositório da imagem, sem tag')
-        string(name: 'REGISTRY_URL', defaultValue: env.CA5_REGISTRY_URL ?: 'https://index.docker.io/v1/', description: 'Docker Hub ou registo local do laboratório')
-        string(name: 'PRODUCTION_HOST', defaultValue: env.CA5_PRODUCTION_HOST ?: '192.168.56.20', description: 'Host SSH da VM de produção')
-        string(name: 'PRODUCTION_SSH_PORT', defaultValue: env.CA5_PRODUCTION_SSH_PORT ?: '22', description: 'Porta SSH da VM')
+        string(name: 'IMAGE_REPOSITORY', defaultValue: 'luizbsilv/ca5-bookstore', description: 'Repositório da imagem, sem tag')
+        string(name: 'REGISTRY_URL', defaultValue: 'https://index.docker.io/v1/', description: 'Docker Hub ou registo local do laboratório')
+        string(name: 'PRODUCTION_HOST', defaultValue: '192.168.56.20', description: 'Host SSH da VM de produção')
+        string(name: 'PRODUCTION_SSH_PORT', defaultValue: '22', description: 'Porta SSH da VM')
         string(name: 'EMAIL_RECIPIENT', defaultValue: env.CA5_NOTIFY_TO ?: '', description: 'Destinatário das notificações; obrigatório')
     }
 
@@ -39,17 +39,19 @@ pipeline {
                     env.SOURCE_BRANCH = env.BRANCH_NAME
                     env.CI_BUILD_NUMBER = env.BUILD_NUMBER
                     def branchSlug = env.BRANCH_NAME.toLowerCase().replaceAll('[^a-z0-9_.-]', '-').take(40)
+                    // Os ajustes do Compose pertencem apenas ao projeto de teste local.
+                    def localLab = env.CA5_LOCAL_LAB == 'true' && env.JOB_NAME.startsWith('ca5-local/')
                     env.BOOKSTORE_IMAGE_TAG = "jenkins-${branchSlug}-${env.BUILD_NUMBER}-${revision.GIT_COMMIT.take(7)}"
                     env.NOTIFICATION_RECIPIENT = params.EMAIL_RECIPIENT?.trim() ?: env.CA5_NOTIFY_TO ?: ''
-                    env.BOOKSTORE_IMAGE_REPOSITORY = env.CA5_IMAGE_REPOSITORY ?: params.IMAGE_REPOSITORY.trim()
+                    env.BOOKSTORE_IMAGE_REPOSITORY = localLab ? env.CA5_IMAGE_REPOSITORY : (params.IMAGE_REPOSITORY?.trim() ?: 'luizbsilv/ca5-bookstore')
                     env.IMAGE_REFERENCE = "${env.BOOKSTORE_IMAGE_REPOSITORY}:${env.BOOKSTORE_IMAGE_TAG}"
-                    env.DOCKER_REGISTRY_URL = env.CA5_REGISTRY_URL ?: params.REGISTRY_URL.trim()
-                    env.PRODUCTION_HOST = env.CA5_PRODUCTION_HOST ?: params.PRODUCTION_HOST.trim()
-                    env.PRODUCTION_SSH_PORT = env.CA5_PRODUCTION_SSH_PORT ?: params.PRODUCTION_SSH_PORT.trim()
+                    env.DOCKER_REGISTRY_URL = localLab ? env.CA5_REGISTRY_URL : (params.REGISTRY_URL?.trim() ?: 'https://index.docker.io/v1/')
+                    env.PRODUCTION_HOST = localLab ? env.CA5_PRODUCTION_HOST : (params.PRODUCTION_HOST?.trim() ?: '192.168.56.20')
+                    env.PRODUCTION_SSH_PORT = localLab ? env.CA5_PRODUCTION_SSH_PORT : (params.PRODUCTION_SSH_PORT?.trim() ?: '22')
                     if (!env.NOTIFICATION_RECIPIENT.trim()) {
                         error('Configura EMAIL_RECIPIENT antes de executar o pipeline.')
                     }
-                    if (env.CA5_LOCAL_LAB == 'true' &&
+                    if (localLab &&
                         (!env.BOOKSTORE_IMAGE_REPOSITORY.startsWith('localhost:15000/') || env.DOCKER_REGISTRY_URL != 'http://localhost:15000')) {
                         error('O laboratório local só permite publicar no registo em loopback.')
                     }

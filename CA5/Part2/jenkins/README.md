@@ -103,7 +103,7 @@ A post-action `cleanup` envia a notificação por `emailext`, usando o resultado
 | `PRODUCTION_SSH_PORT` | `22` | Porta NAT descoberta pelo Vagrant |
 | `EMAIL_RECIPIENT` | Configurar o destinatário real | `luiz@ca5.local`, só para captura |
 
-As variáveis `CA5_*` do Compose fornecem os ajustes locais. O Jenkinsfile exige que o modo `CA5_LOCAL_LAB=true` use o registo loopback, evitando uma publicação externa acidental durante estes testes.
+As variáveis `CA5_*` do Compose fornecem os ajustes exclusivamente ao projeto `ca5-local`. O Jenkinsfile exige que esse projeto, no modo `CA5_LOCAL_LAB=true`, use o registo loopback. Outros projetos usam os parâmetros normais, permitindo validar `ca5-github` contra o GitHub e Docker Hub sem herdar os ajustes locais.
 
 | ID no Jenkins Credentials | Tipo | Conteúdo |
 |---|---|---|
@@ -172,7 +172,7 @@ Esta fase fica deliberadamente para depois da validação local:
 1. Publicar os commits da branch de trabalho e preparar a integração do Jenkinsfile nas branches `main` e `development` do grupo.
 2. Criar uma credencial de leitura do repositório privado no Jenkins.
 3. Criar um segundo projeto Multibranch, com GitHub Branch Source, filtrando `main` e `development` e usando `CA5/Part2/Jenkinsfile`.
-4. Não usar as variáveis `CA5_*` específicas do registo local nesse projeto. Se partilhares esta instância, remove os ajustes locais antes de ativar o job externo ou usa uma instância separada.
+4. Usar um nome diferente de `ca5-local`, por exemplo `ca5-github`: o Jenkinsfile limita os ajustes locais ao primeiro projeto. Configurar o repositório de imagem e os parâmetros do job externo.
 5. Guardar o access token Docker Hub na credencial `dockerhub-ca5`, numa pasta de credenciais própria do job externo, e definir o repositório de imagem real.
 6. Configurar SMTP real no Email Extension, com credencial de envio e destinatário, para entregar notificações fora do Mailpit.
 7. Demonstrar o Poll SCM a partir de pushes reais nas duas branches e arquivar essas evidências finais.

@@ -6,7 +6,7 @@ O workflow está em [`.github/workflows/ca5-bookstore.yml`](../../.github/workfl
 
 ## 1. Análise e comparação
 
-O GitHub Actions foi escolhido porque o repositório já está no GitHub e permite definir os eventos e dependências dos jobs no próprio repositório. O serviço gere a execução dos jobs hospedados e a distribuição de artefactos. O deploy para a VM local continua a precisar de um runner com acesso à rede do laboratório.
+O GitHub Actions foi escolhido porque o repositório já está no GitHub e permite definir os eventos e dependências dos jobs no próprio repositório. O serviço gere a execução dos jobs hospedados e a distribuição de artefactos. O deploy para a VM local continua a precisar de um runner com acesso à rede do laboratório. O acompanhamento desta alternativa está na [issue #22](https://github.com/JP-142004/cogsi2627-1260168-1260204/issues/22).
 
 | Aspeto | Jenkins da solução base | GitHub Actions da alternativa |
 |---|---|---|
@@ -171,7 +171,9 @@ py -3 CA5/Alternative/collect-local-evidence.py --include-failure
 
 ## 5. Configuração posterior no GitHub
 
-Esta fase fica para depois de terminares os testes locais e publicares o workflow.
+Depois da validação local, foi autorizada a publicação exclusivamente na branch `ca5-part2`. O evento push inclui essa branch para testar o serviço GitHub Actions sem integrar código na main. O deploy continua condicionado à main. Alterações apenas a Markdown ou às pastas de evidências não repetem os jobs.
+
+Os Secrets `DOCKERHUB_USERNAME` e `DOCKERHUB_TOKEN` foram configurados com autorização explícita. A chave SSH fica exclusivamente local, por decisão do utilizador. Os parâmetros Microsoft 365 foram definidos, mas a autorização de envio ainda não está disponível. Não se considera o e-mail externo validado enquanto não houver autenticação e receção confirmadas.
 
 ### 5.1. Secrets
 
@@ -182,6 +184,7 @@ Esta fase fica para depois de terminares os testes locais e publicares o workflo
 | `CA5_PRODUCTION_SSH_KEY` | Chave privada completa da VM production |
 | `SMTP_USERNAME` | Utilizador do servidor SMTP, quando há autenticação |
 | `SMTP_PASSWORD` | Credencial SMTP, quando há autenticação |
+| `SMTP_OAUTH_CLIENT_SECRET` | Segredo de uma aplicação Microsoft Entra autorizada a enviar por SMTP, no modo OAuth |
 
 ### 5.2. Variables
 
@@ -194,8 +197,14 @@ Esta fase fica para depois de terminares os testes locais e publicares o workflo
 | `SMTP_HOST`, `SMTP_PORT` | Servidor de envio de e-mail |
 | `SMTP_STARTTLS`, `SMTP_SSL` | Modo TLS; por omissão STARTTLS e porta 587 |
 | `NOTIFY_FROM`, `NOTIFY_TO` | Remetente autorizado e destinatário real |
+| `SMTP_USERNAME` | Caixa de correio de envio; também pode ser fornecida como Secret |
+| `SMTP_OAUTH_TENANT_ID`, `SMTP_OAUTH_CLIENT_ID` | Tenant e aplicação Microsoft Entra, quando é usado OAuth |
 
 Para SMTP com SSL direto, configura a porta adequada e `SMTP_SSL=true`. A implementação usa SSL direto quando esse modo é escolhido. O modo sem TLS usado pelo Mailpit é exclusivo da validação local.
+
+Para a conta institucional Microsoft 365 foi preparado `smtp.office365.com:587`, com STARTTLS. O script suporta OAuth com client credentials: obtém um access token por HTTPS e autentica por XOAUTH2. Isso exige uma aplicação Entra, autorização `SMTP.SendAsApp`, consentimento administrativo e acesso à caixa, conforme a [documentação Microsoft](https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth). A disponibilidade SMTP depende das políticas do ISEP; não foi alterada qualquer política institucional. Não se assume que a palavra-passe habitual do Outlook permita enviar por SMTP.
+
+Sem credenciais de envio, o job de notificação falha com uma mensagem de configuração explícita. A compilação, os testes e a publicação da imagem mantêm resultados independentes. Os seis testes em `ci/test_notify_email.py` exercitam a seleção do estado, o caso de imagem ignorada, a exigência de autenticação/TLS, XOAUTH2 e a ausência de segredos nos erros. O fluxo OAuth foi simulado nesses testes; a autorização real Microsoft ainda precisa de validação.
 
 ### 5.3. Runner de produção
 
@@ -203,7 +212,9 @@ Regista um self-hosted runner Linux nas definições Actions do repositório e a
 
 Confirma que o runner consegue alcançar o SSH da VM. Se correr num container Docker Desktop, usa o encaminhamento do Vagrant e as variáveis de host/porta, como foi feito no laboratório. O workflow prepara Python 3.13 e Ansible Core 2.19.4; a compilação continua em Java 17 nos runners de build.
 
-Antes de demonstrar o deploy desta alternativa, suspende o job de deploy Jenkins que utiliza a mesma VM. Depois de configurar secrets, variables e runner, faz pushes de teste na development e na main e guarda as evidências do serviço GitHub. Cria também a issue da alternativa nessa fase, mantendo as publicações remotas suspensas enquanto decorre a validação local.
+Antes de demonstrar o deploy desta alternativa, suspende o job de deploy Jenkins que utiliza a mesma VM. O registo do runner exige acesso administrativo ao repositório. A conta atual tem permissão de push, mas a API de runners devolveu HTTP 403. O administrador terá de registar esse runner. A disponibilização da chave SSH exige nova autorização; não foi enviada para o GitHub.
+
+Enquanto a integração não for autorizada, mantém as alterações na `ca5-part2`. A execução real da main e a tag final ficam pendentes; não substituas a condição de deploy para fazer uma demonstração na branch de trabalho.
 
 ## 6. Limitações e reflexão
 
@@ -234,3 +245,5 @@ A alternativa está implementada como workflow executável, não apenas desenhad
 - [actionlint](https://github.com/rhysd/actionlint)
 - [Configuração da concorrência de upload no toolkit oficial](https://github.com/actions/toolkit/blob/main/packages/artifact/RELEASES.md)
 - [Problema de corrupção de artefactos no act](https://github.com/nektos/act/issues/2351)
+- [Microsoft 365: configuração SMTP e STARTTLS](https://learn.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365)
+- [Microsoft 365: OAuth SMTP e permissões](https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth)
