@@ -15,11 +15,12 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Dockerfile com Java 17, utilizador sem privilégios e health check | Validado: imagem construída, container `healthy`, API HTTP 200 e UID/GID 10001 |
 | VM de produção | Criada e validada por SSH: 1 GB, 1 CPU, IP `192.168.56.20` |
 | Provisionamento com Ansible | Validado na VM: Docker instalado e ativo |
-| Deploy com Ansible | Validado manualmente com uma imagem do Docker Hub; automatização Jenkins pendente |
-| Jenkins Multibranch e testes em paralelo | Pendentes |
-| Publicação automática no Docker Hub e deploy exclusivo na `main` pelo Jenkins | Pendentes |
-| Disparo automático, notificações e demonstração final | Pendentes |
-| Alternativa GitHub Actions | Planeada; implementação ainda não iniciada |
+| Deploy com Ansible | Validado manualmente e pelo Jenkins no laboratório local |
+| Jenkins Multibranch e testes em paralelo | Validados com refs locais `main` e `development` |
+| Publicação automática e deploy exclusivo na `main` | Validados com registo local; execução integrada contra GitHub/Docker Hub fica para a publicação |
+| Disparo automático | Poll SCM validado com commits na cópia local de teste |
+| Notificações | E-mails SMTP recebidos no Mailpit para SUCCESS, FAILURE e UNSTABLE |
+| Alternativa GitHub Actions | Workflow implementado; validação local documentada em `CA5/Alternative` |
 
 ## 2. Arquitetura prevista
 
@@ -148,25 +149,53 @@ O deploy foi repetido com a mesma tag e os IDs dos containers antes e depois for
 
 O container tem 512 MB de memória e o Java usa `-XX:MaxRAMPercentage=60.0`. Este perfil também foi validado localmente, incluindo o ambiente `production`.
 
-O controlo de acesso à produção por branch pertence ao Jenkinsfile, ainda pendente. Este deploy manual serve para validar a infraestrutura; não demonstra os requisitos de Multibranch ou de deploy automático exclusivo na `main`.
+O primeiro deploy manual validou a infraestrutura. A condição por branch foi depois implementada no Jenkinsfile e testada no laboratório local: a `main` fez deploy e a `development` publicou a sua imagem sem alterar a produção.
 
-## 7. Próximos blocos
+## 7. Executar o Jenkins Multibranch
 
-O Jenkinsfile ficará em `CA5/Part2/Jenkinsfile`. Configurarás um job Multibranch para usar esse caminho, reconhecer `main` e `development` e executar o deploy apenas na `main`. Antes da demonstração final, ambas as branches terão de conter este Jenkinsfile.
+Segue o [tutorial completo do Jenkins local](jenkins/README.md). A partir de `CA5/Part2`, arranca o ambiente:
+
+```powershell
+.\jenkins\start-local.ps1 -RefreshScm
+```
+
+Abre `http://localhost:18080/`. O projeto `ca5-local` reconhece as branches `main` e `development` de um repositório de teste em `.local/scm.git` e lê este Jenkinsfile. Os segredos são gerados localmente e guardados em ficheiros ignorados pelo Git ou no Jenkins Credentials.
+
+O laboratório foi criado para concluir os testes sem novas publicações no GitHub ou Docker Hub. Usa um registo autenticado em `localhost:15000`, ligado à VM por túnel SSH, e uma caixa SMTP Mailpit em `http://localhost:18025/`. As refs desse repositório de teste não alteram a `main` do grupo.
+
+O pipeline faz Checkout, Assemble, Test, Build and Tag Docker Image, Archive, Push Docker Image e Deploy. Os testes usam pastas distintas e as classes de main produzidas pelo Assemble. Os intervalos medidos confirmam que os dois comandos se sobrepõem. Os XML JUnit, relatórios HTML, Dockerfile e metadados ficam disponíveis no Jenkins.
+
+O stage Deploy contém `when { branch 'main' }`. Depois do deploy, a post-action executa uma verificação independente. A notificação em `cleanup` usa o resultado final, incluindo falhas de verificação.
+
+### 7.1. Disparo automático
+
+Foi adotado `pollSCM('H/2 * * * *')` como alternativa ao webhook, porque o Jenkins está ligado apenas à máquina local e não existe um endpoint público. Commits de teste na development local originaram builds com a causa `Started by an SCM change`, sem chamada manual ao endpoint de build.
+
+Foram demonstrados um teste unitário falhado (`UNSTABLE`), uma falha de construção Docker (`FAILURE`) e a recuperação (`SUCCESS`). As versões instáveis e falhadas não foram publicadas. O container de produção manteve o mesmo ID durante os cenários da development.
+
+### 7.2. Notificações e credenciais
 
 As credenciais do GitHub, Docker Hub, SSH e notificações ficam no Jenkins Credentials. Não as guardes nos ficheiros, nas evidências ou no histórico Git.
 
-As notificações serão por e-mail. A configuração SMTP, a credencial de envio e o destinatário ainda têm de ser definidos no Jenkins.
+As notificações são enviadas por Email Extension. No laboratório, o Mailpit recebeu os três resultados por SMTP e mantém os e-mails num volume persistente. Não há encaminhamento para destinatários externos. A entrega por SMTP real exige configurar o servidor, a credencial de envio e o destinatário na fase de publicação.
+
+### 7.3. O que fica para a publicação
+
+Depois de terminares a validação local, vais publicar a branch de trabalho e integrar o Jenkinsfile nas branches `main` e `development` do grupo. Configurarás o Multibranch com GitHub Branch Source, credencial de leitura do repositório privado e o caminho `CA5/Part2/Jenkinsfile`. O job externo usará Docker Hub e as credenciais reais, sem as substituições `CA5_*` do laboratório.
+
+A prova de pushes reais no GitHub a originarem os builds e a publicação automática no Docker Hub pertence a essa fase final. A tag `ca5-part2` será criada depois dessa revisão, não durante os testes locais.
 
 ## 8. Ambiente e problemas encontrados
 
 Na preparação de 12 de novembro de 2026 foram confirmados Java 17, Gradle Wrapper 8.8, Docker Desktop com engine Linux, Vagrant 2.4.9 e VirtualBox 7.2.18. A box `ubuntu/jammy64` versão `20241002.0.0` já está disponível localmente.
 
-O Docker Desktop estava parado e foi iniciado antes da construção da imagem. O WSL tinha apenas a distribuição interna `docker-desktop`. Para os testes de Ansible, foi criado um controlador Docker com Ansible Core 2.17.14 e `community.docker` 4.8.9, permitindo trabalhar a partir do Windows. O ambiente Jenkins ainda tem de ser preparado.
+O Docker Desktop estava parado e foi iniciado antes da construção da imagem. O WSL tinha apenas a distribuição interna `docker-desktop`. Para os primeiros testes de Ansible foi criado um controlador Docker com Ansible Core 2.17.14 e `community.docker` 4.8.9. O Jenkins foi depois instalado noutro container, com Java 21, Java 17 para Gradle e Ansible Core 2.19.4, compatível com Python 3.13 da sua base Debian 13. Os playbooks foram executados com sucesso nos dois controladores.
 
 O controlador Docker não alcançou diretamente o IP host-only da VM. O teste SSH passou através de `host.docker.internal:2222`, usando a porta encaminhada pelo Vagrant. Os testes locais substituem host e porta apenas na chamada Ansible; o inventário mantém `192.168.56.20`.
 
 A integração GitHub permitiu consultar issues, mas devolveu HTTP 403 ao tentar criar uma. A issue #21 foi criada com o GitHub CLI, usando a sessão já autenticada do utilizador.
+
+O primeiro build do Jenkins encontrou o destinatário vazio na criação inicial dos parâmetros. A resolução foi feita no Checkout, usando a configuração local disponível no contexto do nó antes de validar os valores. O Jenkinsfile foi validado pelo endpoint do próprio Jenkins e as execuções seguintes passaram. Os builds iniciais falhados continuam visíveis no histórico; as evidências identificam os builds usados na validação final.
 
 ## 9. Evidências
 
@@ -192,10 +221,51 @@ A integração GitHub permitiu consultar issues, mas devolveu HTTP 403 ao tentar
 | [16-ansible-redeploy.txt](evidence/16-ansible-redeploy.txt) | Substituição de um container já existente |
 | [17-ansible-verification.txt](evidence/17-ansible-verification.txt) | Verificação independente, com `changed=0` |
 | [18-production-external-check.txt](evidence/18-production-external-check.txt) | IDs diferentes, API acessível pelo host e ausência de credenciais temporárias |
+| [19-jenkins-success-main-2.txt](evidence/19-jenkins-success-main-2.txt) | Pipeline completo na main local, com deploy e verificação |
+| [20-jenkins-success-development-2.txt](evidence/20-jenkins-success-development-2.txt) | Pipeline na development local, sem deploy |
+| [21-jenkinsfile-validation.txt](evidence/21-jenkinsfile-validation.txt) | Validação declarativa pelo Jenkins |
+| [23-jenkins-unstable-email-development-4.txt](evidence/23-jenkins-unstable-email-development-4.txt) | Teste unitário deliberadamente falhado só na cópia local |
+| [24-jenkins-docker-failure-development-5.txt](evidence/24-jenkins-docker-failure-development-5.txt) | Falha Docker deliberada só na cópia local |
+| [25-jenkins-recovery-development-6.txt](evidence/25-jenkins-recovery-development-6.txt) | Recuperação depois de restaurar a cópia de teste |
+| [26-local-validation-summary.json](evidence/26-local-validation-summary.json) | Causas automáticas, paralelismo, e-mails e produção preservada |
 
-As evidências de execução no Jenkins, publicação e produção serão acrescentadas quando esses blocos forem validados.
+As variantes `.json`, `-stages.json`, `-build.json`, `-push.json` e `-timing.json` guardam os dados estruturados dos builds indicados.
 
-## 10. Referências
+Multibranch com as duas branches de teste:
+
+![Jenkins Multibranch local](evidence/28-jenkins-multibranch.png)
+
+Pipeline da main, incluindo Deploy e post-actions:
+
+![Stages da main no Jenkins](evidence/29-jenkins-main-stages.png)
+
+Relatório do teste deliberadamente falhado na development:
+
+![Relatório JUnit de falha controlada](evidence/30-jenkins-failed-test.png)
+
+Notificações recebidas por SMTP na caixa local:
+
+![Notificações locais no Mailpit](evidence/31-mailpit-notifications.png)
+
+## 10. Mapa de requisitos e limites da validação
+
+| Requisito | Implementação | Validação |
+|---|---|---|
+| VM Vagrant e provisionamento Ansible | `Vagrantfile`, `ansible/provision.yml` | VM criada e Docker ativo |
+| Multibranch com Jenkinsfile no repositório | `Jenkinsfile`, projeto `ca5-local` | Duas refs locais, checkout real por branch |
+| Disparo automático | Poll SCM a cada cerca de dois minutos | Commits locais detetados automaticamente |
+| Testes unitários e de integração paralelos | Stages Unit/Integration, stash e pastas isoladas | JUnit e intervalos sobrepostos |
+| Imagem com tag única | Branch, número do build e commit | Tags distintas no registo local |
+| Arquivo e rastreabilidade | Dockerfile, `build.json`, `push.json`, fingerprints | Artefactos consultáveis no Jenkins |
+| Publicação autenticada | Credentials e `ci/push-image.py` | Registo local; primeiro push manual Docker Hub também validado |
+| Deploy só na main | `when { branch 'main' }` | Main faz deploy; development preserva a produção |
+| Substituir container e verificar aplicação | `deploy.yml`, `verify.yml` e post-action | Imagem exata, UID/GID, healthy e UP |
+| Notificações de resultado | Email Extension e SMTP | SUCCESS, FAILURE e UNSTABLE recebidos no Mailpit |
+| Segredos fora do código | Credentials, secrets e configurações temporárias | Sem segredos versionados; limpeza validada |
+| Alternativa sem Jenkins | [GitHub Actions](../Alternative/README.md) | Implementação e emulação local documentadas |
+| Integração externa e tag final | Fase posterior à validação local | GitHub, SMTP real e execução final Docker Hub pendentes |
+
+## 11. Referências
 
 - Enunciado CA5, páginas 13–18: requisitos da Parte 2 e da alternativa; o PDF é fornecido pela disciplina e não está incluído no repositório.
 - [Dockerfile reference](https://docs.docker.com/reference/dockerfile/): `COPY`, `USER` e `HEALTHCHECK`.
