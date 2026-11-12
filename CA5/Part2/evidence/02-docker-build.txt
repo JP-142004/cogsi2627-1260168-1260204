@@ -1,0 +1,89 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 752B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-jammy
+#2 ...
+
+#3 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-jammy
+#2 DONE 1.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 165B 0.0s done
+#4 DONE 0.0s
+
+#5 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:aa6381384f8db99762fa7d0d3c2b5de58874e5f12c96df4c13a1455376ae0ed1
+#5 resolve docker.io/library/eclipse-temurin:17-jre-jammy@sha256:aa6381384f8db99762fa7d0d3c2b5de58874e5f12c96df4c13a1455376ae0ed1 0.0s done
+#5 DONE 0.1s
+
+#6 [internal] load build context
+#6 transferring context: 51.47MB 3.4s done
+#6 DONE 3.4s
+
+#5 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:aa6381384f8db99762fa7d0d3c2b5de58874e5f12c96df4c13a1455376ae0ed1
+#5 sha256:6ac294d992d3683d6b999756fd3db542ecb508657e7e7abe00f671b162e088fc 2.46kB / 2.46kB 0.2s done
+#5 sha256:07063e381e0effdbe22dfb9c5b4a76bfd6d4b2a78f851f48e098fb6b6ad12ae6 158B / 158B 0.3s done
+#5 sha256:5c66d3eb98ea40273b1de936626abc1b178cdb32e5c5d022abeb9269142b3543 47.62MB / 47.62MB 3.1s done
+#5 sha256:237d5f4a23aaa35362cd4f04790f05d22f384e34d0bd0fb88317b19fd15b0671 16.12MB / 16.12MB 1.4s done
+#5 sha256:02163de04dd1fb14a97b06804be3fbc51b564fa8744b8f97153744e0cba5de4c 30.07MB / 30.07MB 2.1s done
+#5 extracting sha256:02163de04dd1fb14a97b06804be3fbc51b564fa8744b8f97153744e0cba5de4c 0.4s done
+#5 extracting sha256:237d5f4a23aaa35362cd4f04790f05d22f384e34d0bd0fb88317b19fd15b0671 0.3s done
+#5 extracting sha256:5c66d3eb98ea40273b1de936626abc1b178cdb32e5c5d022abeb9269142b3543
+#5 extracting sha256:5c66d3eb98ea40273b1de936626abc1b178cdb32e5c5d022abeb9269142b3543 0.4s done
+#5 DONE 3.6s
+
+#5 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:aa6381384f8db99762fa7d0d3c2b5de58874e5f12c96df4c13a1455376ae0ed1
+#5 extracting sha256:07063e381e0effdbe22dfb9c5b4a76bfd6d4b2a78f851f48e098fb6b6ad12ae6 done
+#5 extracting sha256:6ac294d992d3683d6b999756fd3db542ecb508657e7e7abe00f671b162e088fc 0.0s done
+#5 DONE 3.6s
+
+#7 [2/4] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*     && groupadd --system --gid 10001 bookstore     && useradd --system --uid 10001 --gid bookstore --home-dir /app --no-create-home bookstore
+#7 0.331 Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+#7 0.378 Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+#7 0.609 Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+#7 0.681 Get:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+#7 0.749 Get:5 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+#7 0.798 Get:6 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+#7 0.801 Get:7 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [8,086 kB]
+#7 1.771 Get:8 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1,328 kB]
+#7 1.875 Get:9 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [96.7 kB]
+#7 1.882 Get:10 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [4,521 kB]
+#7 2.067 Get:11 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+#7 2.070 Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1,792 kB]
+#7 2.161 Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1,631 kB]
+#7 2.230 Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [104 kB]
+#7 2.237 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [4,847 kB]
+#7 2.584 Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [8,373 kB]
+#7 3.175 Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.6 kB]
+#7 3.177 Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [82.9 kB]
+#7 3.409 Fetched 49.5 MB in 3s (15.4 MB/s)
+#7 3.409 Reading package lists...
+#7 4.209 Reading package lists...
+#7 5.013 Building dependency tree...
+#7 5.197 Reading state information...
+#7 5.373 curl is already the newest version (7.81.0-1ubuntu1.30).
+#7 5.373 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#7 DONE 5.7s
+
+#8 [3/4] WORKDIR /app
+#8 DONE 0.0s
+
+#9 [4/4] COPY --chown=10001:10001 app/build/libs/app-1.0.0.jar /app/bookstore.jar
+#9 DONE 0.1s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.9s done
+#10 exporting manifest sha256:a46e324692b85faa9e91a89fa300621d41568594c52ec821273ed2958a59130c done
+#10 exporting config sha256:6bb6eb95c08715ff849b32f4fb3da9b87c2e0c1c26822f5c2fa433361405aa67 done
+#10 exporting attestation manifest sha256:47a59ab55781433b26b81218c174f3af801868180f3ff725c55b66849e01796a 0.0s done
+#10 exporting manifest list sha256:2568c56d5518cc92a7d55ad299cc57bf886f355e1da60fb648b20f319dc4443e 0.0s done
+#10 naming to docker.io/library/cogsi-ca5-bookstore:local done
+#10 unpacking to docker.io/library/cogsi-ca5-bookstore:local
+#10 unpacking to docker.io/library/cogsi-ca5-bookstore:local 1.3s done
+#10 DONE 2.3s
