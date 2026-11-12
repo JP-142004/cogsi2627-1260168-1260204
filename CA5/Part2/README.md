@@ -13,7 +13,7 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Branch e issue da Parte 2 | Criadas |
 | Bookstore, compilação e testes | Validados: 1 teste unitário e 2 de integração |
 | Dockerfile com Java 17, utilizador sem privilégios e health check | Validado: imagem construída, container `healthy`, API HTTP 200 e UID/GID 10001 |
-| VM de produção | Vagrantfile validado; criação e arranque pendentes |
+| VM de produção | Criada e validada por SSH: 1 GB, 1 CPU, IP `192.168.56.20` |
 | Provisionamento e deploy com Ansible | Pendentes |
 | Jenkins Multibranch e testes em paralelo | Pendentes |
 | Publicação no Docker Hub e deploy exclusivo na `main` | Pendentes |
@@ -111,7 +111,7 @@ A base de dados H2 é mantida em memória, dentro do mesmo container da aplicaç
 
 ## 5. Preparar a VM de produção
 
-O `Vagrantfile` define a VM `production`, com o nome `cogsi-ca5-prod`, IP `192.168.56.20`, 2 GB de RAM e 2 CPUs. Usas a mesma box da Parte 1, `ubuntu/jammy64` versão `20241002.0.0`, já disponível no host. A pasta partilhada `/vagrant` está desativada: o deploy vai obter a imagem do Docker Hub.
+O `Vagrantfile` define a VM `production`, com o nome `cogsi-ca5-prod`, IP `192.168.56.20`, 1 GB de RAM e 1 CPU. Usas a mesma box da Parte 1, `ubuntu/jammy64` versão `20241002.0.0`, já disponível no host. A pasta partilhada `/vagrant` está desativada: o deploy vai obter a imagem do Docker Hub.
 
 A partir de `CA5/Part2`, valida a configuração:
 
@@ -120,14 +120,16 @@ vagrant validate
 vagrant status
 ```
 
-Quando o host tiver memória livre suficiente, cria a VM e confirma o acesso:
+Cria a VM e confirma o acesso:
 
 ```powershell
 vagrant up production --provider virtualbox
 vagrant ssh production -c "hostname; ip -4 -brief address"
 ```
 
-Estes dois últimos comandos ainda não foram executados nesta etapa. A validação do ficheiro passou, mas o host tinha apenas cerca de 800 MB de RAM livre, pelo que a VM de 2 GB não foi arrancada. A evidência de estado mostra `not created`; não demonstra um deploy em produção.
+O primeiro registo de estado mostra `not created`, antes do arranque. Na preparação inicial, o host tinha cerca de 800 MB de RAM livre. Quando a memória disponível aumentou, a configuração foi ajustada para 1 GB. A tentativa com dois CPUs excedeu o tempo de espera pelo SSH; após desligar apenas esta VM e reduzir para um CPU, o arranque concluiu e o acesso SSH foi validado. A [evidência final](evidence/12-vagrant-running-ssh.txt) mostra `running`, o hostname, as interfaces e a memória da VM.
+
+O registo do VirtualBox indicou uso do modo NEM, com o hipervisor Windows presente. Esta observação não demonstra a causa do bloqueio. A configuração final com um CPU funcionou sem alterar funcionalidades de virtualização ou segurança do Windows.
 
 Para gerir apenas esta VM, usa `vagrant halt production` quando terminares e `vagrant up production` para retomar. As chaves geradas ficam em `.vagrant/`, ignorada pelo Git, e nunca devem entrar nas evidências.
 
@@ -156,6 +158,10 @@ A integração GitHub permitiu consultar issues, mas devolveu HTTP 403 ao tentar
 | [03-docker-runtime.txt](evidence/03-docker-runtime.txt) | Container saudável, API HTTP 200 e utilizador sem privilégios |
 | [04-vagrant-validate.txt](evidence/04-vagrant-validate.txt) | Validação sintática do Vagrantfile |
 | [05-vagrant-status.txt](evidence/05-vagrant-status.txt) | Estado inicial `not created`; VM ainda não arrancada |
+| [06-vagrant-up.txt](evidence/06-vagrant-up.txt) | Primeira tentativa com dois CPUs, terminada por timeout do SSH |
+| [06-production-boot.png](evidence/06-production-boot.png) | Consola da VM durante a primeira tentativa |
+| [10-vagrant-up-one-cpu.txt](evidence/10-vagrant-up-one-cpu.txt) | Arranque bem-sucedido com um CPU |
+| [12-vagrant-running-ssh.txt](evidence/12-vagrant-running-ssh.txt) | VM em execução, SSH, IP e memória |
 
 As evidências de execução no Jenkins, publicação e produção serão acrescentadas quando esses blocos forem validados.
 

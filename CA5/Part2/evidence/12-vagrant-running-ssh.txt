@@ -1,0 +1,15 @@
+Current machine states:
+
+production                running (virtualbox)
+
+The VM is running. To stop this VM, you can run `vagrant halt` to
+shut it down forcefully, or you can run `vagrant suspend` to simply
+suspend the virtual machine. In either case, to restart it again,
+simply run `vagrant up`.
+cogsi-ca5-prod
+lo               UNKNOWN        127.0.0.1/8
+enp0s3           UP             10.0.2.15/24 metric 100
+enp0s8           UP             192.168.56.20/24
+               total        used        free      shared  buff/cache   available
+Mem:             957         178         213           0         565         630
+Swap:              0           0           0
