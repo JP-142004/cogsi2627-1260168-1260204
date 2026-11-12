@@ -1,0 +1,19 @@
+# VM de produção da Parte 2. O deploy da imagem fica a cargo do Ansible.
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.box_version = "20241002.0.0"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.ssh.insert_key = true
+
+  config.vm.define "production", primary: true do |production|
+    production.vm.hostname = "cogsi-ca5-prod"
+    production.vm.network "private_network", ip: "192.168.56.20"
+
+    production.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca5-prod"
+      vb.memory = 2048
+      vb.cpus = 2
+      vb.gui = false
+    end
+  end
+end

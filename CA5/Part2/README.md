@@ -13,7 +13,8 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Branch e issue da Parte 2 | Criadas |
 | Bookstore, compilação e testes | Validados: 1 teste unitário e 2 de integração |
 | Dockerfile com Java 17, utilizador sem privilégios e health check | Validado: imagem construída, container `healthy`, API HTTP 200 e UID/GID 10001 |
-| VM de produção e Ansible | Pendentes |
+| VM de produção | Vagrantfile validado; criação e arranque pendentes |
+| Provisionamento e deploy com Ansible | Pendentes |
 | Jenkins Multibranch e testes em paralelo | Pendentes |
 | Publicação no Docker Hub e deploy exclusivo na `main` | Pendentes |
 | Disparo automático, notificações e demonstração final | Pendentes |
@@ -108,15 +109,37 @@ O `.dockerignore` permite apenas o JAR executável no contexto enviado ao Docker
 
 A base de dados H2 é mantida em memória, dentro do mesmo container da aplicação. Ao substituir o container, perdes os dados dessa instância; esta solução não oferece persistência de dados entre deploys.
 
-## 5. Próximos blocos
+## 5. Preparar a VM de produção
 
-Vais criar uma VM de produção com Vagrant, inicialmente em `192.168.56.20`, e validar o SSH. Depois vais implementar o playbook que instala Docker, autentica no Docker Hub, obtém a imagem pela tag, substitui o container e aguarda pelo health check.
+O `Vagrantfile` define a VM `production`, com o nome `cogsi-ca5-prod`, IP `192.168.56.20`, 2 GB de RAM e 2 CPUs. Usas a mesma box da Parte 1, `ubuntu/jammy64` versão `20241002.0.0`, já disponível no host. A pasta partilhada `/vagrant` está desativada: o deploy vai obter a imagem do Docker Hub.
+
+A partir de `CA5/Part2`, valida a configuração:
+
+```powershell
+vagrant validate
+vagrant status
+```
+
+Quando o host tiver memória livre suficiente, cria a VM e confirma o acesso:
+
+```powershell
+vagrant up production --provider virtualbox
+vagrant ssh production -c "hostname; ip -4 -brief address"
+```
+
+Estes dois últimos comandos ainda não foram executados nesta etapa. A validação do ficheiro passou, mas o host tinha apenas cerca de 800 MB de RAM livre, pelo que a VM de 2 GB não foi arrancada. A evidência de estado mostra `not created`; não demonstra um deploy em produção.
+
+Para gerir apenas esta VM, usa `vagrant halt production` quando terminares e `vagrant up production` para retomar. As chaves geradas ficam em `.vagrant/`, ignorada pelo Git, e nunca devem entrar nas evidências.
+
+## 6. Próximos blocos
+
+Depois de criares a VM e validares o SSH, vais implementar o playbook que instala Docker, autentica no Docker Hub, obtém a imagem pela tag, substitui o container e aguarda pelo health check.
 
 O Jenkinsfile ficará em `CA5/Part2/Jenkinsfile`. Configurarás um job Multibranch para usar esse caminho, reconhecer `main` e `development` e executar o deploy apenas na `main`. Antes da demonstração final, ambas as branches terão de conter este Jenkinsfile.
 
 As credenciais do GitHub, Docker Hub, SSH e notificações ficam no Jenkins Credentials. Não as guardes nos ficheiros, nas evidências ou no histórico Git.
 
-## 6. Ambiente e problemas encontrados
+## 7. Ambiente e problemas encontrados
 
 Na preparação de 12 de novembro de 2026 foram confirmados Java 17, Gradle Wrapper 8.8, Docker Desktop com engine Linux, Vagrant 2.4.9 e VirtualBox 7.2.18. A box `ubuntu/jammy64` versão `20241002.0.0` já está disponível localmente.
 
@@ -124,17 +147,19 @@ O Docker Desktop estava parado e foi iniciado antes da construção da imagem. O
 
 A integração GitHub permitiu consultar issues, mas devolveu HTTP 403 ao tentar criar uma. A issue #21 foi criada com o GitHub CLI, usando a sessão já autenticada do utilizador.
 
-## 7. Evidências
+## 8. Evidências
 
 | Ficheiro | Conteúdo |
 |---|---|
 | [01-gradle-build-tests.txt](evidence/01-gradle-build-tests.txt) | Compilação, teste unitário e testes de integração |
 | [02-docker-build.txt](evidence/02-docker-build.txt) | Construção da imagem Docker local |
 | [03-docker-runtime.txt](evidence/03-docker-runtime.txt) | Container saudável, API HTTP 200 e utilizador sem privilégios |
+| [04-vagrant-validate.txt](evidence/04-vagrant-validate.txt) | Validação sintática do Vagrantfile |
+| [05-vagrant-status.txt](evidence/05-vagrant-status.txt) | Estado inicial `not created`; VM ainda não arrancada |
 
 As evidências de execução no Jenkins, publicação e produção serão acrescentadas quando esses blocos forem validados.
 
-## 8. Referências
+## 9. Referências
 
 - Enunciado CA5, páginas 13–18: requisitos da Parte 2 e da alternativa; o PDF é fornecido pela disciplina e não está incluído no repositório.
 - [Dockerfile reference](https://docs.docker.com/reference/dockerfile/): `COPY`, `USER` e `HEALTHCHECK`.
