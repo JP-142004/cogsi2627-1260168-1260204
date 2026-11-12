@@ -1,0 +1,9 @@
+CA5 Part2 - confirmação externa depois do redeploy
+Container anterior: b353ead9da902ca97dd0a2abe331ffee302f808b872c73ea55094e2c537d68d9
+Container atual: 998699b680bb16cdd24ba6fdba0d5ed769b23f3be7a91fab6e70585c9ab8744f
+IDs diferentes: substituição confirmada.
+GET http://192.168.56.20:8080/actuator/health: HTTP 200
+{"status":"UP"}
+GET /info/details: HTTP 200, ambiente production
+Pastas ca5-docker-auth-* na VM: nenhuma.
+RESULTADO: PASSOU

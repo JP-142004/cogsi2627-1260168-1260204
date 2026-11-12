@@ -1,0 +1,33 @@
+---
+- name: Aguardar pelo estado healthy do container
+  community.docker.docker_container_info:
+    name: "{{ bookstore_container_name }}"
+  register: bookstore_container
+  until:
+    - bookstore_container.exists
+    - (bookstore_container.container.State.Health.Status | default('starting')) == 'healthy'
+  retries: 36
+  delay: 5
+
+- name: Confirmar a imagem exata e o utilizador sem privilégios
+  ansible.builtin.assert:
+    that:
+      - bookstore_container.container.Config.Image == image_reference
+      - bookstore_container.container.Config.User == '10001:10001'
+      - bookstore_container.container.State.Running
+    fail_msg: O container em execução não corresponde à imagem esperada.
+
+- name: Verificar o endpoint de saúde da aplicação
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ bookstore_port }}/actuator/health"
+    return_content: true
+    status_code: 200
+    timeout: 5
+  register: bookstore_health
+  until: (bookstore_health.json.status | default('DOWN')) == 'UP'
+  retries: 12
+  delay: 5
+
+- name: Registar a versão e a verificação concluída
+  ansible.builtin.debug:
+    msg: "Imagem {{ image_reference }} em execução, container healthy e aplicação UP."

@@ -1,0 +1,8 @@
+---
+- name: Validar o repositório e a tag concreta da imagem
+  ansible.builtin.assert:
+    that:
+      - image_repository is match('^[a-z0-9][a-z0-9._-]*/[a-z0-9][a-z0-9._/-]*$')
+      - image_tag is match('^[a-zA-Z0-9_][a-zA-Z0-9_.-]{0,127}$')
+      - image_tag != 'latest'
+    fail_msg: Define BOOKSTORE_IMAGE_REPOSITORY e BOOKSTORE_IMAGE_TAG com uma tag concreta do pipeline.

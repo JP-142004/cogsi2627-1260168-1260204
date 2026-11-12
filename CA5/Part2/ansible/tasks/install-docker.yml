@@ -1,0 +1,15 @@
+---
+- name: Instalar Docker e a biblioteca HTTP usada pelos módulos
+  ansible.builtin.apt:
+    name:
+      - docker.io
+      - python3-requests
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Garantir que o Docker arranca com a VM e está ativo
+  ansible.builtin.systemd_service:
+    name: docker
+    enabled: true
+    state: started

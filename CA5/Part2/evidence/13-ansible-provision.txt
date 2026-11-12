@@ -1,0 +1,11 @@
+
+PLAY [Preparar a VM de produção para executar containers] **********************
+
+TASK [Instalar Docker e a biblioteca HTTP usada pelos módulos] *****************
+changed: [cogsi-ca5-prod]
+
+TASK [Garantir que o Docker arranca com a VM e está ativo] *********************
+ok: [cogsi-ca5-prod]
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-prod             : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0

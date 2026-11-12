@@ -1,0 +1,53 @@
+Unable to find image 'python:3.12-slim' locally
+3.12-slim: Pulling from library/python
+37fb86c2a767: Pulling fs layer
+68bced9e0afa: Pulling fs layer
+05e0eee5572e: Pulling fs layer
+2dc99d2d0a39: Pulling fs layer
+68bced9e0afa: Download complete
+05e0eee5572e: Download complete
+e0a5f9afcd02: Download complete
+2dc99d2d0a39: Download complete
+f26199dfe4a6: Download complete
+37fb86c2a767: Download complete
+68bced9e0afa: Pull complete
+37fb86c2a767: Pull complete
+05e0eee5572e: Pull complete
+2dc99d2d0a39: Pull complete
+Digest: sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+Status: Downloaded newer image for python:3.12-slim
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-docker-4.8.9.tar.gz to /root/.ansible/tmp/ansible-local-10kmgmpvax/tmpmkf5md_0/community-docker-4.8.9-x7qffyhe
+Installing 'community.docker:4.8.9' to '/root/.ansible/collections/ansible_collections/community/docker'
+community.docker:4.8.9 was installed successfully
+Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-library_inventory_filtering_v1-1.1.5.tar.gz to /root/.ansible/tmp/ansible-local-10kmgmpvax/tmpmkf5md_0/community-library_inventory_filtering_v1-1.1.5-68g74_ab
+Installing 'community.library_inventory_filtering_v1:1.1.5' to '/root/.ansible/collections/ansible_collections/community/library_inventory_filtering_v1'
+community.library_inventory_filtering_v1:1.1.5 was installed successfully
+ansible [core 2.17.14]
+  config file = None
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.12/site-packages/ansible
+  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/local/bin/ansible
+  python version = 3.12.16 (main, Nov  5 2026, 07:58:20) [GCC 14.2.0] (/usr/local/bin/python3.12)
+  jinja version = 3.1.6
+  libyaml = True
+
+# /root/.ansible/collections/ansible_collections
+Collection                               Version
+---------------------------------------- -------
+community.docker                         4.8.9
+community.library_inventory_filtering_v1 1.1.5
+@all:
+  |--@ungrouped:
+  |--@production:
+  |  |--cogsi-ca5-prod
+
+playbook: provision.yml
+
+playbook: deploy.yml
+
+playbook: verify.yml

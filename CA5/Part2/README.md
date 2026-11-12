@@ -14,9 +14,10 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Bookstore, compilação e testes | Validados: 1 teste unitário e 2 de integração |
 | Dockerfile com Java 17, utilizador sem privilégios e health check | Validado: imagem construída, container `healthy`, API HTTP 200 e UID/GID 10001 |
 | VM de produção | Criada e validada por SSH: 1 GB, 1 CPU, IP `192.168.56.20` |
-| Provisionamento e deploy com Ansible | Pendentes |
+| Provisionamento com Ansible | Validado na VM: Docker instalado e ativo |
+| Deploy com Ansible | Validado manualmente com uma imagem do Docker Hub; automatização Jenkins pendente |
 | Jenkins Multibranch e testes em paralelo | Pendentes |
-| Publicação no Docker Hub e deploy exclusivo na `main` | Pendentes |
+| Publicação automática no Docker Hub e deploy exclusivo na `main` pelo Jenkins | Pendentes |
 | Disparo automático, notificações e demonstração final | Pendentes |
 | Alternativa GitHub Actions | Planeada; implementação ainda não iniciada |
 
@@ -133,23 +134,41 @@ O registo do VirtualBox indicou uso do modo NEM, com o hipervisor Windows presen
 
 Para gerir apenas esta VM, usa `vagrant halt production` quando terminares e `vagrant up production` para retomar. As chaves geradas ficam em `.vagrant/`, ignorada pelo Git, e nunca devem entrar nas evidências.
 
-## 6. Próximos blocos
+## 6. Provisionar e implantar com Ansible
 
-Depois de criares a VM e validares o SSH, vais implementar o playbook que instala Docker, autentica no Docker Hub, obtém a imagem pela tag, substitui o container e aguarda pelo health check.
+Os playbooks estão em `ansible/`. Segue o [tutorial do controlador e dos playbooks](ansible/README.md) para os executar num controlador Linux ou num container temporário a partir do Windows.
+
+O `provision.yml` instala e inicia Docker. O `deploy.yml` também garante esse provisionamento, valida a imagem pedida, autentica no Docker Hub, obtém a imagem antes de parar o container antigo, substitui-o e verifica a saúde da aplicação. O `verify.yml` permite repetir a verificação independentemente do deploy.
+
+A imagem de teste foi publicada em `luizbsilv/ca5-bookstore:manual-862cdab`, a partir da imagem construída e validada no primeiro commit da Parte 2. O digest publicado é `sha256:2568c56d5518cc92a7d55ad299cc57bf886f355e1da60fb648b20f319dc4443e`. O prefixo `manual` distingue esta validação da infraestrutura das imagens que serão produzidas pelo Jenkins.
+
+O primeiro deploy por Ansible autenticou no Docker Hub, obteve a imagem, iniciou o container e confirmou `healthy`, a imagem exata, UID/GID 10001 e HTTP 200 com `status: UP`. As credenciais de teste foram fornecidas em memória pela sessão existente do Docker Desktop; a pasta de autenticação temporária da VM foi removida após o pull. No pipeline, usarás o Jenkins Credentials.
+
+O deploy foi repetido com a mesma tag e os IDs dos containers antes e depois foram comparados: o container antigo foi efetivamente substituído. O playbook separado `verify.yml` passou com `changed=0`. A partir do Windows, a aplicação voltou a responder em `http://192.168.56.20:8080/actuator/health` com `UP`, o ambiente reportou `production` e não ficaram pastas temporárias de autenticação na VM.
+
+O container tem 512 MB de memória e o Java usa `-XX:MaxRAMPercentage=60.0`. Este perfil também foi validado localmente, incluindo o ambiente `production`.
+
+O controlo de acesso à produção por branch pertence ao Jenkinsfile, ainda pendente. Este deploy manual serve para validar a infraestrutura; não demonstra os requisitos de Multibranch ou de deploy automático exclusivo na `main`.
+
+## 7. Próximos blocos
 
 O Jenkinsfile ficará em `CA5/Part2/Jenkinsfile`. Configurarás um job Multibranch para usar esse caminho, reconhecer `main` e `development` e executar o deploy apenas na `main`. Antes da demonstração final, ambas as branches terão de conter este Jenkinsfile.
 
 As credenciais do GitHub, Docker Hub, SSH e notificações ficam no Jenkins Credentials. Não as guardes nos ficheiros, nas evidências ou no histórico Git.
 
-## 7. Ambiente e problemas encontrados
+As notificações serão por e-mail. A configuração SMTP, a credencial de envio e o destinatário ainda têm de ser definidos no Jenkins.
+
+## 8. Ambiente e problemas encontrados
 
 Na preparação de 12 de novembro de 2026 foram confirmados Java 17, Gradle Wrapper 8.8, Docker Desktop com engine Linux, Vagrant 2.4.9 e VirtualBox 7.2.18. A box `ubuntu/jammy64` versão `20241002.0.0` já está disponível localmente.
 
-O Docker Desktop estava parado e foi iniciado antes da construção da imagem. O WSL tinha apenas a distribuição interna `docker-desktop`; é necessário preparar uma distribuição Ubuntu para o Jenkins e o Ansible antes de executar o pipeline completo no ambiente previsto.
+O Docker Desktop estava parado e foi iniciado antes da construção da imagem. O WSL tinha apenas a distribuição interna `docker-desktop`. Para os testes de Ansible, foi criado um controlador Docker com Ansible Core 2.17.14 e `community.docker` 4.8.9, permitindo trabalhar a partir do Windows. O ambiente Jenkins ainda tem de ser preparado.
+
+O controlador Docker não alcançou diretamente o IP host-only da VM. O teste SSH passou através de `host.docker.internal:2222`, usando a porta encaminhada pelo Vagrant. Os testes locais substituem host e porta apenas na chamada Ansible; o inventário mantém `192.168.56.20`.
 
 A integração GitHub permitiu consultar issues, mas devolveu HTTP 403 ao tentar criar uma. A issue #21 foi criada com o GitHub CLI, usando a sessão já autenticada do utilizador.
 
-## 8. Evidências
+## 9. Evidências
 
 | Ficheiro | Conteúdo |
 |---|---|
@@ -160,12 +179,23 @@ A integração GitHub permitiu consultar issues, mas devolveu HTTP 403 ao tentar
 | [05-vagrant-status.txt](evidence/05-vagrant-status.txt) | Estado inicial `not created`; VM ainda não arrancada |
 | [06-vagrant-up.txt](evidence/06-vagrant-up.txt) | Primeira tentativa com dois CPUs, terminada por timeout do SSH |
 | [06-production-boot.png](evidence/06-production-boot.png) | Consola da VM durante a primeira tentativa |
+| [07-ansible-syntax.txt](evidence/07-ansible-syntax.txt) | Sintaxe dos três playbooks e versões do controlador |
+| [08-ansible-controller-build.txt](evidence/08-ansible-controller-build.txt) | Construção do controlador Ansible |
+| [09-ansible-invalid-inputs.txt](evidence/09-ansible-invalid-inputs.txt) | Rejeição de imagem ausente, `latest` e credenciais ausentes, sem alterações |
 | [10-vagrant-up-one-cpu.txt](evidence/10-vagrant-up-one-cpu.txt) | Arranque bem-sucedido com um CPU |
+| [11-docker-production-limits.txt](evidence/11-docker-production-limits.txt) | Container saudável com 512 MB e ambiente `production` |
 | [12-vagrant-running-ssh.txt](evidence/12-vagrant-running-ssh.txt) | VM em execução, SSH, IP e memória |
+| [13-ansible-provision.txt](evidence/13-ansible-provision.txt) | Instalação e arranque do Docker por Ansible |
+| [14-docker-hub-push.txt](evidence/14-docker-hub-push.txt) | Publicação manual da imagem e digest |
+| [14-image-metadata.json](evidence/14-image-metadata.json) | Origem manual, commit, imagem, digest, data e checksum do JAR |
+| [15-ansible-deploy.txt](evidence/15-ansible-deploy.txt) | Primeiro deploy por Ansible, com autenticação, pull e health check |
+| [16-ansible-redeploy.txt](evidence/16-ansible-redeploy.txt) | Substituição de um container já existente |
+| [17-ansible-verification.txt](evidence/17-ansible-verification.txt) | Verificação independente, com `changed=0` |
+| [18-production-external-check.txt](evidence/18-production-external-check.txt) | IDs diferentes, API acessível pelo host e ausência de credenciais temporárias |
 
 As evidências de execução no Jenkins, publicação e produção serão acrescentadas quando esses blocos forem validados.
 
-## 9. Referências
+## 10. Referências
 
 - Enunciado CA5, páginas 13–18: requisitos da Parte 2 e da alternativa; o PDF é fornecido pela disciplina e não está incluído no repositório.
 - [Dockerfile reference](https://docs.docker.com/reference/dockerfile/): `COPY`, `USER` e `HEALTHCHECK`.
