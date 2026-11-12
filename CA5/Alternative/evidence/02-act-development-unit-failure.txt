@@ -1,0 +1,377 @@
+time="2026-11-12T18:25:50Z" level=info msg="Using docker host 'npipe:////./pipe/docker_engine', and daemon socket '/var/run/docker.sock'"
+time="2026-11-12T18:25:50Z" level=info msg="Start server on http://192.168.1.239:34568"
+[CA5 Bookstore CI/CD/Assemble] ⭐ Run Set up job
+[CA5 Bookstore CI/CD/Assemble] 🚀  Start image=cogsi-ca5-actions-runner:local
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker pull image=cogsi-ca5-actions-runner:local platform= username= forcePull=false
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker create image=cogsi-ca5-actions-runner:local platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="cogsi-***_default"
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker run image=cogsi-ca5-actions-runner:local platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="cogsi-***_default"
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[CA5 Bookstore CI/CD/Assemble]   ✅  Success - Set up job
+[CA5 Bookstore CI/CD/Assemble]   ☁  git clone 'https://github.com/actions/setup-java' # ref=v5
+[CA5 Bookstore CI/CD/Assemble]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[CA5 Bookstore CI/CD/Assemble] ⭐ Run Main actions/checkout@v4
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-development\. dst=/mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development
+[CA5 Bookstore CI/CD/Assemble]   ✅  Success - Main actions/checkout@v4 [1.0419665s]
+[CA5 Bookstore CI/CD/Assemble] ⭐ Run Main actions/setup-java@v5
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-cache/actions-setup-java@v5/ dst=/var/run/act/actions/actions-setup-java@v5/
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-java@v5/dist/setup/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Assemble]   ❓  ::group::Installed distributions
+[CA5 Bookstore CI/CD/Assemble]   | Resolved Java 17.0.21+9 from tool-cache
+[CA5 Bookstore CI/CD/Assemble]   | Setting Java 17.0.21+9 as the default
+[CA5 Bookstore CI/CD/Assemble]   | Creating toolchains.xml for JDK version 17 from temurin
+[CA5 Bookstore CI/CD/Assemble]   | Writing to /root/.m2/toolchains.xml
+[CA5 Bookstore CI/CD/Assemble]   |
+[CA5 Bookstore CI/CD/Assemble]   | Java configuration:
+[CA5 Bookstore CI/CD/Assemble]   |   Distribution: temurin
+[CA5 Bookstore CI/CD/Assemble]   |   Version: 17.0.21+9
+[CA5 Bookstore CI/CD/Assemble]   |   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Assemble]   |
+[CA5 Bookstore CI/CD/Assemble]   ❓  ::endgroup::
+[CA5 Bookstore CI/CD/Assemble]   ❓ add-matcher /run/act/actions/actions-setup-java@v5/.github/java.json
+[CA5 Bookstore CI/CD/Assemble]   | Creating settings.xml with server-id: github
+[CA5 Bookstore CI/CD/Assemble]   | Writing to /root/.m2/settings.xml
+[CA5 Bookstore CI/CD/Assemble]   | Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+[CA5 Bookstore CI/CD/Assemble]   ✅  Success - Main actions/setup-java@v5 [9.3389659s]
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-env:: JAVA_HOME=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-env:: JAVA_HOME_17_X64=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-env:: MAVEN_ARGS=-ntp
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-output:: distribution=Temurin-Hotspot
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-output:: path=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-output:: version=17.0.21+9
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::add-path:: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64/bin
+[CA5 Bookstore CI/CD/Assemble] ⭐ Run Main Compilar e empacotar
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=CA5/Part2/bookstore
+[CA5 Bookstore CI/CD/Assemble]   | To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[CA5 Bookstore CI/CD/Assemble]   | Daemon will be stopped at the end of the build
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:clean UP-TO-DATE
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:compileJava
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:processResources
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:classes
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:resolveMainClassName
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:bootJar
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:bootStartScripts
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:bootDistTar
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:bootDistZip
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:jar
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:startScripts
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:distTar
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:distZip
+[CA5 Bookstore CI/CD/Assemble]   | > Task :app:assemble
+[CA5 Bookstore CI/CD/Assemble]   |
+[CA5 Bookstore CI/CD/Assemble]   | BUILD SUCCESSFUL in 10s
+[CA5 Bookstore CI/CD/Assemble]   | 12 actionable tasks: 11 executed, 1 up-to-date
+[CA5 Bookstore CI/CD/Assemble]   ✅  Success - Main Compilar e empacotar [10.9465947s]
+[CA5 Bookstore CI/CD/Assemble] ⭐ Run Main Preparar o mesmo JAR e classes para os jobs seguintes
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=
+[CA5 Bookstore CI/CD/Assemble]   ✅  Success - Main Preparar o mesmo JAR e classes para os jobs seguintes [1.3326941s]
+[CA5 Bookstore CI/CD/Assemble] ⭐ Run Main actions/upload-artifact@v4
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-cache/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Assemble]   | (node:232) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[CA5 Bookstore CI/CD/Assemble]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[CA5 Bookstore CI/CD/Assemble]   | With the provided path, there will be 1 file uploaded
+[CA5 Bookstore CI/CD/Assemble]   | Artifact name is valid!
+[CA5 Bookstore CI/CD/Assemble]   | Root directory input is valid!
+[CA5 Bookstore CI/CD/Assemble]   | Set concurrency based on the value set in ACTIONS_ARTIFACT_UPLOAD_CONCURRENCY.
+[CA5 Bookstore CI/CD/Assemble]   | Beginning upload of artifact content to blob storage
+[CA5 Bookstore CI/CD/Assemble]   | (node:232) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[CA5 Bookstore CI/CD/Assemble]   | Uploaded bytes 8388608
+[CA5 Bookstore CI/CD/Assemble]   | Uploaded bytes 16777216
+[CA5 Bookstore CI/CD/Assemble]   | Uploaded bytes 25165824
+[CA5 Bookstore CI/CD/Assemble]   | Uploaded bytes 33554432
+[CA5 Bookstore CI/CD/Assemble]   | Uploaded bytes 41943040
+[CA5 Bookstore CI/CD/Assemble]   | Uploaded bytes 46176392
+[CA5 Bookstore CI/CD/Assemble]   | Finished uploading artifact content to blob storage!
+[CA5 Bookstore CI/CD/Assemble]   | SHA256 digest of uploaded artifact zip is f1495a3350ae54c8a08a8039f6a0207910085de53ffb771952d919060f0bc58a
+[CA5 Bookstore CI/CD/Assemble]   | Finalizing artifact upload
+[CA5 Bookstore CI/CD/Assemble]   | Artifact prepared-app.zip successfully finalized. Artifact ID 1526013290
+[CA5 Bookstore CI/CD/Assemble]   | Artifact prepared-app has been successfully uploaded! Final size is 46176392 bytes. Artifact ID is 1526013290
+[CA5 Bookstore CI/CD/Assemble]   | Artifact download URL: https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/1794507939/artifacts/1526013290
+[CA5 Bookstore CI/CD/Assemble]   ✅  Success - Main actions/upload-artifact@v4 [3.8596338s]
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-output:: artifact-id=1526013290
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-output:: artifact-digest=f1495a3350ae54c8a08a8039f6a0207910085de53ffb771952d919060f0bc58a
+[CA5 Bookstore CI/CD/Assemble]   ⚙  ::set-output:: artifact-url=https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/1794507939/artifacts/1526013290
+[CA5 Bookstore CI/CD/Assemble] ⭐ Run Post actions/setup-java@v5
+[CA5 Bookstore CI/CD/Assemble]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-java@v5/dist/cleanup/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Assemble]   ✅  Success - Post actions/setup-java@v5 [159.7886ms]
+[CA5 Bookstore CI/CD/Assemble] ⭐ Run Complete job
+[CA5 Bookstore CI/CD/Assemble] Cleaning up container for job Assemble
+[CA5 Bookstore CI/CD/Assemble]   ✅  Success - Complete job
+[CA5 Bookstore CI/CD/Assemble] 🏁  Job succeeded
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Set up job
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Set up job
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] 🚀  Start image=cogsi-ca5-actions-runner:local
+[CA5 Bookstore CI/CD/Tests (test)-1           ] 🚀  Start image=cogsi-ca5-actions-runner:local
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker pull image=cogsi-ca5-actions-runner:local platform= username= forcePull=false
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker pull image=cogsi-ca5-actions-runner:local platform= username= forcePull=false
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker create image=cogsi-ca5-actions-runner:local platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="cogsi-***_default"
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker create image=cogsi-ca5-actions-runner:local platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="cogsi-***_default"
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker run image=cogsi-ca5-actions-runner:local platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="cogsi-***_default"
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker run image=cogsi-ca5-actions-runner:local platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="cogsi-***_default"
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Set up job
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Set up job
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ☁  git clone 'https://github.com/actions/setup-java' # ref=v5
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ☁  git clone 'https://github.com/actions/setup-java' # ref=v5
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[CA5 Bookstore CI/CD/Tests (test)-1           ] 🧪  Matrix: map[task:test]
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Main actions/checkout@v4
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-development\. dst=/mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Main actions/checkout@v4 [431.0043ms]
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Main actions/setup-java@v5
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-cache/actions-setup-java@v5/ dst=/var/run/act/actions/actions-setup-java@v5/
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] 🧪  Matrix: map[task:integrationTest]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Main actions/checkout@v4
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-development\. dst=/mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Main actions/checkout@v4 [597.7316ms]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Main actions/setup-java@v5
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-cache/actions-setup-java@v5/ dst=/var/run/act/actions/actions-setup-java@v5/
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-java@v5/dist/setup/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ❓  ::group::Installed distributions
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Resolved Java 17.0.21+9 from tool-cache
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Setting Java 17.0.21+9 as the default
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Creating toolchains.xml for JDK version 17 from temurin
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Writing to /root/.m2/toolchains.xml
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Java configuration:
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |   Distribution: temurin
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |   Version: 17.0.21+9
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ❓  ::endgroup::
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ❓ add-matcher /run/act/actions/actions-setup-java@v5/.github/java.json
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Creating settings.xml with server-id: github
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Writing to /root/.m2/settings.xml
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Main actions/setup-java@v5 [8.3095491s]
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-env:: JAVA_HOME=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-env:: JAVA_HOME_17_X64=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-env:: MAVEN_ARGS=-ntp
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-output:: path=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-output:: version=17.0.21+9
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-output:: distribution=Temurin-Hotspot
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::add-path:: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64/bin
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Main actions/download-artifact@v4
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-cache/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Downloading single artifact
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | (node:48) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Preparing to download the following artifacts:
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | - prepared-app (ID: 1526013290, Size: 0, Expected Digest: undefined)
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Redirecting to blob download url: http://192.168.1.239:34568/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Starting download of artifact to: /mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | (node:48) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-java@v5/dist/setup/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ❓  ::group::Installed distributions
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Resolved Java 17.0.21+9 from tool-cache
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Setting Java 17.0.21+9 as the default
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Creating toolchains.xml for JDK version 17 from temurin
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Writing to /root/.m2/toolchains.xml
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   |
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Java configuration:
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   |   Distribution: temurin
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   |   Version: 17.0.21+9
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   |   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   |
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ❓  ::endgroup::
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ❓ add-matcher /run/act/actions/actions-setup-java@v5/.github/java.json
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Creating settings.xml with server-id: github
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Writing to /root/.m2/settings.xml
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Main actions/setup-java@v5 [8.482404s]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-env:: JAVA_HOME=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-env:: JAVA_HOME_17_X64=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-env:: MAVEN_ARGS=-ntp
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-output:: distribution=Temurin-Hotspot
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-output:: path=/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-output:: version=17.0.21+9
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::add-path:: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64/bin
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Main actions/download-artifact@v4
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-cache/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | SHA256 digest of downloaded artifact is f1495a3350ae54c8a08a8039f6a0207910085de53ffb771952d919060f0bc58a
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Artifact download completed successfully.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Total of 1 artifact(s) downloaded
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Download artifact has finished successfully
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Main actions/download-artifact@v4 [5.4669548s]
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-output:: download-path=/mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Main Recuperar as classes compiladas
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Main Recuperar as classes compiladas [379.1524ms]
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Main Executar os testes
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/4] user= workdir=CA5/Part2/bookstore
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Downloading single artifact
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | (node:48) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Preparing to download the following artifacts:
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | - prepared-app (ID: 1526013290, Size: 0, Expected Digest: undefined)
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Redirecting to blob download url: http://192.168.1.239:34568/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Starting download of artifact to: /mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | (node:48) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Daemon will be stopped at the end of the build
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | SHA256 digest of downloaded artifact is f1495a3350ae54c8a08a8039f6a0207910085de53ffb771952d919060f0bc58a
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Artifact download completed successfully.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Total of 1 artifact(s) downloaded
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Download artifact has finished successfully
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Main actions/download-artifact@v4 [5.8866219s]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-output:: download-path=/mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Main Recuperar as classes compiladas
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Main Recuperar as classes compiladas [392.9843ms]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Main Executar os testes
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/4] user= workdir=CA5/Part2/bookstore
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | > Task :app:classes
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Daemon will be stopped at the end of the build
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | > Task :app:compileTestJava
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | > Task :app:processTestResources NO-SOURCE
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | > Task :app:testClasses
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | > Task :app:test FAILED
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | ClientTest > testClientNif() FAILED
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |     org.opentest4j.AssertionFailedError at ClientTest.java:18
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | 1 test completed, 1 failed
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | FAILURE: Build failed with an exception.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | * What went wrong:
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Execution failed for task ':app:test'.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | > There were failing tests. See the report at: file:///mnt/c/ISEP/COGSI/Reposit%C3%B3rio%20Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development/CA5/Part2/bookstore/app/build/reports/tests/test/index.html
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | * Try:
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | > Run with --scan to get full insights.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | BUILD FAILED in 7s
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | 2 actionable tasks: 2 executed
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ❌  Failure - Main Executar os testes [7.5906541s]
+[CA5 Bookstore CI/CD/Tests (test)-1           ] exitcode '1': failure
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Main Publicar resumo JUnit
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/5] user= workdir=
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | ### Resultados: test
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | | Testes | Falhas | Erros | Ignorados |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | |---:|---:|---:|---:|
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | | 1 | 1 | 0 | 0 |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   |
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Main Publicar resumo JUnit [137.862ms]
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  Summary - ### Resultados: test
+
+| Testes | Falhas | Erros | Ignorados |
+|---:|---:|---:|---:|
+| 1 | 1 | 0 | 0 |
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Main actions/upload-artifact@v4
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-cache/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | > Task :app:classes
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | (node:284) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Multiple search paths detected. Calculating the least common ancestor of all paths
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | The least common ancestor is /mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development/CA5/Part2/bookstore/app/build. This will be the root directory of the artifact
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | With the provided path, there will be 11 files uploaded
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Artifact name is valid!
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Root directory input is valid!
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Set concurrency based on the value set in ACTIONS_ARTIFACT_UPLOAD_CONCURRENCY.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Beginning upload of artifact content to blob storage
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | (node:284) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Uploaded bytes 8119
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Finished uploading artifact content to blob storage!
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | SHA256 digest of uploaded artifact zip is e2a7d15f2a9db0e6334c9effb2696d42e303ea9cd9292a084a634c8111399c38
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Finalizing artifact upload
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Artifact junit-test.zip successfully finalized. Artifact ID 2057135422
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Artifact junit-test has been successfully uploaded! Final size is 8119 bytes. Artifact ID is 2057135422
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   | Artifact download URL: https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/1794507939/artifacts/2057135422
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Main actions/upload-artifact@v4 [3.6765316s]
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-output:: artifact-id=2057135422
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-output:: artifact-digest=e2a7d15f2a9db0e6334c9effb2696d42e303ea9cd9292a084a634c8111399c38
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ⚙  ::set-output:: artifact-url=https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/1794507939/artifacts/2057135422
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Post actions/setup-java@v5
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-java@v5/dist/cleanup/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Post actions/setup-java@v5 [188.0356ms]
+[CA5 Bookstore CI/CD/Tests (test)-1           ] ⭐ Run Complete job
+[CA5 Bookstore CI/CD/Tests (test)-1           ] Cleaning up container for job Tests (test)
+[CA5 Bookstore CI/CD/Tests (test)-1           ]   ✅  Success - Complete job
+[CA5 Bookstore CI/CD/Tests (test)-1           ] 🏁  Job failed
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | > Task :app:compileIntegrationTestJava
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | > Task :app:processIntegrationTestResources NO-SOURCE
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | > Task :app:integrationTestClasses
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | 2026-11-12T18:27:06.821Z  INFO 236 --- [bookstore-api] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | 2026-11-12T18:27:06.822Z  INFO 236 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | 2026-11-12T18:27:06.825Z  INFO 236 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | > Task :app:integrationTest
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   |
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | BUILD SUCCESSFUL in 12s
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | 2 actionable tasks: 2 executed
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Main Executar os testes [13.1492028s]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Main Publicar resumo JUnit
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/5] user= workdir=
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | ### Resultados: integrationTest
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   |
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | | Testes | Falhas | Erros | Ignorados |
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | |---:|---:|---:|---:|
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | | 2 | 0 | 0 | 0 |
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   |
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Main Publicar resumo JUnit [139.6161ms]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  Summary - ### Resultados: integrationTest
+
+| Testes | Falhas | Erros | Ignorados |
+|---:|---:|---:|---:|
+| 2 | 0 | 0 | 0 |
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Main actions/upload-artifact@v4
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-cache/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | (node:328) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Multiple search paths detected. Calculating the least common ancestor of all paths
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | The least common ancestor is /mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development/CA5/Part2/bookstore/app/build. This will be the root directory of the artifact
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | With the provided path, there will be 11 files uploaded
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Artifact name is valid!
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Root directory input is valid!
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Set concurrency based on the value set in ACTIONS_ARTIFACT_UPLOAD_CONCURRENCY.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Beginning upload of artifact content to blob storage
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | (node:328) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Uploaded bytes 14382
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Finished uploading artifact content to blob storage!
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | SHA256 digest of uploaded artifact zip is 6db5927440f42498f7019b1ec1cdf6c6b183ee9ba5610651245f064b755d7157
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Finalizing artifact upload
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Artifact junit-integrationTest.zip successfully finalized. Artifact ID 4169443132
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Artifact junit-integrationTest has been successfully uploaded! Final size is 14382 bytes. Artifact ID is 4169443132
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   | Artifact download URL: https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/1794507939/artifacts/4169443132
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Main actions/upload-artifact@v4 [3.5408408s]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-output:: artifact-id=4169443132
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-output:: artifact-digest=6db5927440f42498f7019b1ec1cdf6c6b183ee9ba5610651245f064b755d7157
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ⚙  ::set-output:: artifact-url=https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/1794507939/artifacts/4169443132
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Post actions/setup-java@v5
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   🐳  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-java@v5/dist/cleanup/index.js] user= workdir=
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Post actions/setup-java@v5 [187.9038ms]
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] ⭐ Run Complete job
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] Cleaning up container for job Tests (integrationTest)
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2]   ✅  Success - Complete job
+[CA5 Bookstore CI/CD/Tests (integrationTest)-2] 🏁  Job failed
+[CA5 Bookstore CI/CD/Email notification           ] ⭐ Run Set up job
+[CA5 Bookstore CI/CD/Email notification           ] 🚀  Start image=cogsi-ca5-actions-runner:local
+[CA5 Bookstore CI/CD/Email notification           ]   🐳  docker pull image=cogsi-ca5-actions-runner:local platform= username= forcePull=false
+[CA5 Bookstore CI/CD/Email notification           ]   🐳  docker create image=cogsi-ca5-actions-runner:local platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="cogsi-***_default"
+[CA5 Bookstore CI/CD/Email notification           ]   🐳  docker run image=cogsi-ca5-actions-runner:local platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="cogsi-***_default"
+[CA5 Bookstore CI/CD/Email notification           ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[CA5 Bookstore CI/CD/Email notification           ]   ✅  Success - Set up job
+[CA5 Bookstore CI/CD/Email notification           ] ⭐ Run Main actions/checkout@v4
+[CA5 Bookstore CI/CD/Email notification           ]   🐳  docker cp src=C:\ISEP\COGSI\Repositório Projetos\cogsi2627-1260168-1260204\CA5\Part2\.local\actions-development\. dst=/mnt/c/ISEP/COGSI/Repositório Projetos/cogsi2627-1260168-1260204/CA5/Part2/.local/actions-development
+[CA5 Bookstore CI/CD/Email notification           ]   ✅  Success - Main actions/checkout@v4 [366.7539ms]
+[CA5 Bookstore CI/CD/Email notification           ] ⭐ Run Main Enviar o resultado final
+[CA5 Bookstore CI/CD/Email notification           ]   🐳  docker exec cmd=[bash -e /var/run/act/workflow/1] user= workdir=
+[CA5 Bookstore CI/CD/Email notification           ]   | Notificação SMTP enviada: FAILURE.
+[CA5 Bookstore CI/CD/Email notification           ]   ✅  Success - Main Enviar o resultado final [153.8435ms]
+[CA5 Bookstore CI/CD/Email notification           ] ⭐ Run Complete job
+[CA5 Bookstore CI/CD/Email notification           ] Cleaning up container for job Email notification
+[CA5 Bookstore CI/CD/Email notification           ]   ✅  Success - Complete job
+[CA5 Bookstore CI/CD/Email notification           ] 🏁  Job succeeded
+Error: Job 'Tests (${{ matrix.task }})' failed

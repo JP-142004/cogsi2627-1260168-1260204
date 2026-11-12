@@ -1,0 +1,195 @@
+name: CA5 Bookstore CI/CD
+
+on:
+  push:
+    branches: [main, development]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ca5-actions-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PART_DIR: CA5/Part2
+  APP_DIR: CA5/Part2/bookstore
+  BOOKSTORE_IMAGE_REPOSITORY: ${{ vars.CA5_IMAGE_REPOSITORY || 'luizbsilv/ca5-bookstore' }}
+  DOCKER_REGISTRY_URL: ${{ vars.CA5_REGISTRY_URL || 'https://index.docker.io/v1/' }}
+
+jobs:
+  assemble:
+    name: Assemble
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Compilar e empacotar
+        working-directory: CA5/Part2/bookstore
+        run: bash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" assemble
+      - name: Preparar o mesmo JAR e classes para os jobs seguintes
+        run: |
+          tar -czf prepared-app.tgz -C "$APP_DIR" \
+            app/build/classes/java/main app/build/resources/main app/build/libs/app-1.0.0.jar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prepared-app
+          path: prepared-app.tgz
+          compression-level: 0
+          retention-days: 7
+
+  tests:
+    name: Tests (${{ matrix.task }})
+    needs: assemble
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        task: [test, integrationTest]
+    env:
+      GRADLE_TASK: ${{ matrix.task }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/download-artifact@v4
+        with:
+          name: prepared-app
+      - name: Recuperar as classes compiladas
+        run: tar -xzf prepared-app.tgz -C "$APP_DIR"
+      - name: Executar os testes
+        working-directory: CA5/Part2/bookstore
+        run: bash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" "$GRADLE_TASK"
+      - name: Publicar resumo JUnit
+        if: always()
+        run: python3 "$PART_DIR/ci/test-summary.py" "$APP_DIR/app/build/test-results/$GRADLE_TASK"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-${{ matrix.task }}
+          path: |
+            ${{ env.APP_DIR }}/app/build/test-results/${{ matrix.task }}/
+            ${{ env.APP_DIR }}/app/build/reports/tests/${{ matrix.task }}/
+            ${{ env.APP_DIR }}/app/build/ci/
+          retention-days: 7
+          if-no-files-found: warn
+
+  image:
+    name: Build, archive and push image
+    needs: [assemble, tests]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      image: ${{ steps.identity.outputs.image }}
+      tag: ${{ steps.identity.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: prepared-app
+      - run: tar -xzf prepared-app.tgz -C "$APP_DIR"
+      - name: Identificar a imagem desta execução
+        id: identity
+        run: python3 "$PART_DIR/ci/prepare-actions-image.py"
+      - name: Construir a imagem
+        run: docker build --label "org.opencontainers.image.revision=$SOURCE_COMMIT" --tag "$IMAGE_REFERENCE" "$APP_DIR"
+      - name: Arquivar Dockerfile e metadados
+        run: python3 "$PART_DIR/ci/image-metadata.py"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-metadata
+          path: dist/
+          retention-days: 7
+      - name: Publicar a imagem
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: python3 "$PART_DIR/ci/push-image.py"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: published-image
+          path: dist/push.json
+          retention-days: 7
+
+  deploy:
+    name: Deploy and verify production
+    needs: image
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: [self-hosted, linux, ca5-production]
+    timeout-minutes: 15
+    concurrency:
+      group: ca5-production
+      cancel-in-progress: false
+    env:
+      BOOKSTORE_IMAGE_TAG: ${{ needs.image.outputs.tag }}
+      PRODUCTION_HOST: ${{ vars.CA5_PRODUCTION_HOST || '192.168.56.20' }}
+      PRODUCTION_SSH_PORT: ${{ vars.CA5_PRODUCTION_SSH_PORT || '22' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Preparar Ansible
+        run: |
+          python3 -m venv "$RUNNER_TEMP/ca5-ansible"
+          "$RUNNER_TEMP/ca5-ansible/bin/pip" install ansible-core==2.19.4
+          "$RUNNER_TEMP/ca5-ansible/bin/ansible-galaxy" collection install -r "$PART_DIR/ansible/requirements.yml"
+          echo "$RUNNER_TEMP/ca5-ansible/bin" >> "$GITHUB_PATH"
+      - name: Preparar a chave SSH temporária
+        env:
+          PRODUCTION_SSH_KEY: ${{ secrets.CA5_PRODUCTION_SSH_KEY }}
+        run: |
+          key="$RUNNER_TEMP/ca5-production-key"
+          umask 077
+          printf '%s\n' "$PRODUCTION_SSH_KEY" > "$key"
+          echo "SSH_KEY=$key" >> "$GITHUB_ENV"
+      - name: Deploy
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: bash "$PART_DIR/ci/deploy.sh" deploy
+      - name: Deployment Verification
+        run: bash "$PART_DIR/ci/deploy.sh" verify
+      - name: Remover a chave temporária
+        if: always()
+        run: |
+          if [ -n "${SSH_KEY:-}" ]; then rm -f -- "$SSH_KEY"; fi
+
+  notification:
+    name: Email notification
+    needs: [assemble, tests, image, deploy]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Enviar o resultado final
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          SMTP_HOST: ${{ vars.SMTP_HOST }}
+          SMTP_PORT: ${{ vars.SMTP_PORT || '587' }}
+          SMTP_STARTTLS: ${{ vars.SMTP_STARTTLS || 'true' }}
+          SMTP_SSL: ${{ vars.SMTP_SSL || 'false' }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_FROM: ${{ vars.NOTIFY_FROM }}
+          NOTIFY_TO: ${{ vars.NOTIFY_TO }}
+        run: python3 "$PART_DIR/ci/notify-email.py"

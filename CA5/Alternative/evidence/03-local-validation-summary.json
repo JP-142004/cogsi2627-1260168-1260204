@@ -1,0 +1,148 @@
+{
+  "scope": "act local; não é uma execução do serviço GitHub",
+  "cases": [
+    {
+      "case": "01-act-main",
+      "branch": "main",
+      "run_id": "1794506536",
+      "exit_code": 0,
+      "expected_failure": false,
+      "junit": {
+        "test": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "integrationTest": {
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "timings": {
+        "test": {
+          "task": "test",
+          "started_epoch": 1794506633.274948,
+          "finished_epoch": 1794506646.1476517,
+          "exit_code": 0
+        },
+        "integrationTest": {
+          "task": "integrationTest",
+          "started_epoch": 1794506629.0043821,
+          "finished_epoch": 1794506640.6364625,
+          "exit_code": 0
+        }
+      },
+      "timing_overlap_seconds": 7.362,
+      "jar_hash_matches_prepared_artifact": true,
+      "image": "localhost:15000/luizbsilv/ca5-bookstore:gha-main-1794506536-1-42772bc",
+      "production_changed": null,
+      "notifications": [
+        {
+          "subject": "CA5 SUCCESS: GitHub Actions #1",
+          "text": "Resultado: SUCCESS\r\nBranch: refs/heads/main\r\nCommit: 42772bc7a08602d0b373058655ee3627308aa958\r\nImagem: localhost:15000/luizbsilv/ca5-bookstore:gha-main-1794506536-1-42772bc\r\nExecução: Emulação local com act; consultar as evidências locais.\r\n",
+          "created": "2026-11-12T18:05:57.65Z"
+        }
+      ]
+    },
+    {
+      "case": "01-act-development",
+      "branch": "development",
+      "run_id": "1794507728",
+      "exit_code": 0,
+      "expected_failure": false,
+      "junit": {
+        "test": {
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "integrationTest": {
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "timings": {
+        "test": {
+          "task": "test",
+          "started_epoch": 1794507801.3907437,
+          "finished_epoch": 1794507808.6883533,
+          "exit_code": 0
+        },
+        "integrationTest": {
+          "task": "integrationTest",
+          "started_epoch": 1794507804.7429593,
+          "finished_epoch": 1794507819.0868754,
+          "exit_code": 0
+        }
+      },
+      "timing_overlap_seconds": 3.945,
+      "jar_hash_matches_prepared_artifact": true,
+      "image": "localhost:15000/luizbsilv/ca5-bookstore:gha-development-1794507728-1-24d9d53",
+      "production_changed": false,
+      "notifications": [
+        {
+          "subject": "CA5 SUCCESS: GitHub Actions #1",
+          "text": "Resultado: SUCCESS\r\nBranch: refs/heads/development\r\nCommit: 24d9d5346a075fb11a4f118ac958650fc9b7f972\r\nImagem: localhost:15000/luizbsilv/ca5-bookstore:gha-development-1794507728-1-24d9d53\r\nExecução: Emulação local com act; consultar as evidências locais.\r\n",
+          "created": "2026-11-12T18:24:14.236Z"
+        }
+      ]
+    },
+    {
+      "case": "02-act-development-unit-failure",
+      "branch": "development",
+      "run_id": "1794507939",
+      "exit_code": 1,
+      "expected_failure": true,
+      "junit": {
+        "test": {
+          "tests": 1,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        },
+        "integrationTest": {
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "timings": {
+        "test": {
+          "task": "test",
+          "started_epoch": 1794508009.4551115,
+          "finished_epoch": 1794508016.8965614,
+          "exit_code": 1
+        },
+        "integrationTest": {
+          "task": "integrationTest",
+          "started_epoch": 1794508014.3070843,
+          "finished_epoch": 1794508027.2566502,
+          "exit_code": 0
+        }
+      },
+      "timing_overlap_seconds": 2.589,
+      "jar_hash_matches_prepared_artifact": null,
+      "image": null,
+      "production_changed": false,
+      "notifications": [
+        {
+          "subject": "CA5 FAILURE: GitHub Actions #1",
+          "text": "Resultado: FAILURE\r\nBranch: refs/heads/development\r\nCommit: ce07ef0b9eb7ab9d04bcd1ad2d389cccd3e81a6c\r\nImagem: não construída\r\nExecução: Emulação local com act; consultar as evidências locais.\r\n",
+          "created": "2026-11-12T18:30:56.857Z"
+        },
+        {
+          "subject": "CA5 FAILURE: GitHub Actions #1",
+          "text": "Resultado: FAILURE\r\nBranch: refs/heads/development\r\nCommit: ce07ef0b9eb7ab9d04bcd1ad2d389cccd3e81a6c\r\nImagem: ${{ steps.identity.outputs.image }}\r\nExecução: Emulação local com act; consultar as evidências locais.\r\n",
+          "created": "2026-11-12T18:27:13.015Z"
+        }
+      ]
+    }
+  ]
+}

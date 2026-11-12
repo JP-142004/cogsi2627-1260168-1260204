@@ -1,0 +1,11 @@
+{
+  "provider": "act-local-emulation",
+  "branch": "main",
+  "commit": "42772bc7a08602d0b373058655ee3627308aa958",
+  "run_id": "1794506536",
+  "exit_code": 0,
+  "finished_utc": "2026-11-12T18:05:57.965019+00:00",
+  "registry": "http://localhost:15000",
+  "github_writes": false,
+  "concurrent_jobs_in_emulation": 1
+}

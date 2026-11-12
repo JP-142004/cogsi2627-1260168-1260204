@@ -1,0 +1,11 @@
+{
+  "provider": "github-actions",
+  "image": "localhost:15000/luizbsilv/ca5-bookstore:gha-main-1794506536-1-42772bc",
+  "image_id": "sha256:575c67d102c19c4d4633fc6459740b868eb5b6c331ba77e9d870c408d3290f9e",
+  "tag": "gha-main-1794506536-1-42772bc",
+  "commit": "42772bc7a08602d0b373058655ee3627308aa958",
+  "branch": "main",
+  "build": "1.1",
+  "created_utc": "2026-11-12T18:04:30.188854+00:00",
+  "jar_sha256": "23b894481240ed16cdb2676646f09771b3be533863380cc8b18c7c0cccfddf0d"
+}

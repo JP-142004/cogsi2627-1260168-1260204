@@ -1,0 +1,6 @@
+{
+  "image": "localhost:15000/luizbsilv/ca5-bookstore:gha-development-1794507728-1-24d9d53",
+  "repo_digests": [
+    "localhost:15000/luizbsilv/ca5-bookstore@sha256:5a7640fd5cf0ec6e0adf28fcff84ed54a6639c9b500639292c8cb177b40740f6"
+  ]
+}
