@@ -34,13 +34,13 @@ O relatório da alternativa identifica explicitamente as diferenças de estados,
 |---|---|
 | Parte 1 e tag `ca5-part1` | Integradas na main |
 | Parte 2 — aplicação, Docker, VM e Ansible | Implementados e validados |
-| Parte 2 — Jenkins Multibranch | Validado localmente e contra a branch real do GitHub, com publicação Docker Hub |
-| Alternativa GitHub Actions | Compilação, testes, artefactos e Docker Hub aprovados; notificação repetida com Gmail em 22/11/2026 passou e foi recebida no ISEP |
-| Publicação das novas alterações no GitHub | Autorizada exclusivamente na branch `ca5-part2`; main sem alterações |
-| Prova dos eventos GitHub e execução externa final | Push na ca5-part2 demonstrado; main e deploy externo ficam para depois da integração |
+| Parte 2 — Jenkins Multibranch | Main/development reais validadas, testes paralelos, Docker Hub e deploy/verificação apenas na main |
+| Alternativa GitHub Actions | Main/development reais aprovadas; artefactos e digest verificados; deploy main concluído |
+| Publicação das novas alterações no GitHub | Integradas na main pelo PR #23; branch development criada e validada |
+| Prova dos eventos GitHub e execução externa final | Pushes reais e Poll SCM demonstrados; deploys Actions e Jenkins realizados em sequência |
 | SMTP para destinatário externo | Actions e Jenkins: envio Gmail aprovado e receção ISEP confirmada, incluindo a execução real Jenkins #6. Mailpit preservado no laboratório |
-| Runner GitHub Actions de produção | Registado como ca5-production-local; Idle/Online e etiqueta confirmados; acesso SSH à VM aprovado; sem job de deploy executado nesta etapa |
-| Tag final `ca5-part2` | A criar depois da revisão e validação externas |
+| Runner GitHub Actions de produção | Executou o deploy main com sucesso e terminou; novo deploy exige novo registo, com chave SSH sempre local |
+| Tag final `ca5-part2` | Identifica o commit final após a revisão e validação externas |
 
 ## 5. Autoavaliação e contribuição
 

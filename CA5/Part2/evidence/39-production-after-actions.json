@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-11-22T16:04:43.176901+00:00",
+  "container_id": "40f76481cd2b1f0331e7b7b8ae9fedefa736c7ac88f34e12c54a71180906c9e7",
+  "image": "luizbsilv/ca5-bookstore:gha-main-45041352249-1-34c75f8",
+  "user": "10001:10001",
+  "running": true,
+  "docker_health": "healthy",
+  "http_health": {
+    "status": "UP"
+  }
+}

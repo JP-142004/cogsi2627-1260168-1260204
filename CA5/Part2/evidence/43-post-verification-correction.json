@@ -1,0 +1,17 @@
+{
+  "checked_on": "2026-11-22",
+  "initial_build": "ca5-github/main #1",
+  "initial_result": "SUCCESS",
+  "initial_limitation": "Deploy verified health internally, but the independent post verification was skipped: declarative environment DEPLOYED=false overrode imperative updates.",
+  "correction_commit": "4dbe8ce249b7758f797c068529ed1006bb0b12b9",
+  "correction": "Initialize mutable env.DEPLOYED in Checkout instead of the declarative environment block.",
+  "validated_build": "ca5-github/main #2",
+  "trigger": "Started by an SCM change",
+  "result": "SUCCESS",
+  "deploy_and_independent_post_verification_completed": true,
+  "post_verification_changed": 0,
+  "post_verification_failed": 0,
+  "validation_evidence": "44-jenkins-github-main-2-validation.json",
+  "external_health_evidence": "45-production-after-jenkins-verified.json",
+  "actions_coordination": "Actions main deployment completed before enabling Jenkins main. The Jenkins-only fix commit contains [skip actions]."
+}

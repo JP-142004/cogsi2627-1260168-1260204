@@ -2,11 +2,11 @@
 
 Neste tutorial vais criar um pipeline Jenkins que compila a Bookstore, executa os testes unitários e de integração em paralelo, constrói uma imagem Docker e publica-a no Docker Hub. Na branch `main`, o pipeline vai implantar essa imagem numa VM de produção criada com Vagrant, usando Ansible, e verificar a saúde da aplicação.
 
-O trabalho decorre na branch `ca5-part2` e está associado à [issue #21](https://github.com/JP-142004/cogsi2627-1260168-1260204/issues/21). A base é a Parte 1, integrada na `main` pelo commit `f020c07`. A alternativa ao Jenkins foi implementada com GitHub Actions e está documentada em [CA5/Alternative](../Alternative/README.md).
+O trabalho foi desenvolvido na branch `ca5-part2`, associado à [issue #21](https://github.com/JP-142004/cogsi2627-1260168-1260204/issues/21), e integrado na main pelo PR #23. A base é a Parte 1, integrada na `main` pelo commit `f020c07`. A alternativa ao Jenkins foi implementada com GitHub Actions e está documentada em [CA5/Alternative](../Alternative/README.md).
 
 ## 1. Estado da implementação
 
-Este README acompanha a implementação. Só os passos identificados como validados têm evidências de execução; as etapas pendentes descrevem trabalho a realizar.
+Este README distingue a preparação local das execuções reais no GitHub, com evidências dos testes, publicações e deploys.
 
 | Bloco | Estado |
 |---|---|
@@ -15,12 +15,12 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Dockerfile com Java 17, utilizador sem privilégios e health check | Validado: imagem construída, container `healthy`, API HTTP 200 e UID/GID 10001 |
 | VM de produção | Criada e validada por SSH: 1 GB, 1 CPU, IP `192.168.56.20` |
 | Provisionamento com Ansible | Validado na VM: Docker instalado e ativo |
-| Deploy com Ansible | Validado manualmente e pelo Jenkins no laboratório local |
-| Jenkins Multibranch e testes em paralelo | Validados com refs locais `main`/`development` e com a ca5-part2 real do GitHub |
-| Publicação automática e deploy exclusivo na `main` | Publicação Docker Hub validada pelo Jenkins e Actions na branch; deploy main validado no laboratório, integração na main ainda não autorizada |
-| Disparo automático | Poll SCM validado com commits locais e push real na ca5-part2 do GitHub |
+| Deploy com Ansible | Validado manualmente, localmente e nos pipelines reais Jenkins e Actions |
+| Jenkins Multibranch e testes em paralelo | Validados com main/development reais do GitHub, JUnit e intervalos sobrepostos |
+| Publicação automática e deploy exclusivo na `main` | Docker Hub e deploy main validados nas duas ferramentas; development ignora o deploy |
+| Disparo automático | Poll SCM validado com pushes reais main/development; Actions disparado por push |
 | Notificações | Gmail validado e recebido no ISEP em ambos os pipelines, incluindo Jenkins #6; SUCCESS, FAILURE e UNSTABLE também validados no Mailpit do laboratório |
-| Alternativa GitHub Actions | Build, testes e publicação aprovados; notificação repetida com Gmail em 22/11/2026 passou e foi recebida no ISEP |
+| Alternativa GitHub Actions | Main/development reais aprovadas, incluindo deploy main no runner efémero e SMTP |
 
 ## 2. Arquitetura prevista
 
@@ -183,11 +183,17 @@ Em 22/11/2026 foi adicionada uma conta Gmail própria para os avisos externos do
 
 A execução real `ca5-github/ca5-part2 #6` também terminou SUCCESS e o utilizador confirmou a receção do seu aviso no ISEP. Foram verificados o remetente e destinatário usados pelo pipeline, a conta adicional Gmail, STARTTLS e a preservação do Mailpit. O deploy permaneceu ignorado nesta branch.
 
-### 7.3. O que fica para a publicação
+### 7.3. Integração e validação finais
 
-Foi autorizada a publicação exclusivamente na `ca5-part2`, mantendo a main sem alterações. O projeto Jenkins `ca5-github` obtém o código dessa branch do repositório público e usa o caminho `CA5/Part2/Jenkinsfile`, com credencial Docker Hub limitada ao projeto. O primeiro build terminou SUCCESS e publicou a imagem; o deploy foi ignorado. A integração posterior nas branches main/development exige autorização e validação próprias.
+A publicação começou na `ca5-part2` e a integração posterior foi autorizada. O [PR #23](https://github.com/JP-142004/cogsi2627-1260168-1260204/pull/23) integrou a Parte 2 e a alternativa na main. Foi criada a branch real development e o projeto Jenkins `ca5-github` passou a descobrir main e development, usando `CA5/Part2/Jenkinsfile` e a credencial Docker Hub limitada ao projeto.
 
-A execução real de push no Actions e a publicação automática Docker Hub estão documentadas na alternativa. A main e o deploy integrado continuam para a fase posterior. A tag `ca5-part2` será criada depois da revisão e validação finais.
+O build `ca5-github/development #2` foi iniciado por `Started by an SCM change`, aprovou os três testes, publicou a imagem e ignorou o Deploy. Os comandos Unit/Integration sobrepuseram-se durante 10,45 segundos: [validação e digest](evidence/40-jenkins-github-poll-development-2-validation.json).
+
+Na main, a auditoria do primeiro build encontrou uma limitação: o Deploy passou, mas a verificação independente em post foi ignorada porque `DEPLOYED` estava declarado num bloco environment e a alteração imperativa não o substituía. O estado passou a ser inicializado no Checkout. O build `ca5-github/main #2`, iniciado automaticamente por Poll SCM, validou a correção, incluindo deploy e segunda verificação Ansible em post: [validação final](evidence/44-jenkins-github-main-2-validation.json). O primeiro resultado foi preservado na evidência 41, sem o apresentar como prova da verificação independente. A [verificação a partir do Windows](evidence/45-production-after-jenkins-verified.json) confirmou a imagem exata, utilizador sem privilégios, container healthy e aplicação UP.
+
+O Actions também executou a main real com sucesso: [45041352249](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041352249). Foram validados testes, artefactos, digest Docker Hub, deploy no runner local, verificação independente, limpeza da chave temporária e SMTP. O deploy Actions terminou antes de ativar a main no Jenkins. O runner efémero terminou depois do seu único job; para repetir o Actions é necessário registá-lo novamente. O Jenkins fica como ferramenta ativa de deploy nesta VM. O commit da correção exclusiva Jenkins usa `[skip actions]` para manter essa sequência.
+
+Os e-mails destas execuções foram enviados sem erro; as confirmações pessoais de receção anteriores foram preservadas, sem assumir uma nova confirmação para cada build. A entrega usa a tag `ca5-part2`, criada depois da validação do commit final. A autoavaliação mantém 50% para cada membro no [README geral](../README.md).
 
 ## 8. Ambiente e problemas encontrados
 
@@ -238,6 +244,10 @@ O primeiro build do Jenkins encontrou o destinatário vazio na criação inicial
 | [35-jenkins-gmail-test.json](evidence/35-jenkins-gmail-test.json) | Teste Gmail isolado no Jenkins, com receção ISEP confirmada pelo utilizador |
 | [36-jenkins-gmail-pipeline-ca5-part2-6.json](evidence/36-jenkins-gmail-pipeline-ca5-part2-6.json) | Pipeline completo SUCCESS com notificação Gmail e deploy ignorado |
 | [37-jenkins-gmail-configuration.json](evidence/37-jenkins-gmail-configuration.json) | Conta e destinatário efetivos, referência à credencial e receção confirmada |
+| [39-production-after-actions.json](evidence/39-production-after-actions.json) | Imagem Actions real, container healthy e endpoint UP |
+| [40-jenkins-github-poll-development-2-validation.json](evidence/40-jenkins-github-poll-development-2-validation.json) | Push real detetado por Poll SCM, três testes e deploy ignorado |
+| [44-jenkins-github-main-2-validation.json](evidence/44-jenkins-github-main-2-validation.json) | Main real, Poll SCM, testes paralelos, digest e deploy com verificação independente |
+| [45-production-after-jenkins-verified.json](evidence/45-production-after-jenkins-verified.json) | Verificação externa da imagem implantada pelo Jenkins corrigido |
 
 As variantes `.json`, `-stages.json`, `-build.json`, `-push.json` e `-timing.json` guardam os dados estruturados dos builds indicados.
 
@@ -263,17 +273,17 @@ Notificações recebidas por SMTP na caixa local:
 |---|---|---|
 | VM Vagrant e provisionamento Ansible | `Vagrantfile`, `ansible/provision.yml` | VM criada e Docker ativo |
 | Multibranch com Jenkinsfile no repositório | `Jenkinsfile`, projeto `ca5-local` | Duas refs locais, checkout real por branch |
-| Disparo automático | Poll SCM a cada cerca de dois minutos | Commits locais detetados automaticamente |
+| Disparo automático | Poll SCM a cada cerca de dois minutos | Pushes reais main/development detetados automaticamente |
 | Testes unitários e de integração paralelos | Stages Unit/Integration, stash e pastas isoladas | JUnit e intervalos sobrepostos |
-| Imagem com tag única | Branch, número do build e commit | Tags distintas no registo local |
+| Imagem com tag única | Branch, número do build e commit | Tags distintas no registo local e Docker Hub |
 | Arquivo e rastreabilidade | Dockerfile, `build.json`, `push.json`, fingerprints | Artefactos consultáveis no Jenkins |
-| Publicação autenticada | Credentials e `ci/push-image.py` | Registo local; primeiro push manual Docker Hub também validado |
+| Publicação autenticada | Credentials e `ci/push-image.py` | Publicações automáticas Docker Hub e digests verificados |
 | Deploy só na main | `when { branch 'main' }` | Main faz deploy; development preserva a produção |
 | Substituir container e verificar aplicação | `deploy.yml`, `verify.yml` e post-action | Imagem exata, UID/GID, healthy e UP |
-| Notificações de resultado | Email Extension e SMTP | SUCCESS, FAILURE e UNSTABLE recebidos no Mailpit |
+| Notificações de resultado | Email Extension e SMTP | Estados locais no Mailpit; envio Gmail e receção externa confirmados |
 | Segredos fora do código | Credentials, secrets e configurações temporárias | Sem segredos versionados; limpeza validada |
-| Alternativa sem Jenkins | [GitHub Actions](../Alternative/README.md) | Implementação e emulação local documentadas |
-| Integração externa e tag final | Branch publicada, Docker Hub e Gmail validados; runner registado e SSH aprovado | Integração main/development, deploy final e tag pendentes |
+| Alternativa sem Jenkins | [GitHub Actions](../Alternative/README.md) | Emulação e execuções reais main/development, incluindo deploy |
+| Integração externa e tag final | PR #23; main/development validadas | Entrega identificada pela tag ca5-part2 após validação final |
 
 ## 11. Referências
 

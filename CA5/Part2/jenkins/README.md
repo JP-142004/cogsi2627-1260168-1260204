@@ -131,7 +131,7 @@ Os [dados do build](../evidence/36-jenkins-gmail-pipeline-ca5-part2-6.json) e os
 | `PRODUCTION_SSH_PORT` | `22` | Porta NAT descoberta pelo Vagrant |
 | `EMAIL_RECIPIENT` | Configurar o destinatário real | `luiz@ca5.local`, só para captura |
 
-As variáveis `CA5_*` do Compose fornecem os ajustes exclusivamente ao projeto `ca5-local`. O Jenkinsfile exige que esse projeto, no modo `CA5_LOCAL_LAB=true`, use o registo loopback. Outros projetos usam os parâmetros normais, permitindo validar `ca5-github` contra o GitHub e Docker Hub sem herdar os ajustes locais.
+Os ajustes de imagem, registo e destinatário do laboratório aplicam-se exclusivamente a `ca5-local`. O Jenkinsfile exige que esse projeto, no modo `CA5_LOCAL_LAB=true`, use o registo loopback. Outros projetos usam Docker Hub e Gmail. O endereço e a porta SSH do Compose também podem ser usados como recurso pelo projeto externo, quando os parâmetros estão vazios, porque ambos precisam do mesmo encaminhamento NAT para chegar à VM a partir do Docker Desktop.
 
 | ID no Jenkins Credentials | Tipo | Conteúdo |
 |---|---|---|
@@ -222,8 +222,6 @@ O build `ca5-github/ca5-part2 #1` terminou SUCCESS, com checkout do commit `2638
 
 O build `#2`, no commit `acbc0c6`, foi iniciado automaticamente por Poll SCM depois do push real. Terminou SUCCESS e preservou a produção. A causa `Started by an SCM change` está em [33-jenkins-github-poll-ca5-part2-2.json](../evidence/33-jenkins-github-poll-ca5-part2-2.json).
 
-## 9. Referências
-
 ### Integração nas branches do grupo
 
 Depois de integrar o código no GitHub e concluir o deploy Actions, configurar o Multibranch real:
@@ -239,6 +237,16 @@ As duas ferramentas partilham a VM: concluir a execução de uma antes de ativar
 ### Push real na development
 
 A [execução Actions 45041034720](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041034720) validou a branch real `development`: um teste unitário e dois de integração aprovados, artefactos verificados, imagem publicada no Docker Hub e notificação SMTP aceite. O deploy foi ignorado. O projeto Jenkins foi depois configurado para descobrir esta branch; este avanço de documentação permite observar a deteção automática por Poll SCM, sem mudar a aplicação.
+
+O Jenkins detetou esse push automaticamente: `ca5-github/development #2` terminou SUCCESS com causa `Started by an SCM change`, três testes aprovados e sobreposição dos comandos de teste de 10,45 segundos. A imagem `luizbsilv/ca5-bookstore:jenkins-development-2-7a82817` foi publicada e o Deploy ficou NOT_EXECUTED. A [evidência 40](../evidence/40-jenkins-github-poll-development-2-validation.json) contém a validação dos resultados e do digest Docker Hub.
+
+### Main e verificação independente
+
+Depois do deploy Actions, a descoberta de main foi ativada. A auditoria do primeiro build mostrou que `DEPLOYED`, declarado num bloco environment, conservava o valor inicial e impedia a segunda verificação em post. O Jenkinsfile passou a inicializar esse estado mutável no Checkout. O build `ca5-github/main #2` foi disparado por Poll SCM e executou deploy e `ci/deploy.sh verify` na post-action; os dois playbooks terminaram com `failed=0` e a aplicação UP. A [validação 44](../evidence/44-jenkins-github-main-2-validation.json) inclui três testes, paralelismo, condição da branch e digest Docker Hub. A [evidência 45](../evidence/45-production-after-jenkins-verified.json) confirma a saúde fora do Jenkins.
+
+Para repetir a demonstração, publica um avanço na branch pretendida e aguarda o Poll SCM; evita pedir também um build manual, porque isso pode criar uma execução extra. Consulta `local-api.py status` e exporta o número efetivamente concluído. O commit exclusivo da correção Jenkins usa `[skip actions]`, evitando um novo deploy Actions sobre a mesma VM.
+
+## 9. Referências
 
 - [Jenkins em Docker](https://www.jenkins.io/doc/book/installing/docker/)
 - [Sintaxe declarativa e condições por branch](https://www.jenkins.io/doc/book/pipeline/syntax/)

@@ -1,0 +1,350 @@
+Started by an SCM change
+ > git rev-parse --resolve-git-dir /var/jenkins_home/caches/git-39983003d37abe69f7123adf3bf56a53/.git # timeout=10
+Setting origin to https://github.com/JP-142004/cogsi2627-1260168-1260204.git
+ > git config remote.origin.url https://github.com/JP-142004/cogsi2627-1260168-1260204.git # timeout=10
+Fetching origin...
+Fetching upstream changes from origin
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git config --get remote.origin.url # timeout=10
+ > git fetch --no-tags --force --progress -- origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/ca2-Semana1
+Seen branch in repository origin/ca2-Semana2
+Seen branch in repository origin/ca3-part1
+Seen branch in repository origin/ca3-part2
+Seen branch in repository origin/ca4-part1
+Seen branch in repository origin/ca4-part2
+Seen branch in repository origin/ca5-part1
+Seen branch in repository origin/ca5-part2
+Seen branch in repository origin/development
+Seen branch in repository origin/main
+Seen 10 remote branches
+Obtained CA5/Part2/Jenkinsfile from 7a828179f9d0c8b60cba428af61f645fa47438a3
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/ca5-github_development
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 40 min
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] deleteDir
+[Pipeline] script
+[Pipeline] {
+[Pipeline] checkout
+[2026-11-22T16:02:09.723Z] Selected Git installation does not exist. Using Default
+[2026-11-22T16:02:09.723Z] The recommended git tool is: NONE
+[2026-11-22T16:02:09.723Z] No credentials specified
+[2026-11-22T16:02:09.723Z] Cloning the remote Git repository
+[2026-11-22T16:02:09.723Z] Cloning with configured refspecs honoured and without tags
+[2026-11-22T16:02:09.723Z] Cloning repository https://github.com/JP-142004/cogsi2627-1260168-1260204.git
+[2026-11-22T16:02:09.723Z]  > git init /var/jenkins_home/workspace/ca5-github_development # timeout=10
+[2026-11-22T16:02:09.728Z] Fetching upstream changes from https://github.com/JP-142004/cogsi2627-1260168-1260204.git
+[2026-11-22T16:02:09.728Z]  > git --version # timeout=10
+[2026-11-22T16:02:09.730Z]  > git --version # 'git version 2.47.3'
+[2026-11-22T16:02:09.730Z]  > git fetch --no-tags --force --progress -- https://github.com/JP-142004/cogsi2627-1260168-1260204.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-22T16:02:11.076Z]  > git config remote.origin.url https://github.com/JP-142004/cogsi2627-1260168-1260204.git # timeout=10
+[2026-11-22T16:02:11.078Z]  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-22T16:02:11.082Z] Avoid second fetch
+[2026-11-22T16:02:11.082Z] Checking out Revision 7a828179f9d0c8b60cba428af61f645fa47438a3 (development)
+[2026-11-22T16:02:11.082Z]  > git config core.sparsecheckout # timeout=10
+[2026-11-22T16:02:11.084Z]  > git checkout -f 7a828179f9d0c8b60cba428af61f645fa47438a3 # timeout=10
+[2026-11-22T16:02:11.151Z] Commit message: "CA5: documenta validação real e demonstra push development (#21, #22)"
+[2026-11-22T16:02:11.152Z]  > git rev-list --no-walk e0d8bc3467bcc16f3d02cdd60e33b41617d92441 # timeout=10
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] sh
+[2026-11-22T16:02:11.541Z] + chmod +x CA5/Part2/ci/deploy.sh CA5/Part2/ci/gradle.sh
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Assemble)
+[Pipeline] dir
+[2026-11-22T16:02:11.608Z] Running in /var/jenkins_home/workspace/ca5-github_development/CA5/Part2/bookstore
+[Pipeline] {
+[Pipeline] sh
+[2026-11-22T16:02:11.888Z] + /var/jenkins_home/workspace/ca5-github_development/CA5/Part2/ci/gradle.sh assemble
+[2026-11-22T16:02:12.138Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-11-22T16:02:13.049Z] Daemon will be stopped at the end of the build
+[2026-11-22T16:02:17.172Z] > Task :app:clean UP-TO-DATE
+[2026-11-22T16:02:18.084Z] > Task :app:compileJava
+[2026-11-22T16:02:18.084Z] > Task :app:processResources
+[2026-11-22T16:02:18.084Z] > Task :app:classes
+[2026-11-22T16:02:18.084Z] > Task :app:resolveMainClassName
+[2026-11-22T16:02:18.334Z] > Task :app:bootJar
+[2026-11-22T16:02:19.678Z] > Task :app:bootStartScripts
+[2026-11-22T16:02:19.928Z] > Task :app:bootDistTar
+[2026-11-22T16:02:21.272Z] > Task :app:bootDistZip
+[2026-11-22T16:02:21.272Z] > Task :app:jar
+[2026-11-22T16:02:21.522Z] > Task :app:startScripts
+[2026-11-22T16:02:21.522Z] > Task :app:distTar
+[2026-11-22T16:02:22.866Z] > Task :app:distZip
+[2026-11-22T16:02:22.866Z] > Task :app:assemble
+[2026-11-22T16:02:22.866Z]
+[2026-11-22T16:02:22.866Z] BUILD SUCCESSFUL in 11s
+[2026-11-22T16:02:22.866Z] 12 actionable tasks: 11 executed, 1 up-to-date
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] stash
+[2026-11-22T16:02:23.458Z] Stashed 53 file(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] parallel
+[Pipeline] { (Branch: Unit)
+[Pipeline] { (Branch: Integration)
+[Pipeline] stage
+[Pipeline] { (Unit)
+[Pipeline] stage
+[Pipeline] { (Integration)
+[Pipeline] dir
+[2026-11-22T16:02:23.586Z] Running in /var/jenkins_home/workspace/ca5-github_development/.ci/unit
+[Pipeline] {
+[Pipeline] dir
+[2026-11-22T16:02:23.605Z] Running in /var/jenkins_home/workspace/ca5-github_development/.ci/integration
+[Pipeline] {
+[Pipeline] deleteDir
+[Pipeline] deleteDir
+[Pipeline] unstash
+[Pipeline] unstash
+[Pipeline] dir
+[2026-11-22T16:02:23.694Z] Running in /var/jenkins_home/workspace/ca5-github_development/.ci/unit/CA5/Part2/bookstore
+[Pipeline] {
+[Pipeline] dir
+[2026-11-22T16:02:23.709Z] Running in /var/jenkins_home/workspace/ca5-github_development/.ci/integration/CA5/Part2/bookstore
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
+[2026-11-22T16:02:24.020Z] + /var/jenkins_home/workspace/ca5-github_development/CA5/Part2/ci/gradle.sh test
+[2026-11-22T16:02:24.055Z] + /var/jenkins_home/workspace/ca5-github_development/CA5/Part2/ci/gradle.sh integrationTest
+[2026-11-22T16:02:24.571Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-11-22T16:02:24.606Z] To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+[2026-11-22T16:02:25.122Z] Daemon will be stopped at the end of the build
+[2026-11-22T16:02:25.157Z] Daemon will be stopped at the end of the build
+[2026-11-22T16:02:30.352Z] > Task :app:classes
+[2026-11-22T16:02:31.605Z] > Task :app:classes
+[2026-11-22T16:02:32.215Z] > Task :app:compileIntegrationTestJava
+[2026-11-22T16:02:32.215Z] > Task :app:processIntegrationTestResources NO-SOURCE
+[2026-11-22T16:02:32.215Z] > Task :app:integrationTestClasses
+[2026-11-22T16:02:33.467Z] > Task :app:compileTestJava
+[2026-11-22T16:02:33.468Z] > Task :app:processTestResources NO-SOURCE
+[2026-11-22T16:02:33.468Z] > Task :app:testClasses
+[2026-11-22T16:02:34.019Z] > Task :app:test
+[2026-11-22T16:02:34.019Z]
+[2026-11-22T16:02:34.019Z] BUILD SUCCESSFUL in 10s
+[2026-11-22T16:02:34.019Z] 2 actionable tasks: 2 executed
+[Pipeline] }
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // dir
+Post stage
+[Pipeline] junit
+[2026-11-22T16:02:34.696Z] Recording test results
+[2026-11-22T16:02:34.703Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[2026-11-22T16:02:38.695Z] OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[2026-11-22T16:02:38.695Z] 2026-11-22T16:02:37.923Z  INFO 12193 --- [bookstore-api] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[2026-11-22T16:02:38.695Z] 2026-11-22T16:02:37.926Z  INFO 12193 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+[2026-11-22T16:02:38.695Z] 2026-11-22T16:02:37.930Z  INFO 12193 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[2026-11-22T16:02:38.695Z] > Task :app:integrationTest
+[2026-11-22T16:02:38.695Z]
+[2026-11-22T16:02:38.695Z] BUILD SUCCESSFUL in 14s
+[2026-11-22T16:02:38.695Z] 2 actionable tasks: 2 executed
+[Pipeline] }
+[Pipeline] // catchError
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // dir
+Post stage
+[Pipeline] junit
+[2026-11-22T16:02:38.851Z] Recording test results
+[2026-11-22T16:02:38.866Z] [Checks API] No suitable checks publisher found.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build and Tag Docker Image)
+[Pipeline] sh
+[2026-11-22T16:02:39.285Z] + docker build --label org.opencontainers.image.revision=7a828179f9d0c8b60cba428af61f645fa47438a3 --tag luizbsilv/ca5-bookstore:jenkins-development-2-7a82817 CA5/Part2/bookstore
+[2026-11-22T16:02:39.536Z] #0 building with "default" instance using docker driver
+[2026-11-22T16:02:39.536Z]
+[2026-11-22T16:02:39.536Z] #1 [internal] load build definition from Dockerfile
+[2026-11-22T16:02:39.536Z] #1 transferring dockerfile: 752B done
+[2026-11-22T16:02:39.536Z] #1 DONE 0.0s
+[2026-11-22T16:02:39.536Z]
+[2026-11-22T16:02:39.536Z] #2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-jammy
+[2026-11-22T16:02:39.787Z] #2 DONE 0.5s
+[2026-11-22T16:02:40.037Z]
+[2026-11-22T16:02:40.037Z] #3 [internal] load .dockerignore
+[2026-11-22T16:02:40.037Z] #3 transferring context: 165B done
+[2026-11-22T16:02:40.037Z] #3 DONE 0.0s
+[2026-11-22T16:02:40.037Z]
+[2026-11-22T16:02:40.037Z] #4 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:c6a5dd70fb24f4e07ef88cbda8efb613a5a649a1af071a41de8eaabd1ee6b5da
+[2026-11-22T16:02:40.037Z] #4 resolve docker.io/library/eclipse-temurin:17-jre-jammy@sha256:c6a5dd70fb24f4e07ef88cbda8efb613a5a649a1af071a41de8eaabd1ee6b5da 0.0s done
+[2026-11-22T16:02:40.037Z] #4 DONE 0.0s
+[2026-11-22T16:02:40.037Z]
+[2026-11-22T16:02:40.037Z] #5 [internal] load build context
+[2026-11-22T16:02:44.161Z] #5 transferring context: 51.47MB 3.9s done
+[2026-11-22T16:02:44.161Z] #5 DONE 3.9s
+[2026-11-22T16:02:44.161Z]
+[2026-11-22T16:02:44.161Z] #6 [2/4] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*     && groupadd --system --gid 10001 bookstore     && useradd --system --uid 10001 --gid bookstore --home-dir /app --no-create-home bookstore
+[2026-11-22T16:02:44.161Z] #6 CACHED
+[2026-11-22T16:02:44.161Z]
+[2026-11-22T16:02:44.161Z] #7 [3/4] WORKDIR /app
+[2026-11-22T16:02:44.161Z] #7 CACHED
+[2026-11-22T16:02:44.161Z]
+[2026-11-22T16:02:44.161Z] #8 [4/4] COPY --chown=10001:10001 app/build/libs/app-1.0.0.jar /app/bookstore.jar
+[2026-11-22T16:02:44.161Z] #8 DONE 0.1s
+[2026-11-22T16:02:44.161Z]
+[2026-11-22T16:02:44.161Z] #9 exporting to image
+[2026-11-22T16:02:44.161Z] #9 exporting layers
+[2026-11-22T16:02:45.072Z] #9 exporting layers 1.1s done
+[2026-11-22T16:02:45.322Z] #9 exporting manifest sha256:92b7fd1fff89be0457d09e4d9b09153b896767043468854a01bca8ed259f47dc 0.0s done
+[2026-11-22T16:02:45.322Z] #9 exporting config sha256:6f2b31e0c7edea8423535aaac35e3af97c974ee85e6a99ded11c653848a17ce4 done
+[2026-11-22T16:02:45.322Z] #9 exporting attestation manifest sha256:8feca7fa490b1518ffb6a553e3bed03e9317f2a8c59280b8efec130ad9a680c4 0.0s done
+[2026-11-22T16:02:45.322Z] #9 exporting manifest list sha256:6771284239c702c6c47358221501635625d2c81966950bd952f7a07bc0628bed 0.0s done
+[2026-11-22T16:02:45.322Z] #9 naming to docker.io/luizbsilv/ca5-bookstore:jenkins-development-2-7a82817 done
+[2026-11-22T16:02:45.322Z] #9 unpacking to docker.io/luizbsilv/ca5-bookstore:jenkins-development-2-7a82817
+[2026-11-22T16:02:45.322Z] #9 unpacking to docker.io/luizbsilv/ca5-bookstore:jenkins-development-2-7a82817 0.2s done
+[2026-11-22T16:02:45.322Z] #9 DONE 1.4s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Archive)
+[Pipeline] sh
+[2026-11-22T16:02:45.652Z] + python3 CA5/Part2/ci/image-metadata.py
+[2026-11-22T16:02:45.652Z] Metadados arquivados para luizbsilv/ca5-bookstore:jenkins-development-2-7a82817.
+[Pipeline] archiveArtifacts
+[2026-11-22T16:02:45.676Z] Archiving artifacts
+[2026-11-22T16:02:45.678Z] Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Image)
+[Pipeline] withCredentials
+[2026-11-22T16:02:45.768Z] Masking supported pattern matches of $DOCKERHUB_TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2026-11-22T16:02:46.047Z] + python3 CA5/Part2/ci/push-image.py
+[2026-11-22T16:02:46.958Z]
+[2026-11-22T16:02:46.958Z] WARNING! Your credentials are stored unencrypted in '/var/jenkins_home/workspace/ca5-github_development/.ci/docker-auth-66yuy64s/config.json'.
+[2026-11-22T16:02:46.958Z] Configure a credential helper to remove this warning. See
+[2026-11-22T16:02:46.958Z] https://docs.docker.com/go/credential-store/
+[2026-11-22T16:02:46.958Z]
+[2026-11-22T16:02:46.958Z] Login Succeeded
+[2026-11-22T16:02:46.958Z] The push refers to repository [docker.io/luizbsilv/ca5-bookstore]
+[2026-11-22T16:02:47.209Z] e04650962873: Waiting
+[2026-11-22T16:02:47.209Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.209Z] 44136fa355b3: Waiting
+[2026-11-22T16:02:47.209Z] ba082564e660: Waiting
+[2026-11-22T16:02:47.209Z] 44136fa355b3: Waiting
+[2026-11-22T16:02:47.209Z] ba082564e660: Waiting
+[2026-11-22T16:02:47.209Z] e04650962873: Waiting
+[2026-11-22T16:02:47.209Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.209Z] e04650962873: Waiting
+[2026-11-22T16:02:47.209Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.209Z] 44136fa355b3: Waiting
+[2026-11-22T16:02:47.209Z] ba082564e660: Waiting
+[2026-11-22T16:02:47.459Z] e04650962873: Waiting
+[2026-11-22T16:02:47.459Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.459Z] 44136fa355b3: Waiting
+[2026-11-22T16:02:47.459Z] ba082564e660: Waiting
+[2026-11-22T16:02:47.459Z] 44136fa355b3: Waiting
+[2026-11-22T16:02:47.459Z] ba082564e660: Waiting
+[2026-11-22T16:02:47.459Z] e04650962873: Waiting
+[2026-11-22T16:02:47.459Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.710Z] e04650962873: Waiting
+[2026-11-22T16:02:47.710Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.710Z] 44136fa355b3: Waiting
+[2026-11-22T16:02:47.710Z] ba082564e660: Waiting
+[2026-11-22T16:02:47.710Z] ba082564e660: Waiting
+[2026-11-22T16:02:47.710Z] e04650962873: Waiting
+[2026-11-22T16:02:47.710Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.710Z] 44136fa355b3: Waiting
+[2026-11-22T16:02:47.710Z] e04650962873: Waiting
+[2026-11-22T16:02:47.710Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.710Z] 44136fa355b3: Waiting
+[2026-11-22T16:02:47.710Z] ba082564e660: Waiting
+[2026-11-22T16:02:47.961Z] ba082564e660: Layer already exists
+[2026-11-22T16:02:47.961Z] 9f3d3c1f671f: Waiting
+[2026-11-22T16:02:47.961Z] 33bfcf1bc771: Waiting
+[2026-11-22T16:02:47.961Z] e04650962873: Waiting
+[2026-11-22T16:02:47.961Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.961Z] 44136fa355b3: Already exists
+[2026-11-22T16:02:47.961Z] 9f3d3c1f671f: Waiting
+[2026-11-22T16:02:47.961Z] 33bfcf1bc771: Waiting
+[2026-11-22T16:02:47.961Z] e04650962873: Layer already exists
+[2026-11-22T16:02:47.961Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:47.961Z] e16844efa1e5: Waiting
+[2026-11-22T16:02:48.211Z] 33bfcf1bc771: Layer already exists
+[2026-11-22T16:02:48.211Z] a840d0de2178: Waiting
+[2026-11-22T16:02:48.211Z] 7eb7acc76de3: Waiting
+[2026-11-22T16:02:48.211Z] e16844efa1e5: Waiting
+[2026-11-22T16:02:48.211Z] 4f1340a23c2c: Waiting
+[2026-11-22T16:02:48.211Z] 9f3d3c1f671f: Layer already exists
+[2026-11-22T16:02:48.211Z] a840d0de2178: Layer already exists
+[2026-11-22T16:02:48.211Z] e16844efa1e5: Layer already exists
+[2026-11-22T16:02:48.211Z] 4f1340a23c2c: Layer already exists
+[2026-11-22T16:02:48.211Z] 9a70762573aa: Waiting
+[2026-11-22T16:02:48.211Z] 9a70762573aa: Waiting
+[2026-11-22T16:02:48.462Z] 9a70762573aa: Waiting
+[2026-11-22T16:02:49.013Z] 7eb7acc76de3: Pushed
+[2026-11-22T16:03:56.516Z] 9a70762573aa: Pushed
+[2026-11-22T16:03:56.516Z] jenkins-development-2-7a82817: digest: sha256:6771284239c702c6c47358221501635625d2c81966950bd952f7a07bc0628bed size: 856
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] archiveArtifacts
+[2026-11-22T16:03:56.564Z] Archiving artifacts
+[2026-11-22T16:03:56.565Z] Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+Stage "Deploy" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] archiveArtifacts
+[2026-11-22T16:03:56.708Z] Archiving artifacts
+[Pipeline] script
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] script
+[Pipeline] {
+[Pipeline] emailext
+[2026-11-22T16:03:56.829Z] Sending email to: 1260204@isep.ipp.pt
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

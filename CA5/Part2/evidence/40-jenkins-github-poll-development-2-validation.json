@@ -1,0 +1,28 @@
+{
+  "branch": "development",
+  "build": 2,
+  "result": "SUCCESS",
+  "causes": [
+    "Started by an SCM change"
+  ],
+  "metadata": {
+    "provider": "jenkins",
+    "image": "luizbsilv/ca5-bookstore:jenkins-development-2-7a82817",
+    "image_id": "sha256:6771284239c702c6c47358221501635625d2c81966950bd952f7a07bc0628bed",
+    "tag": "jenkins-development-2-7a82817",
+    "commit": "7a828179f9d0c8b60cba428af61f645fa47438a3",
+    "branch": "development",
+    "build": "2",
+    "created_utc": "2026-11-22T16:02:45.472420+00:00",
+    "jar_sha256": "3cf9ef5d67c2dc639c04a268fc5ea36588eb696431915a78bd90ca072f7c6493"
+  },
+  "junit": {
+    "tests": 3,
+    "failures": 0
+  },
+  "parallel_overlap_seconds": 10.448402404785156,
+  "deploy": "NOT_EXECUTED",
+  "dockerhub_digest_verified": "sha256:6771284239c702c6c47358221501635625d2c81966950bd952f7a07bc0628bed",
+  "email_sending_logged_without_error": true,
+  "email_receipt_for_this_run_confirmed": false
+}

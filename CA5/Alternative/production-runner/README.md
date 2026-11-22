@@ -47,4 +47,6 @@ docker compose -f CA5/Alternative/production-runner/compose.yaml stop
 
 Esta preparação não altera a condição do deploy: o workflow só implanta num push na main. A validação da branch `ca5-part2` ignora o deploy.
 
+Em 22/11/2026, este runner executou com sucesso o job de deploy da [main, execução 45041352249](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041352249). Preparou Python 3.13 e Ansible, usou a chave local, implantou a imagem Docker Hub, verificou a saúde e removeu a cópia temporária da chave. Terminou com código zero depois desse único job. O relatório e os logs estão na [evidência 15](../evidence/15-github-main-45041352249.json). Um novo deploy exige novo registo do runner; o Jenkins fica como ferramenta ativa para a VM após a demonstração.
+
 Referências: [registar runners e permissões necessárias](https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/add-runners), [imagem oficial](https://github.com/actions/runner/pkgs/container/actions-runner), [release 2.338.2](https://github.com/actions/runner/releases/tag/v2.338.2).

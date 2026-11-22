@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-11-22T16:08:03.539535+00:00",
+  "container_id": "01b43f2e484b5051786ef8f7fd64e76c6e64d4983056633f2aacafee679790ff",
+  "image": "luizbsilv/ca5-bookstore:jenkins-main-1-4d41394",
+  "user": "10001:10001",
+  "running": true,
+  "docker_health": "healthy",
+  "http_health": {
+    "status": "UP"
+  }
+}

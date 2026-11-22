@@ -248,9 +248,9 @@ Confirma que o runner consegue alcançar o SSH da VM. Se correr num container Do
 
 Antes de demonstrar o deploy desta alternativa, suspende o job de deploy Jenkins que utiliza a mesma VM. A conta colaboradora recebeu HTTP 403 ao tentar gerir runners. Em 22/11/2026, a conta proprietária emitiu um token temporário de registo, guardado apenas no computador local, e foi registado `ca5-production-local` com a etiqueta `ca5-production`.
 
-Foi preparada e construída a [configuração do runner em Docker](production-runner/README.md), com versão oficial identificada por digest. O registo, a ligação ao GitHub e a espera por jobs foram confirmados. O proprietário confirmou o estado Idle/Online e a etiqueta; uma chamada SSH a partir do próprio container passou. A chave é montada localmente e será copiada temporariamente pelo workflow através de `CA5_LOCAL_SSH_KEY`; não foi enviada para o GitHub. A [evidência 12](evidence/12-runner-registration.json) distingue esta preparação da execução real de um job de deploy, que ainda não foi demonstrada neste runner.
+Foi preparada e construída a [configuração do runner em Docker](production-runner/README.md), com versão oficial identificada por digest. O registo, a ligação ao GitHub e a espera por jobs foram confirmados. O proprietário confirmou o estado Idle/Online e a etiqueta; uma chamada SSH a partir do próprio container passou. A chave é montada localmente e foi copiada temporariamente pelo workflow através de `CA5_LOCAL_SSH_KEY`, com remoção no final; não foi enviada para o GitHub. A [evidência 12](evidence/12-runner-registration.json) preserva a preparação; a [evidência 15](evidence/15-github-main-45041352249.json) demonstra o job real de deploy.
 
-Enquanto a integração não for autorizada, mantém as alterações na `ca5-part2`. A execução real da main e a tag final ficam pendentes; não substituas a condição de deploy para fazer uma demonstração na branch de trabalho.
+A integração foi autorizada e concluída pelo [PR #23](https://github.com/JP-142004/cogsi2627-1260168-1260204/pull/23). A condição de deploy foi preservada: só um push na `main` implanta em produção.
 
 ### 5.4. Execução real na branch de trabalho
 
@@ -283,16 +283,31 @@ Para recolher outra execução concluída desta branch:
 py -3 CA5/Alternative/collect-github-evidence.py ID_DA_EXECUCAO
 ```
 
+### 5.5. Validação real de main e development
+
+Em 22/11/2026 foram validadas as duas branches reais:
+
+| Branch | Execução | Resultado |
+|---|---|---|
+| development | [45041034720](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041034720) | SUCCESS; três testes, imagem publicada, e-mail aceite e deploy skipped |
+| main | [45041352249](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041352249) | SUCCESS; três testes, imagem publicada, deploy, verificação independente e e-mail aceite |
+
+Os coletores descarregaram os cinco artefactos de cada execução, verificaram o SHA-256 do JAR, contaram os XML JUnit e compararam os digests com o Docker Hub. Os registos estão nas evidências [14-development](evidence/14-github-development-45041034720.json) e [15-main](evidence/15-github-main-45041352249.json). Os sete testes do helper de notificações também passaram no Assemble.
+
+A main implantou `luizbsilv/ca5-bookstore:gha-main-45041352249-1-34c75f8`. Uma chamada independente a partir do Windows confirmou a imagem exata, utilizador `10001:10001`, container `healthy` e endpoint `UP`: [verificação externa](../Part2/evidence/39-production-after-actions.json). O runner executou o job e terminou com código zero, conforme o seu modo efémero. Para repetir um deploy Actions, é necessário voltar a registar um runner; estar parado depois deste job é o comportamento esperado.
+
+Durante esta demonstração, o Multibranch Jenkins descobria apenas development. Só depois do sucesso e da verificação externa Actions foi ativada a descoberta de main no Jenkins. Os deploys usaram a mesma VM em sequência. O SMTP foi aceite nestas execuções; a confirmação pessoal de receção já registada corresponde aos avisos anteriores, não se presume para cada nova mensagem.
+
 ## 6. Limitações e reflexão
 
 | Aspeto | Cobertura e limite |
 |---|---|
-| Compilação, testes, artefactos, imagem e Ansible | Implementados no workflow e executados por act com serviços locais |
-| Eventos GitHub reais | Push na ca5-part2 demonstrado; main ainda sem integração |
+| Compilação, testes, artefactos, imagem e Ansible | Validados localmente e no serviço GitHub Actions, incluindo deploy real |
+| Eventos GitHub reais | Push em ca5-part2, development e main demonstrado |
 | Checkout do GitHub | Exercitado no repositório público; um futuro repositório privado exige permissões adequadas |
 | Artefactos do serviço GitHub | Upload, download e integridade do JAR exercitados; retenção configurada para sete dias |
 | Docker Hub no workflow | Imagem publicada pelo serviço GitHub e digest confirmado |
-| Self-hosted runner registado | ca5-production-local registado com token do proprietário; Idle/Online e etiqueta confirmados; SSH aprovado; execução do deploy ainda pendente |
+| Self-hosted runner registado | ca5-production-local executou o deploy main com sucesso e terminou; precisa de novo registo para outro job |
 | E-mail externo | Gmail aprovado e recebido no ISEP em ambos os pipelines; o Jenkins usa uma credencial própria e preserva Mailpit no laboratório |
 | Estado UNSTABLE | Não existe equivalente direto no Actions; um teste falhado gera failure e bloqueia publicação/deploy |
 | Persistência H2 | Mantém a limitação da solução base: dados em memória perdem-se ao substituir o container |

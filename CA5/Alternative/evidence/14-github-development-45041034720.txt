@@ -1,0 +1,1539 @@
+Assemble	Set up job	﻿2026-11-22T15:56:28.6099325Z Current runner version: '2.338.2'
+Assemble	Set up job	2026-11-22T15:56:28.6119735Z ##[group]Runner Image Provisioner
+Assemble	Set up job	2026-11-22T15:56:28.6120537Z Hosted Compute Agent
+Assemble	Set up job	2026-11-22T15:56:28.6121032Z Version: 20261111.635
+Assemble	Set up job	2026-11-22T15:56:28.6121620Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Assemble	Set up job	2026-11-22T15:56:28.6122268Z Build Date: 2026-11-11T01:49:01Z
+Assemble	Set up job	2026-11-22T15:56:28.6122812Z Worker ID: {76cbeb02-6365-4216-8e87-78f44b792a9f}
+Assemble	Set up job	2026-11-22T15:56:28.6123454Z Region: westcentralus
+Assemble	Set up job	2026-11-22T15:56:28.6123940Z Cloud: Azure
+Assemble	Set up job	2026-11-22T15:56:28.6124451Z ##[endgroup]
+Assemble	Set up job	2026-11-22T15:56:28.6125830Z ##[group]Operating System
+Assemble	Set up job	2026-11-22T15:56:28.6126361Z Ubuntu
+Assemble	Set up job	2026-11-22T15:56:28.6126859Z 26.04.1
+Assemble	Set up job	2026-11-22T15:56:28.6127293Z LTS
+Assemble	Set up job	2026-11-22T15:56:28.6127747Z ##[endgroup]
+Assemble	Set up job	2026-11-22T15:56:28.6128303Z ##[group]Runner Image
+Assemble	Set up job	2026-11-22T15:56:28.6128813Z Image: ubuntu-26.04
+Assemble	Set up job	2026-11-22T15:56:28.6129584Z Version: 20261116.202.1
+Assemble	Set up job	2026-11-22T15:56:28.6130487Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+Assemble	Set up job	2026-11-22T15:56:28.6131924Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+Assemble	Set up job	2026-11-22T15:56:28.6132709Z ##[endgroup]
+Assemble	Set up job	2026-11-22T15:56:28.6133625Z ##[group]GITHUB_TOKEN Permissions
+Assemble	Set up job	2026-11-22T15:56:28.6135347Z Contents: read
+Assemble	Set up job	2026-11-22T15:56:28.6136085Z Metadata: read
+Assemble	Set up job	2026-11-22T15:56:28.6136559Z ##[endgroup]
+Assemble	Set up job	2026-11-22T15:56:28.6138210Z Secret source: Actions
+Assemble	Set up job	2026-11-22T15:56:28.6139135Z Cache mode: write
+Assemble	Set up job	2026-11-22T15:56:28.6139850Z Prepare workflow directory
+Assemble	Set up job	2026-11-22T15:56:28.6593027Z Prepare all required actions
+Assemble	Set up job	2026-11-22T15:56:28.6631429Z Getting action download info
+Assemble	Set up job	2026-11-22T15:56:28.9182549Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Assemble	Set up job	2026-11-22T15:56:29.0114483Z Download action repository 'actions/setup-java@v5' (SHA:b6effb05e454b25005698d916606bdc6ffcbf961)
+Assemble	Set up job	2026-11-22T15:56:29.6656663Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Assemble	Set up job	2026-11-22T15:56:29.8582576Z Complete job name: Assemble
+Assemble	Run actions/checkout@v4	﻿2026-11-22T15:56:29.9249190Z ##[group]Run actions/checkout@v4
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9249926Z with:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9250308Z   persist-credentials: false
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9250818Z   repository: JP-142004/cogsi2627-1260168-1260204
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9254591Z   token: ***
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9254962Z   ssh-strict: true
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9255335Z   ssh-user: git
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9255833Z   clean: true
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9256207Z   sparse-checkout-cone-mode: true
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9256671Z   fetch-depth: 1
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9257039Z   fetch-tags: false
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9257420Z   show-progress: true
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9257815Z   lfs: false
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9258177Z   submodules: false
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9258559Z   set-safe-directory: true
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9259000Z   allow-unsafe-pr-checkout: false
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9259635Z env:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9259975Z   PART_DIR: CA5/Part2
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9260395Z   APP_DIR: CA5/Part2/bookstore
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9260907Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9261580Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:29.9262128Z ##[endgroup]
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1812546Z Syncing repository: JP-142004/cogsi2627-1260168-1260204
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1814587Z ##[group]Getting Git version info
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1815447Z Working directory is '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1817142Z [command]/usr/bin/git version
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1829406Z git version 2.56.1
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1845178Z ##[endgroup]
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1856495Z Temporarily overriding HOME='/home/runner/work/_temp/16597e22-297d-4208-918b-ae87e3a84b9c' before making global git config changes
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1858605Z Adding repository directory to the temporary git global config as a safe directory
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1860262Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1919945Z Deleting the contents of '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1922243Z ##[group]Initializing the repository
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.1925393Z [command]/usr/bin/git init /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2038411Z hint: Using 'master' as the name for the initial branch. This default branch name
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2039870Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2040835Z hint: to use in all of your new repositories, which will suppress this warning,
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2041593Z hint: call:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2041980Z hint:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2042478Z hint: 	git config --global init.defaultBranch <name>
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2043096Z hint:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2043656Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2044622Z hint: 'development'. The just-created branch can be renamed via this command:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2045423Z hint:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2045980Z hint: 	git branch -m <name>
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2046447Z hint:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2047054Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2056561Z Initialized empty Git repository in /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204/.git/
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2066674Z [command]/usr/bin/git remote add origin https://github.com/JP-142004/cogsi2627-1260168-1260204
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2116044Z ##[endgroup]
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2117230Z ##[group]Disabling automatic garbage collection
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2121100Z [command]/usr/bin/git config --local gc.auto 0
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2152600Z ##[endgroup]
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2153847Z ##[group]Setting up auth
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2158307Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2188738Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2608829Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2638773Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2866276Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.2895169Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.3123245Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.3157681Z ##[endgroup]
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.3158528Z ##[group]Fetching the repository
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:30.3167670Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e0d8bc3467bcc16f3d02cdd60e33b41617d92441:refs/remotes/origin/development
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0610779Z From https://github.com/JP-142004/cogsi2627-1260168-1260204
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0612883Z  * [new ref]         e0d8bc3467bcc16f3d02cdd60e33b41617d92441 -> origin/development
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0616753Z ##[endgroup]
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0618367Z ##[group]Determining the checkout info
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0620206Z ##[endgroup]
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0623996Z [command]/usr/bin/git sparse-checkout disable
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0681254Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0707959Z ##[group]Checking out the ref
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.0710760Z [command]/usr/bin/git checkout --progress --force -B development refs/remotes/origin/development
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1236797Z Switched to a new branch 'development'
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1241303Z branch 'development' set up to track 'origin/development'.
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1249344Z ##[endgroup]
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1290328Z [command]/usr/bin/git log -1 --format=%H
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1312637Z e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1320965Z ##[group]Removing auth
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1323518Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1352522Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1586014Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1606183Z http.https://github.com/.extraheader
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1611927Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1644471Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1864988Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.1890683Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Assemble	Run actions/checkout@v4	2026-11-22T15:56:31.2108713Z ##[endgroup]
+Assemble	Run actions/setup-java@v5	﻿2026-11-22T15:56:31.2525377Z ##[group]Run actions/setup-java@v5
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2526484Z with:
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2527197Z   distribution: temurin
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2528005Z   java-version: 17
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2528776Z   java-package: jdk
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2529564Z   check-latest: false
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2530349Z   set-default: true
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2531135Z   verify-signature: false
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2531969Z   server-id: github
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2532756Z   server-username: GITHUB_ACTOR
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2533713Z   server-password: GITHUB_TOKEN
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2534616Z   overwrite-settings: true
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2535454Z   job-status: success
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2542387Z   token: ***
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2543157Z   show-download-progress: false
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2544025Z env:
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2544715Z   PART_DIR: CA5/Part2
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2545609Z   APP_DIR: CA5/Part2/bookstore
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2546615Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2547827Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.2548932Z ##[endgroup]
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.3830295Z ##[group]Installed distributions
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4037196Z Resolved Java 17.0.21+9 from tool-cache
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4038694Z Setting Java 17.0.21+9 as the default
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4046696Z Creating toolchains.xml for JDK version 17 from temurin
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4104230Z Writing to /home/runner/.m2/toolchains.xml
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4105742Z
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4106325Z Java configuration:
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4107186Z   Distribution: temurin
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4108060Z   Version: 17.0.21+9
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4109284Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4110555Z
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4111710Z ##[endgroup]
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4139387Z Creating settings.xml with server-id: github
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4141101Z Writing to /home/runner/.m2/settings.xml
+Assemble	Run actions/setup-java@v5	2026-11-22T15:56:31.4144412Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+Assemble	Validar os estados e a autenticação da notificação	﻿2026-11-22T15:56:31.4292939Z ##[group]Run python3 "$PART_DIR/ci/test_notify_email.py"
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4294690Z ^[[36;1mpython3 "$PART_DIR/ci/test_notify_email.py"^[[0m
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4344299Z shell: /usr/bin/bash -e {0}
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4345347Z env:
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4346350Z   PART_DIR: CA5/Part2
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4347325Z   APP_DIR: CA5/Part2/bookstore
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4348828Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4350478Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4352251Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4354332Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4356227Z   MAVEN_ARGS: -ntp
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.4357171Z ##[endgroup]
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.5483579Z .......
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.5484798Z ----------------------------------------------------------------------
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.5486130Z Ran 7 tests in 0.041s
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.5486570Z
+Assemble	Validar os estados e a autenticação da notificação	2026-11-22T15:56:31.5486936Z OK
+Assemble	Compilar e empacotar	﻿2026-11-22T15:56:31.5698757Z ##[group]Run bash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" assemble
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5700204Z ^[[36;1mbash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" assemble^[[0m
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5733779Z shell: /usr/bin/bash -e {0}
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5734533Z env:
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5735140Z   PART_DIR: CA5/Part2
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5736002Z   APP_DIR: CA5/Part2/bookstore
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5736935Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5738037Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5739280Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5740739Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5741913Z   MAVEN_ARGS: -ntp
+Assemble	Compilar e empacotar	2026-11-22T15:56:31.5742582Z ##[endgroup]
+Assemble	Compilar e empacotar	2026-11-22T15:56:32.8843348Z Downloading https://services.gradle.org/distributions/gradle-8.8-bin.zip
+Assemble	Compilar e empacotar	2026-11-22T15:56:35.1737507Z .............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2223525Z
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2224252Z Welcome to Gradle 8.8!
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2235231Z
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2236066Z Here are the highlights of this release:
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2236421Z  - Running Gradle on Java 22
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2236679Z  - Configurable Gradle daemon JVM
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2236982Z  - Improved IDE performance for large projects
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2246317Z
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2246609Z For more details see https://docs.gradle.org/8.8/release-notes.html
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.2246869Z
+Assemble	Compilar e empacotar	2026-11-22T15:56:36.4216796Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Assemble	Compilar e empacotar	2026-11-22T15:56:37.4212330Z Daemon will be stopped at the end of the build
+Assemble	Compilar e empacotar	2026-11-22T15:56:56.7234380Z > Task :app:clean UP-TO-DATE
+Assemble	Compilar e empacotar	2026-11-22T15:57:14.3226114Z > Task :app:compileJava
+Assemble	Compilar e empacotar	2026-11-22T15:57:14.4236919Z > Task :app:processResources
+Assemble	Compilar e empacotar	2026-11-22T15:57:14.4258861Z > Task :app:classes
+Assemble	Compilar e empacotar	2026-11-22T15:57:14.4259472Z > Task :app:resolveMainClassName
+Assemble	Compilar e empacotar	2026-11-22T15:57:16.5210971Z > Task :app:bootJar
+Assemble	Compilar e empacotar	2026-11-22T15:57:17.5211816Z > Task :app:bootStartScripts
+Assemble	Compilar e empacotar	2026-11-22T15:57:17.8211651Z > Task :app:bootDistTar
+Assemble	Compilar e empacotar	2026-11-22T15:57:19.2212149Z > Task :app:bootDistZip
+Assemble	Compilar e empacotar	2026-11-22T15:57:19.2213990Z > Task :app:jar
+Assemble	Compilar e empacotar	2026-11-22T15:57:19.3214322Z > Task :app:startScripts
+Assemble	Compilar e empacotar	2026-11-22T15:57:19.6210323Z > Task :app:distTar
+Assemble	Compilar e empacotar	2026-11-22T15:57:20.9229143Z > Task :app:distZip
+Assemble	Compilar e empacotar	2026-11-22T15:57:20.9241390Z > Task :app:assemble
+Assemble	Compilar e empacotar	2026-11-22T15:57:20.9656400Z
+Assemble	Compilar e empacotar	2026-11-22T15:57:20.9663556Z BUILD SUCCESSFUL in 48s
+Assemble	Compilar e empacotar	2026-11-22T15:57:20.9664201Z 12 actionable tasks: 11 executed, 1 up-to-date
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	﻿2026-11-22T15:57:21.3261581Z ##[group]Run tar -czf prepared-app.tgz -C "$APP_DIR" \
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3261970Z ^[[36;1mtar -czf prepared-app.tgz -C "$APP_DIR" \^[[0m
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3262368Z ^[[36;1m  app/build/classes/java/main app/build/resources/main app/build/libs/app-1.0.0.jar^[[0m
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3291734Z shell: /usr/bin/bash -e {0}
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3291954Z env:
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3292127Z   PART_DIR: CA5/Part2
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3292319Z   APP_DIR: CA5/Part2/bookstore
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3292722Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3293014Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3293335Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3293708Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3294004Z   MAVEN_ARGS: -ntp
+Assemble	Preparar o mesmo JAR e classes para os jobs seguintes	2026-11-22T15:57:21.3294177Z ##[endgroup]
+Assemble	Run actions/upload-artifact@v4	﻿2026-11-22T15:57:22.4654929Z ##[group]Run actions/upload-artifact@v4
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4655192Z with:
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4655362Z   name: prepared-app
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4655718Z   path: prepared-app.tgz
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4655936Z   compression-level: 0
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4656122Z   retention-days: 7
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4656315Z   if-no-files-found: warn
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4656501Z   overwrite: false
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4656701Z   include-hidden-files: false
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4656923Z env:
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4657096Z   PART_DIR: CA5/Part2
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4657299Z   APP_DIR: CA5/Part2/bookstore
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4657526Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4657832Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4658159Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4658545Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4658847Z   MAVEN_ARGS: -ntp
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.4659058Z ##[endgroup]
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.6018103Z (node:2594) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.6018707Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.6055769Z With the provided path, there will be 1 file uploaded
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.6068217Z Artifact name is valid!
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.6068992Z Root directory input is valid!
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.9185866Z Beginning upload of artifact content to blob storage
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:22.9641987Z (node:2594) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:23.6676630Z Uploaded bytes 8388608
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:23.6735125Z Uploaded bytes 16777216
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:23.7149871Z Uploaded bytes 25165824
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:23.7757736Z Uploaded bytes 33554432
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:23.9167984Z Uploaded bytes 41943040
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:24.0933115Z Uploaded bytes 46176305
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:24.1493601Z Finished uploading artifact content to blob storage!
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:24.1494398Z SHA256 digest of uploaded artifact zip is 350b6d75d42fc63e406926f53f553420556549a7a27eb69d73a85230eae34088
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:24.1495850Z Finalizing artifact upload
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:24.5246023Z Artifact prepared-app.zip successfully finalized. Artifact ID 14761777237
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:24.5246903Z Artifact prepared-app has been successfully uploaded! Final size is 46176305 bytes. Artifact ID is 14761777237
+Assemble	Run actions/upload-artifact@v4	2026-11-22T15:57:24.5252006Z Artifact download URL: https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041034720/artifacts/14761777237
+Assemble	Post Run actions/setup-java@v5	﻿2026-11-22T15:57:24.5488414Z Post job cleanup.
+Assemble	Post Run actions/checkout@v4	﻿2026-11-22T15:57:24.6635321Z Post job cleanup.
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7351653Z [command]/usr/bin/git version
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7389009Z git version 2.56.1
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7417830Z Temporarily overriding HOME='/home/runner/work/_temp/e85f0e44-eca1-4f23-8307-d15c0cf27d99' before making global git config changes
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7419061Z Adding repository directory to the temporary git global config as a safe directory
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7449495Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7486046Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7529898Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7859579Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.7918060Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.8242164Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Assemble	Post Run actions/checkout@v4	2026-11-22T15:57:24.8274535Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Assemble	Complete job	﻿2026-11-22T15:57:24.8648258Z Cleaning up orphan processes
+Assemble	Complete job	2026-11-22T15:57:24.8968553Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Tests (integrationTest)	Set up job	﻿2026-11-22T15:57:30.1615398Z Current runner version: '2.338.2'
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1641252Z ##[group]Runner Image Provisioner
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1642116Z Hosted Compute Agent
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1642806Z Version: 20261111.635
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1643901Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1644709Z Build Date: 2026-11-11T01:49:01Z
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1645444Z Worker ID: {be97e453-a531-4bda-8401-80e453208268}
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1646178Z Region: westus2
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1646799Z Cloud: Azure
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1647323Z ##[endgroup]
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1648858Z ##[group]Operating System
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1649565Z Ubuntu
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1650121Z 26.04.1
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1651058Z LTS
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1651589Z ##[endgroup]
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1652122Z ##[group]Runner Image
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1652824Z Image: ubuntu-26.04
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1653782Z Version: 20261116.202.1
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1655286Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1657405Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1658843Z ##[endgroup]
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1660140Z ##[group]GITHUB_TOKEN Permissions
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1662465Z Contents: read
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1663464Z Metadata: read
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1664322Z ##[endgroup]
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1667228Z Secret source: Actions
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1668308Z Cache mode: write
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.1669225Z Prepare workflow directory
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.2233651Z Prepare all required actions
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.2281546Z Getting action download info
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.5676193Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.6696747Z Download action repository 'actions/setup-java@v5' (SHA:b6effb05e454b25005698d916606bdc6ffcbf961)
+Tests (integrationTest)	Set up job	2026-11-22T15:57:30.9255188Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+Tests (integrationTest)	Set up job	2026-11-22T15:57:31.1389939Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Tests (integrationTest)	Set up job	2026-11-22T15:57:31.3590828Z Complete job name: Tests (integrationTest)
+Tests (integrationTest)	Run actions/checkout@v4	﻿2026-11-22T15:57:31.4620199Z ##[group]Run actions/checkout@v4
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4621891Z with:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4622914Z   persist-credentials: false
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4624404Z   repository: JP-142004/cogsi2627-1260168-1260204
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4634468Z   token: ***
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4635682Z   ssh-strict: true
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4636765Z   ssh-user: git
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4637883Z   clean: true
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4638900Z   sparse-checkout-cone-mode: true
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4640119Z   fetch-depth: 1
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4641175Z   fetch-tags: false
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4642201Z   show-progress: true
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4643392Z   lfs: false
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4644357Z   submodules: false
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4645351Z   set-safe-directory: true
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4646525Z   allow-unsafe-pr-checkout: false
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4648119Z env:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4649018Z   PART_DIR: CA5/Part2
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4650147Z   APP_DIR: CA5/Part2/bookstore
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4651461Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4653344Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4654788Z   GRADLE_TASK: integrationTest
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.4655928Z ##[endgroup]
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7672909Z Syncing repository: JP-142004/cogsi2627-1260168-1260204
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7677964Z ##[group]Getting Git version info
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7681299Z Working directory is '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7686317Z [command]/usr/bin/git version
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7692572Z git version 2.56.1
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7721772Z ##[endgroup]
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7736043Z Temporarily overriding HOME='/home/runner/work/_temp/0cf66c8d-5ee1-4976-943b-b5060ff9bac2' before making global git config changes
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7741818Z Adding repository directory to the temporary git global config as a safe directory
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7746796Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7816699Z Deleting the contents of '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7821130Z ##[group]Initializing the repository
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7825847Z [command]/usr/bin/git init /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7961376Z hint: Using 'master' as the name for the initial branch. This default branch name
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7965484Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7968865Z hint: to use in all of your new repositories, which will suppress this warning,
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7971546Z hint: call:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7973321Z hint:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7975104Z hint: 	git config --global init.defaultBranch <name>
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7977585Z hint:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7979728Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7983080Z hint: 'development'. The just-created branch can be renamed via this command:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7986271Z hint:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7987925Z hint: 	git branch -m <name>
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7989784Z hint:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7992335Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.7996855Z Initialized empty Git repository in /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204/.git/
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8004399Z [command]/usr/bin/git remote add origin https://github.com/JP-142004/cogsi2627-1260168-1260204
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8060653Z ##[endgroup]
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8063722Z ##[group]Disabling automatic garbage collection
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8066220Z [command]/usr/bin/git config --local gc.auto 0
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8100798Z ##[endgroup]
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8103718Z ##[group]Setting up auth
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8106610Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8144629Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8631232Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8667038Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8938608Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.8974357Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.9247463Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.9287674Z ##[endgroup]
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.9291542Z ##[group]Fetching the repository
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:31.9300261Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e0d8bc3467bcc16f3d02cdd60e33b41617d92441:refs/remotes/origin/development
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3613830Z From https://github.com/JP-142004/cogsi2627-1260168-1260204
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3615944Z  * [new ref]         e0d8bc3467bcc16f3d02cdd60e33b41617d92441 -> origin/development
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3620302Z ##[endgroup]
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3622309Z ##[group]Determining the checkout info
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3624615Z ##[endgroup]
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3629335Z [command]/usr/bin/git sparse-checkout disable
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3690410Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3724090Z ##[group]Checking out the ref
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.3728781Z [command]/usr/bin/git checkout --progress --force -B development refs/remotes/origin/development
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4382021Z Switched to a new branch 'development'
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4389639Z branch 'development' set up to track 'origin/development'.
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4399542Z ##[endgroup]
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4456248Z [command]/usr/bin/git log -1 --format=%H
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4484804Z e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4496986Z ##[group]Removing auth
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4501850Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4535447Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4818910Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4844929Z http.https://github.com/.extraheader
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4852100Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.4885546Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.5157428Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.5188366Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Tests (integrationTest)	Run actions/checkout@v4	2026-11-22T15:57:32.5461855Z ##[endgroup]
+Tests (integrationTest)	Run actions/setup-java@v5	﻿2026-11-22T15:57:32.5882501Z ##[group]Run actions/setup-java@v5
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5883735Z with:
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5884515Z   distribution: temurin
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5885437Z   java-version: 17
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5886268Z   java-package: jdk
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5887112Z   check-latest: false
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5887992Z   set-default: true
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5888842Z   verify-signature: false
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5889749Z   server-id: github
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5890602Z   server-username: GITHUB_ACTOR
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5891596Z   server-password: GITHUB_TOKEN
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5892583Z   overwrite-settings: true
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5893602Z   job-status: success
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5901770Z   token: ***
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5902615Z   show-download-progress: false
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5903664Z env:
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5904417Z   PART_DIR: CA5/Part2
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5905305Z   APP_DIR: CA5/Part2/bookstore
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5906419Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5907746Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5908994Z   GRADLE_TASK: integrationTest
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.5909927Z ##[endgroup]
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7527274Z ##[group]Installed distributions
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7590151Z Resolved Java 17.0.21+9 from tool-cache
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7591474Z Setting Java 17.0.21+9 as the default
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7602884Z Creating toolchains.xml for JDK version 17 from temurin
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7678876Z Writing to /home/runner/.m2/toolchains.xml
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7680353Z
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7681117Z Java configuration:
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7682766Z   Distribution: temurin
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7684665Z   Version: 17.0.21+9
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7686780Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7688609Z
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7690064Z ##[endgroup]
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7726155Z Creating settings.xml with server-id: github
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7728462Z Writing to /home/runner/.m2/settings.xml
+Tests (integrationTest)	Run actions/setup-java@v5	2026-11-22T15:57:32.7733813Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+Tests (integrationTest)	Run actions/download-artifact@v4	﻿2026-11-22T15:57:32.7976311Z ##[group]Run actions/download-artifact@v4
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7978206Z with:
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7979752Z   name: prepared-app
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7981269Z   merge-multiple: false
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7982674Z   repository: JP-142004/cogsi2627-1260168-1260204
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7984054Z   run-id: 45041034720
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7984881Z env:
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7985660Z   PART_DIR: CA5/Part2
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7986544Z   APP_DIR: CA5/Part2/bookstore
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7987638Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7989592Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7990876Z   GRADLE_TASK: integrationTest
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7992251Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7995178Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7998108Z   MAVEN_ARGS: -ntp
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.7999438Z ##[endgroup]
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.9604858Z Downloading single artifact
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.9802154Z (node:2985) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:32.9805712Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:33.2277874Z Preparing to download the following artifacts:
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:33.2281260Z - prepared-app (ID: 14761777237, Size: 46176305, Expected Digest: sha256:350b6d75d42fc63e406926f53f553420556549a7a27eb69d73a85230eae34088)
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:33.4725622Z Redirecting to blob download url: https://productionresultssa15.blob.core.windows.net/actions-results/68764dda-867d-89c5-9f95-28fc47246091/workflow-job-run-cd62d678-3ccb-5bd7-983e-82ea22044617/artifacts/66e3b583dc96e2a071a613aeb60b857ea5d801bcb8f4b3a2bdeb07e26826fd21.zip
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:33.4730612Z Starting download of artifact to: /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:33.8139329Z (node:2985) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:36.0278671Z SHA256 digest of downloaded artifact is 350b6d75d42fc63e406926f53f553420556549a7a27eb69d73a85230eae34088
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:36.0279956Z Artifact download completed successfully.
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:36.0280559Z Total of 1 artifact(s) downloaded
+Tests (integrationTest)	Run actions/download-artifact@v4	2026-11-22T15:57:36.0285898Z Download artifact has finished successfully
+Tests (integrationTest)	Recuperar as classes compiladas	﻿2026-11-22T15:57:36.0481209Z ##[group]Run tar -xzf prepared-app.tgz -C "$APP_DIR"
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0481708Z ^[[36;1mtar -xzf prepared-app.tgz -C "$APP_DIR"^[[0m
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0519654Z shell: /usr/bin/bash -e {0}
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0519966Z env:
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0520180Z   PART_DIR: CA5/Part2
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0520435Z   APP_DIR: CA5/Part2/bookstore
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0520750Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0521169Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0521519Z   GRADLE_TASK: integrationTest
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0521896Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0522418Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0522854Z   MAVEN_ARGS: -ntp
+Tests (integrationTest)	Recuperar as classes compiladas	2026-11-22T15:57:36.0523074Z ##[endgroup]
+Tests (integrationTest)	Executar os testes	﻿2026-11-22T15:57:36.2640717Z ##[group]Run bash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" "$GRADLE_TASK"
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2641336Z ^[[36;1mbash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" "$GRADLE_TASK"^[[0m
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2678568Z shell: /usr/bin/bash -e {0}
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2678861Z env:
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2679256Z   PART_DIR: CA5/Part2
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2679680Z   APP_DIR: CA5/Part2/bookstore
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2680194Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2680857Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2681414Z   GRADLE_TASK: integrationTest
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2682033Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2682882Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2684080Z   MAVEN_ARGS: -ntp
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.2684505Z ##[endgroup]
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:36.5339156Z Downloading https://services.gradle.org/distributions/gradle-8.8-bin.zip
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:38.1054893Z .............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3530014Z
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3530915Z Welcome to Gradle 8.8!
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3531568Z
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3532195Z Here are the highlights of this release:
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3560936Z  - Running Gradle on Java 22
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3561621Z  - Configurable Gradle daemon JVM
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3562284Z  - Improved IDE performance for large projects
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3562754Z
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3563315Z For more details see https://docs.gradle.org/8.8/release-notes.html
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.3563846Z
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:39.4545656Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:40.6515387Z Daemon will be stopped at the end of the build
+Tests (integrationTest)	Executar os testes	2026-11-22T15:57:55.3541477Z > Task :app:classes
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:17.6537142Z > Task :app:compileIntegrationTestJava
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:17.6544427Z > Task :app:processIntegrationTestResources NO-SOURCE
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:17.6547251Z > Task :app:integrationTestClasses
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:25.3525067Z OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:25.9514162Z 2026-11-22T15:58:25.903Z  INFO 3196 --- [bookstore-api] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:25.9534615Z 2026-11-22T15:58:25.906Z  INFO 3196 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:25.9544649Z 2026-11-22T15:58:25.911Z  INFO 3196 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:26.0512483Z > Task :app:integrationTest
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:26.0514956Z
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:26.0515264Z BUILD SUCCESSFUL in 49s
+Tests (integrationTest)	Executar os testes	2026-11-22T15:58:26.0515760Z 2 actionable tasks: 2 executed
+Tests (integrationTest)	Publicar resumo JUnit	﻿2026-11-22T15:58:26.4415023Z ##[group]Run python3 "$PART_DIR/ci/test-summary.py" "$APP_DIR/app/build/test-results/$GRADLE_TASK"
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4415773Z ^[[36;1mpython3 "$PART_DIR/ci/test-summary.py" "$APP_DIR/app/build/test-results/$GRADLE_TASK"^[[0m
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4448108Z shell: /usr/bin/bash -e {0}
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4448374Z env:
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4448578Z   PART_DIR: CA5/Part2
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4448830Z   APP_DIR: CA5/Part2/bookstore
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4449147Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4449546Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4449894Z   GRADLE_TASK: integrationTest
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4450274Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4450776Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4451185Z   MAVEN_ARGS: -ntp
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4451404Z ##[endgroup]
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4742081Z ### Resultados: integrationTest
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4742511Z
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4742711Z | Testes | Falhas | Erros | Ignorados |
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4743426Z |---:|---:|---:|---:|
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4743833Z | 2 | 0 | 0 | 0 |
+Tests (integrationTest)	Publicar resumo JUnit	2026-11-22T15:58:26.4744076Z
+Tests (integrationTest)	Run actions/upload-artifact@v4	﻿2026-11-22T15:58:26.4873763Z ##[group]Run actions/upload-artifact@v4
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4874111Z with:
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4874337Z   name: junit-integrationTest
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4875049Z   path: CA5/Part2/bookstore/app/build/test-results/integrationTest/
+Tests (integrationTest)	Run actions/upload-artifact@v4	CA5/Part2/bookstore/app/build/reports/tests/integrationTest/
+Tests (integrationTest)	Run actions/upload-artifact@v4	CA5/Part2/bookstore/app/build/ci/
+Tests (integrationTest)	Run actions/upload-artifact@v4
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4875965Z   retention-days: 7
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4876225Z   if-no-files-found: warn
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4876474Z   compression-level: 6
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4876706Z   overwrite: false
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4876936Z   include-hidden-files: false
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4877187Z env:
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4877386Z   PART_DIR: CA5/Part2
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4877625Z   APP_DIR: CA5/Part2/bookstore
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4877924Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4878305Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4878655Z   GRADLE_TASK: integrationTest
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4879022Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4879549Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4879939Z   MAVEN_ARGS: -ntp
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.4880161Z ##[endgroup]
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6712002Z (node:3284) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6713619Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6867408Z Multiple search paths detected. Calculating the least common ancestor of all paths
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6871357Z The least common ancestor is /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204/CA5/Part2/bookstore/app/build. This will be the root directory of the artifact
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6874368Z With the provided path, there will be 11 files uploaded
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6879832Z Artifact name is valid!
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6880460Z Root directory input is valid!
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.0855342Z Beginning upload of artifact content to blob storage
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.1241233Z (node:3284) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.4761938Z Uploaded bytes 14283
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.5546842Z Finished uploading artifact content to blob storage!
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.5547959Z SHA256 digest of uploaded artifact zip is beba8b8d3b4ff7d52aac52c6daf0b3674b2ff1ea5ffbcfbcd037221654ca3beb
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.5550698Z Finalizing artifact upload
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.9355751Z Artifact junit-integrationTest.zip successfully finalized. Artifact ID 14761882013
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.9357655Z Artifact junit-integrationTest has been successfully uploaded! Final size is 14283 bytes. Artifact ID is 14761882013
+Tests (integrationTest)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.9364528Z Artifact download URL: https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041034720/artifacts/14761882013
+Tests (integrationTest)	Post Run actions/setup-java@v5	﻿2026-11-22T15:58:27.9591390Z Post job cleanup.
+Tests (integrationTest)	Post Run actions/checkout@v4	﻿2026-11-22T15:58:28.0994755Z Post job cleanup.
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.1906910Z [command]/usr/bin/git version
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.1952411Z git version 2.56.1
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.1992487Z Temporarily overriding HOME='/home/runner/work/_temp/59e6bce4-9eac-4265-8aa0-42df1d5644c5' before making global git config changes
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.1994179Z Adding repository directory to the temporary git global config as a safe directory
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.1998104Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.2038601Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.2074687Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.2382627Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.2419824Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.2789014Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Tests (integrationTest)	Post Run actions/checkout@v4	2026-11-22T15:58:28.2845192Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Tests (integrationTest)	Complete job	﻿2026-11-22T15:58:28.3352076Z Cleaning up orphan processes
+Tests (integrationTest)	Complete job	2026-11-22T15:58:28.3749767Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/download-artifact@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Tests (test)	Set up job	﻿2026-11-22T15:57:30.1141806Z Current runner version: '2.338.2'
+Tests (test)	Set up job	2026-11-22T15:57:30.1167174Z ##[group]Runner Image Provisioner
+Tests (test)	Set up job	2026-11-22T15:57:30.1168014Z Hosted Compute Agent
+Tests (test)	Set up job	2026-11-22T15:57:30.1168730Z Version: 20261111.635
+Tests (test)	Set up job	2026-11-22T15:57:30.1169365Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Tests (test)	Set up job	2026-11-22T15:57:30.1170130Z Build Date: 2026-11-11T01:49:01Z
+Tests (test)	Set up job	2026-11-22T15:57:30.1170811Z Worker ID: {7964b1f6-3495-42c6-924a-9c96cc9a7042}
+Tests (test)	Set up job	2026-11-22T15:57:30.1171559Z Region: westus
+Tests (test)	Set up job	2026-11-22T15:57:30.1172155Z Cloud: Azure
+Tests (test)	Set up job	2026-11-22T15:57:30.1172757Z ##[endgroup]
+Tests (test)	Set up job	2026-11-22T15:57:30.1174555Z ##[group]Operating System
+Tests (test)	Set up job	2026-11-22T15:57:30.1175239Z Ubuntu
+Tests (test)	Set up job	2026-11-22T15:57:30.1175753Z 26.04.1
+Tests (test)	Set up job	2026-11-22T15:57:30.1176738Z LTS
+Tests (test)	Set up job	2026-11-22T15:57:30.1177260Z ##[endgroup]
+Tests (test)	Set up job	2026-11-22T15:57:30.1177780Z ##[group]Runner Image
+Tests (test)	Set up job	2026-11-22T15:57:30.1178423Z Image: ubuntu-26.04
+Tests (test)	Set up job	2026-11-22T15:57:30.1179071Z Version: 20261116.202.1
+Tests (test)	Set up job	2026-11-22T15:57:30.1180166Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+Tests (test)	Set up job	2026-11-22T15:57:30.1181937Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+Tests (test)	Set up job	2026-11-22T15:57:30.1183259Z ##[endgroup]
+Tests (test)	Set up job	2026-11-22T15:57:30.1184471Z ##[group]GITHUB_TOKEN Permissions
+Tests (test)	Set up job	2026-11-22T15:57:30.1186415Z Contents: read
+Tests (test)	Set up job	2026-11-22T15:57:30.1187066Z Metadata: read
+Tests (test)	Set up job	2026-11-22T15:57:30.1187700Z ##[endgroup]
+Tests (test)	Set up job	2026-11-22T15:57:30.1190169Z Secret source: Actions
+Tests (test)	Set up job	2026-11-22T15:57:30.1191261Z Cache mode: write
+Tests (test)	Set up job	2026-11-22T15:57:30.1192173Z Prepare workflow directory
+Tests (test)	Set up job	2026-11-22T15:57:30.1739393Z Prepare all required actions
+Tests (test)	Set up job	2026-11-22T15:57:30.1786246Z Getting action download info
+Tests (test)	Set up job	2026-11-22T15:57:30.5195379Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Tests (test)	Set up job	2026-11-22T15:57:30.6270558Z Download action repository 'actions/setup-java@v5' (SHA:b6effb05e454b25005698d916606bdc6ffcbf961)
+Tests (test)	Set up job	2026-11-22T15:57:31.0154243Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+Tests (test)	Set up job	2026-11-22T15:57:31.3470948Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Tests (test)	Set up job	2026-11-22T15:57:31.5656967Z Complete job name: Tests (test)
+Tests (test)	Run actions/checkout@v4	﻿2026-11-22T15:57:31.6637573Z ##[group]Run actions/checkout@v4
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6639226Z with:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6640204Z   persist-credentials: false
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6641422Z   repository: JP-142004/cogsi2627-1260168-1260204
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6650396Z   token: ***
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6651363Z   ssh-strict: true
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6652394Z   ssh-user: git
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6653534Z   clean: true
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6654536Z   sparse-checkout-cone-mode: true
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6655776Z   fetch-depth: 1
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6656795Z   fetch-tags: false
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6657822Z   show-progress: true
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6658869Z   lfs: false
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6659778Z   submodules: false
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6660866Z   set-safe-directory: true
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6661988Z   allow-unsafe-pr-checkout: false
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6663676Z env:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6664660Z   PART_DIR: CA5/Part2
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6665770Z   APP_DIR: CA5/Part2/bookstore
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6667082Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6668733Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6670113Z   GRADLE_TASK: test
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.6671069Z ##[endgroup]
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9247927Z Syncing repository: JP-142004/cogsi2627-1260168-1260204
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9251925Z ##[group]Getting Git version info
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9254245Z Working directory is '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9256747Z [command]/usr/bin/git version
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9257907Z git version 2.56.1
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9278075Z ##[endgroup]
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9287443Z Temporarily overriding HOME='/home/runner/work/_temp/f00370ba-30a5-4344-b9d1-fa039a50b167' before making global git config changes
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9291429Z Adding repository directory to the temporary git global config as a safe directory
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9295827Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9363586Z Deleting the contents of '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9368953Z ##[group]Initializing the repository
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9374697Z [command]/usr/bin/git init /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9479388Z hint: Using 'master' as the name for the initial branch. This default branch name
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9481710Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9484116Z hint: to use in all of your new repositories, which will suppress this warning,
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9485853Z hint: call:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9486908Z hint:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9488623Z hint: 	git config --global init.defaultBranch <name>
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9491080Z hint:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9493577Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9497266Z hint: 'development'. The just-created branch can be renamed via this command:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9500171Z hint:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9501880Z hint: 	git branch -m <name>
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9504069Z hint:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9506369Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9511017Z Initialized empty Git repository in /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204/.git/
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9516091Z [command]/usr/bin/git remote add origin https://github.com/JP-142004/cogsi2627-1260168-1260204
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9566651Z ##[endgroup]
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9569344Z ##[group]Disabling automatic garbage collection
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9571727Z [command]/usr/bin/git config --local gc.auto 0
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9606195Z ##[endgroup]
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9609579Z ##[group]Setting up auth
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9612896Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:31.9650808Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.0115363Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.0154575Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.0429544Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.0464758Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.0737403Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.0778221Z ##[endgroup]
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.0780022Z ##[group]Fetching the repository
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.0788668Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e0d8bc3467bcc16f3d02cdd60e33b41617d92441:refs/remotes/origin/development
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.6929929Z From https://github.com/JP-142004/cogsi2627-1260168-1260204
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.6933196Z  * [new ref]         e0d8bc3467bcc16f3d02cdd60e33b41617d92441 -> origin/development
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.6938897Z ##[endgroup]
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.6941118Z ##[group]Determining the checkout info
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.6943554Z ##[endgroup]
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.6945466Z [command]/usr/bin/git sparse-checkout disable
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.6996489Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7026579Z ##[group]Checking out the ref
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7040303Z [command]/usr/bin/git checkout --progress --force -B development refs/remotes/origin/development
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7674646Z Switched to a new branch 'development'
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7680279Z branch 'development' set up to track 'origin/development'.
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7689265Z ##[endgroup]
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7737603Z [command]/usr/bin/git log -1 --format=%H
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7763763Z e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7774851Z ##[group]Removing auth
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7779377Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.7812855Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.8086429Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.8109399Z http.https://github.com/.extraheader
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.8119242Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.8155180Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.8418856Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.8451035Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Tests (test)	Run actions/checkout@v4	2026-11-22T15:57:32.8723316Z ##[endgroup]
+Tests (test)	Run actions/setup-java@v5	﻿2026-11-22T15:57:32.9134078Z ##[group]Run actions/setup-java@v5
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9135182Z with:
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9136032Z   distribution: temurin
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9136951Z   java-version: 17
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9137817Z   java-package: jdk
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9138681Z   check-latest: false
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9139577Z   set-default: true
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9140484Z   verify-signature: false
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9141427Z   server-id: github
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9142314Z   server-username: GITHUB_ACTOR
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9143458Z   server-password: GITHUB_TOKEN
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9144483Z   overwrite-settings: true
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9145425Z   job-status: success
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9153556Z   token: ***
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9154431Z   show-download-progress: false
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9155415Z env:
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9156181Z   PART_DIR: CA5/Part2
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9157087Z   APP_DIR: CA5/Part2/bookstore
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9158228Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9159596Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9160833Z   GRADLE_TASK: test
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:32.9161685Z ##[endgroup]
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.0767265Z ##[group]Installed distributions
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1065128Z Resolved Java 17.0.21+9 from tool-cache
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1066902Z Setting Java 17.0.21+9 as the default
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1077075Z Creating toolchains.xml for JDK version 17 from temurin
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1156432Z Writing to /home/runner/.m2/toolchains.xml
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1157777Z
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1158547Z Java configuration:
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1160304Z   Distribution: temurin
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1161449Z   Version: 17.0.21+9
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1163358Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1164439Z
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1165571Z ##[endgroup]
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1198795Z Creating settings.xml with server-id: github
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1201322Z Writing to /home/runner/.m2/settings.xml
+Tests (test)	Run actions/setup-java@v5	2026-11-22T15:57:33.1206306Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+Tests (test)	Run actions/download-artifact@v4	﻿2026-11-22T15:57:33.1466774Z ##[group]Run actions/download-artifact@v4
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1467976Z with:
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1468785Z   name: prepared-app
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1469939Z   merge-multiple: false
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1470973Z   repository: JP-142004/cogsi2627-1260168-1260204
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1472219Z   run-id: 45041034720
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1473912Z env:
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1475253Z   PART_DIR: CA5/Part2
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1476954Z   APP_DIR: CA5/Part2/bookstore
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1479220Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1481570Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1483810Z   GRADLE_TASK: test
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1485903Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1489144Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1491259Z   MAVEN_ARGS: -ntp
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.1492120Z ##[endgroup]
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.3052708Z Downloading single artifact
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.3236103Z (node:2520) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.3240592Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.5755774Z Preparing to download the following artifacts:
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.5758406Z - prepared-app (ID: 14761777237, Size: 46176305, Expected Digest: sha256:350b6d75d42fc63e406926f53f553420556549a7a27eb69d73a85230eae34088)
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.8064058Z Redirecting to blob download url: https://productionresultssa15.blob.core.windows.net/actions-results/68764dda-867d-89c5-9f95-28fc47246091/workflow-job-run-cd62d678-3ccb-5bd7-983e-82ea22044617/artifacts/66e3b583dc96e2a071a613aeb60b857ea5d801bcb8f4b3a2bdeb07e26826fd21.zip
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:33.8068008Z Starting download of artifact to: /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:34.1242063Z (node:2520) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:35.7671727Z SHA256 digest of downloaded artifact is 350b6d75d42fc63e406926f53f553420556549a7a27eb69d73a85230eae34088
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:35.7673244Z Artifact download completed successfully.
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:35.7673883Z Total of 1 artifact(s) downloaded
+Tests (test)	Run actions/download-artifact@v4	2026-11-22T15:57:35.7676250Z Download artifact has finished successfully
+Tests (test)	Recuperar as classes compiladas	﻿2026-11-22T15:57:35.7861711Z ##[group]Run tar -xzf prepared-app.tgz -C "$APP_DIR"
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7862234Z ^[[36;1mtar -xzf prepared-app.tgz -C "$APP_DIR"^[[0m
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7899008Z shell: /usr/bin/bash -e {0}
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7899315Z env:
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7899528Z   PART_DIR: CA5/Part2
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7899782Z   APP_DIR: CA5/Part2/bookstore
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7900096Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7900500Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7900841Z   GRADLE_TASK: test
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7901183Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7901712Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7902158Z   MAVEN_ARGS: -ntp
+Tests (test)	Recuperar as classes compiladas	2026-11-22T15:57:35.7902384Z ##[endgroup]
+Tests (test)	Executar os testes	﻿2026-11-22T15:57:35.9961538Z ##[group]Run bash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" "$GRADLE_TASK"
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9962176Z ^[[36;1mbash "$GITHUB_WORKSPACE/$PART_DIR/ci/gradle.sh" "$GRADLE_TASK"^[[0m
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9996113Z shell: /usr/bin/bash -e {0}
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9996404Z env:
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9996624Z   PART_DIR: CA5/Part2
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9996898Z   APP_DIR: CA5/Part2/bookstore
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9997224Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9997615Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9997938Z   GRADLE_TASK: test
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9998292Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9998807Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9999387Z   MAVEN_ARGS: -ntp
+Tests (test)	Executar os testes	2026-11-22T15:57:35.9999639Z ##[endgroup]
+Tests (test)	Executar os testes	2026-11-22T15:57:37.8779848Z Downloading https://services.gradle.org/distributions/gradle-8.8-bin.zip
+Tests (test)	Executar os testes	2026-11-22T15:57:40.6999474Z .............10%.............20%.............30%.............40%.............50%.............60%..............70%.............80%.............90%.............100%
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0160111Z
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0161211Z Welcome to Gradle 8.8!
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0161725Z
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0165094Z Here are the highlights of this release:
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0165985Z  - Running Gradle on Java 22
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0173765Z  - Configurable Gradle daemon JVM
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0174564Z  - Improved IDE performance for large projects
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0174981Z
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0175678Z For more details see https://docs.gradle.org/8.8/release-notes.html
+Tests (test)	Executar os testes	2026-11-22T15:57:42.0176219Z
+Tests (test)	Executar os testes	2026-11-22T15:57:42.3165956Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Tests (test)	Executar os testes	2026-11-22T15:57:43.7151997Z Daemon will be stopped at the end of the build
+Tests (test)	Executar os testes	2026-11-22T15:58:02.9208568Z > Task :app:classes
+Tests (test)	Executar os testes	2026-11-22T15:58:22.9151368Z > Task :app:compileTestJava
+Tests (test)	Executar os testes	2026-11-22T15:58:22.9152357Z > Task :app:processTestResources NO-SOURCE
+Tests (test)	Executar os testes	2026-11-22T15:58:22.9153602Z > Task :app:testClasses
+Tests (test)	Executar os testes	2026-11-22T15:58:25.3164270Z > Task :app:test
+Tests (test)	Executar os testes	2026-11-22T15:58:25.3192293Z
+Tests (test)	Executar os testes	2026-11-22T15:58:25.3193584Z BUILD SUCCESSFUL in 47s
+Tests (test)	Executar os testes	2026-11-22T15:58:25.3204816Z 2 actionable tasks: 2 executed
+Tests (test)	Publicar resumo JUnit	﻿2026-11-22T15:58:25.6806636Z ##[group]Run python3 "$PART_DIR/ci/test-summary.py" "$APP_DIR/app/build/test-results/$GRADLE_TASK"
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6807436Z ^[[36;1mpython3 "$PART_DIR/ci/test-summary.py" "$APP_DIR/app/build/test-results/$GRADLE_TASK"^[[0m
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6839183Z shell: /usr/bin/bash -e {0}
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6839460Z env:
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6839670Z   PART_DIR: CA5/Part2
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6839941Z   APP_DIR: CA5/Part2/bookstore
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6840251Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6840650Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6840981Z   GRADLE_TASK: test
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6841334Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6841866Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6842291Z   MAVEN_ARGS: -ntp
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.6842513Z ##[endgroup]
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.7133581Z ### Resultados: test
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.7133893Z
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.7134160Z | Testes | Falhas | Erros | Ignorados |
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.7134707Z |---:|---:|---:|---:|
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.7135142Z | 1 | 0 | 0 | 0 |
+Tests (test)	Publicar resumo JUnit	2026-11-22T15:58:25.7135370Z
+Tests (test)	Run actions/upload-artifact@v4	﻿2026-11-22T15:58:25.7269616Z ##[group]Run actions/upload-artifact@v4
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7269950Z with:
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7270162Z   name: junit-test
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7270766Z   path: CA5/Part2/bookstore/app/build/test-results/test/
+Tests (test)	Run actions/upload-artifact@v4	CA5/Part2/bookstore/app/build/reports/tests/test/
+Tests (test)	Run actions/upload-artifact@v4	CA5/Part2/bookstore/app/build/ci/
+Tests (test)	Run actions/upload-artifact@v4
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7271420Z   retention-days: 7
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7271653Z   if-no-files-found: warn
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7271902Z   compression-level: 6
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7272129Z   overwrite: false
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7272361Z   include-hidden-files: false
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7272609Z env:
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7272808Z   PART_DIR: CA5/Part2
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7273323Z   APP_DIR: CA5/Part2/bookstore
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7273647Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7274021Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7274342Z   GRADLE_TASK: test
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7274672Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7275209Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7275803Z   MAVEN_ARGS: -ntp
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.7276018Z ##[endgroup]
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.8968179Z (node:2781) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.8969058Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.9084902Z Multiple search paths detected. Calculating the least common ancestor of all paths
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.9088067Z The least common ancestor is /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204/CA5/Part2/bookstore/app/build. This will be the root directory of the artifact
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.9089241Z With the provided path, there will be 11 files uploaded
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.9094428Z Artifact name is valid!
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:25.9094903Z Root directory input is valid!
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.3209930Z Beginning upload of artifact content to blob storage
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.3546278Z (node:2781) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6116643Z Uploaded bytes 7025
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6841474Z Finished uploading artifact content to blob storage!
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6843862Z SHA256 digest of uploaded artifact zip is e47aead3fe8d5f64d860f66f68b7e55da268e22b7c0da1dea1c7a8facb278890
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:26.6845906Z Finalizing artifact upload
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.0969887Z Artifact junit-test.zip successfully finalized. Artifact ID 14762090613
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.0971253Z Artifact junit-test has been successfully uploaded! Final size is 7025 bytes. Artifact ID is 14762090613
+Tests (test)	Run actions/upload-artifact@v4	2026-11-22T15:58:27.0978414Z Artifact download URL: https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041034720/artifacts/14762090613
+Tests (test)	Post Run actions/setup-java@v5	﻿2026-11-22T15:58:27.1191502Z Post job cleanup.
+Tests (test)	Post Run actions/checkout@v4	﻿2026-11-22T15:58:27.2667363Z Post job cleanup.
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.3664189Z [command]/usr/bin/git version
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.3724863Z git version 2.56.1
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.3777720Z Temporarily overriding HOME='/home/runner/work/_temp/11377746-8ab5-47bb-8f5b-ae6d937f2e53' before making global git config changes
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.3779178Z Adding repository directory to the temporary git global config as a safe directory
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.3787780Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.3848695Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.3901707Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.4342534Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.4382523Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.4701860Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Tests (test)	Post Run actions/checkout@v4	2026-11-22T15:58:27.4736173Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Tests (test)	Complete job	﻿2026-11-22T15:58:27.5155505Z Cleaning up orphan processes
+Tests (test)	Complete job	2026-11-22T15:58:27.5554216Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/download-artifact@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Build, archive and push image	Set up job	﻿2026-11-22T15:58:34.0283788Z Current runner version: '2.338.2'
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0311032Z ##[group]Runner Image Provisioner
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0312023Z Hosted Compute Agent
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0312600Z Version: 20261111.635
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0313319Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0314060Z Build Date: 2026-11-11T01:49:01Z
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0314761Z Worker ID: {daa5b17f-ae09-4276-87c9-1dee95b01f9a}
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0315499Z Region: us-west-2
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0315991Z Cloud: AWS
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0316922Z ##[endgroup]
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0318656Z ##[group]Operating System
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0319317Z Ubuntu
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0320108Z 26.04.1
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0320694Z LTS
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0321267Z ##[endgroup]
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0321809Z ##[group]Runner Image
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0322409Z Image: ubuntu-26.04
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0322982Z Version: 20261116.88.1
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0324079Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.88/images/ubuntu/Ubuntu2604-Readme.md
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0325897Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.88
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0326863Z ##[endgroup]
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0328029Z ##[group]GITHUB_TOKEN Permissions
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0330718Z Contents: read
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0331349Z Metadata: read
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0331849Z ##[endgroup]
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0334103Z Secret source: Actions
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0335032Z Cache mode: write
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0335831Z Prepare workflow directory
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0763421Z Prepare all required actions
+Build, archive and push image	Set up job	2026-11-22T15:58:34.0801769Z Getting action download info
+Build, archive and push image	Set up job	2026-11-22T15:58:34.4232942Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Build, archive and push image	Set up job	2026-11-22T15:58:35.0955038Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+Build, archive and push image	Set up job	2026-11-22T15:58:35.4082089Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Build, archive and push image	Set up job	2026-11-22T15:58:35.6016904Z Complete job name: Build, archive and push image
+Build, archive and push image	Run actions/checkout@v4	﻿2026-11-22T15:58:35.6740755Z ##[group]Run actions/checkout@v4
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6741973Z with:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6742715Z   persist-credentials: false
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6743708Z   repository: JP-142004/cogsi2627-1260168-1260204
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6750890Z   token: ***
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6751669Z   ssh-strict: true
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6752430Z   ssh-user: git
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6753167Z   clean: true
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6753966Z   sparse-checkout-cone-mode: true
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6754874Z   fetch-depth: 1
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6755663Z   fetch-tags: false
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6756436Z   show-progress: true
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6757235Z   lfs: false
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6757999Z   submodules: false
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6758785Z   set-safe-directory: true
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6759697Z   allow-unsafe-pr-checkout: false
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6761002Z env:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6761704Z   PART_DIR: CA5/Part2
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6762574Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6763554Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6764790Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:35.6765799Z ##[endgroup]
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5050215Z Syncing repository: JP-142004/cogsi2627-1260168-1260204
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5051998Z ##[group]Getting Git version info
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5052512Z Working directory is '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5053182Z [command]/usr/bin/git version
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5053488Z git version 2.56.1
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5057685Z ##[endgroup]
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5069619Z Temporarily overriding HOME='/home/runner/work/_temp/896cb6b7-eaf7-49cf-8772-09e00524f978' before making global git config changes
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5070798Z Adding repository directory to the temporary git global config as a safe directory
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5071736Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5400775Z Deleting the contents of '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5402617Z ##[group]Initializing the repository
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5404587Z [command]/usr/bin/git init /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5833038Z hint: Using 'master' as the name for the initial branch. This default branch name
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5833756Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5834409Z hint: to use in all of your new repositories, which will suppress this warning,
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5834851Z hint: call:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5835093Z hint:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5835513Z hint: 	git config --global init.defaultBranch <name>
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5835834Z hint:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5836171Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5836706Z hint: 'development'. The just-created branch can be renamed via this command:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5837081Z hint:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5837375Z hint: 	git branch -m <name>
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5837692Z hint:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5838055Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5848199Z Initialized empty Git repository in /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204/.git/
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5857896Z [command]/usr/bin/git remote add origin https://github.com/JP-142004/cogsi2627-1260168-1260204
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5911688Z ##[endgroup]
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5912245Z ##[group]Disabling automatic garbage collection
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5913644Z [command]/usr/bin/git config --local gc.auto 0
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5936418Z ##[endgroup]
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5936941Z ##[group]Setting up auth
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5941810Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.5965992Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.7816874Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.7840540Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.8023471Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.8046406Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.8221830Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.8249930Z ##[endgroup]
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.8258407Z ##[group]Fetching the repository
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:38.8259198Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e0d8bc3467bcc16f3d02cdd60e33b41617d92441:refs/remotes/origin/development
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6216354Z From https://github.com/JP-142004/cogsi2627-1260168-1260204
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6217031Z  * [new ref]         e0d8bc3467bcc16f3d02cdd60e33b41617d92441 -> origin/development
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6222228Z ##[endgroup]
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6223058Z ##[group]Determining the checkout info
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6228045Z ##[endgroup]
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6228451Z [command]/usr/bin/git sparse-checkout disable
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6275448Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6298308Z ##[group]Checking out the ref
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6302248Z [command]/usr/bin/git checkout --progress --force -B development refs/remotes/origin/development
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6710079Z Switched to a new branch 'development'
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6715399Z branch 'development' set up to track 'origin/development'.
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6720842Z ##[endgroup]
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6765166Z [command]/usr/bin/git log -1 --format=%H
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6783882Z e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6791067Z ##[group]Removing auth
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6793097Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6813454Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.6994732Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.7010397Z http.https://github.com/.extraheader
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.7015033Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.7034687Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.7199020Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.7218563Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Build, archive and push image	Run actions/checkout@v4	2026-11-22T15:58:39.7381251Z ##[endgroup]
+Build, archive and push image	Run actions/download-artifact@v4	﻿2026-11-22T15:58:39.7541870Z ##[group]Run actions/download-artifact@v4
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7542192Z with:
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7542414Z   name: prepared-app
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7542702Z   merge-multiple: false
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7542978Z   repository: JP-142004/cogsi2627-1260168-1260204
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7543281Z   run-id: 45041034720
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7543511Z env:
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7543731Z   PART_DIR: CA5/Part2
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7543988Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7544371Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7544729Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.7544991Z ##[endgroup]
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.8630667Z Downloading single artifact
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.9144322Z (node:2448) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:39.9145302Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:40.2061578Z Preparing to download the following artifacts:
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:40.2062503Z - prepared-app (ID: 14761777237, Size: 46176305, Expected Digest: sha256:350b6d75d42fc63e406926f53f553420556549a7a27eb69d73a85230eae34088)
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:40.5316306Z Redirecting to blob download url: https://productionresultssa15.blob.core.windows.net/actions-results/68764dda-867d-89c5-9f95-28fc47246091/workflow-job-run-cd62d678-3ccb-5bd7-983e-82ea22044617/artifacts/66e3b583dc96e2a071a613aeb60b857ea5d801bcb8f4b3a2bdeb07e26826fd21.zip
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:40.5317958Z Starting download of artifact to: /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:40.9086341Z (node:2448) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:44.0245241Z SHA256 digest of downloaded artifact is 350b6d75d42fc63e406926f53f553420556549a7a27eb69d73a85230eae34088
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:44.0246285Z Artifact download completed successfully.
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:44.0246702Z Total of 1 artifact(s) downloaded
+Build, archive and push image	Run actions/download-artifact@v4	2026-11-22T15:58:44.0250993Z Download artifact has finished successfully
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	﻿2026-11-22T15:58:44.0370903Z ##[group]Run tar -xzf prepared-app.tgz -C "$APP_DIR"
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	2026-11-22T15:58:44.0371398Z ^[[36;1mtar -xzf prepared-app.tgz -C "$APP_DIR"^[[0m
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	2026-11-22T15:58:44.0394693Z shell: /usr/bin/bash -e {0}
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	2026-11-22T15:58:44.0395057Z env:
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	2026-11-22T15:58:44.0395288Z   PART_DIR: CA5/Part2
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	2026-11-22T15:58:44.0395687Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	2026-11-22T15:58:44.0396025Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	2026-11-22T15:58:44.0396367Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Run tar -xzf prepared-app.tgz -C "$APP_DIR"	2026-11-22T15:58:44.0396660Z ##[endgroup]
+Build, archive and push image	Identificar a imagem desta execução	﻿2026-11-22T15:58:44.2256127Z ##[group]Run python3 "$PART_DIR/ci/prepare-actions-image.py"
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2256565Z ^[[36;1mpython3 "$PART_DIR/ci/prepare-actions-image.py"^[[0m
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2276572Z shell: /usr/bin/bash -e {0}
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2276886Z env:
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2277111Z   PART_DIR: CA5/Part2
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2277410Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2277695Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2278048Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2278339Z ##[endgroup]
+Build, archive and push image	Identificar a imagem desta execução	2026-11-22T15:58:44.2456781Z Imagem desta execução: luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Construir a imagem	﻿2026-11-22T15:58:44.2531749Z ##[group]Run docker build --label "org.opencontainers.image.revision=$SOURCE_COMMIT" --tag "$IMAGE_REFERENCE" "$APP_DIR"
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2532458Z ^[[36;1mdocker build --label "org.opencontainers.image.revision=$SOURCE_COMMIT" --tag "$IMAGE_REFERENCE" "$APP_DIR"^[[0m
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2548321Z shell: /usr/bin/bash -e {0}
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2548637Z env:
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2548883Z   PART_DIR: CA5/Part2
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2549127Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2549410Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2549916Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2550260Z   BOOKSTORE_IMAGE_TAG: gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2550651Z   IMAGE_REFERENCE: luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2551052Z   SOURCE_COMMIT: e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2551322Z   SOURCE_BRANCH: development
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2551580Z   CI_BUILD_NUMBER: 8.1
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2551877Z   CI_PROVIDER: github-actions
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:44.2552145Z ##[endgroup]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.4707773Z #0 building with "default" instance using docker driver
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.4708168Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.4708327Z #1 [internal] load build definition from Dockerfile
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.4708786Z #1 transferring dockerfile: 752B done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.4709058Z #1 DONE 0.0s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.4709220Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.4709417Z #2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-jammy
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.6631864Z #2 ...
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.6632163Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.6632675Z #3 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.6633070Z #3 DONE 0.0s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.8126621Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:47.8127266Z #2 [internal] load metadata for docker.io/library/eclipse-temurin:17-jre-jammy
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.1257218Z #2 DONE 0.8s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.2401452Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.2403156Z #4 [internal] load .dockerignore
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.2404730Z #4 transferring context: 165B done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.2405429Z #4 DONE 0.0s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.2405755Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.2406539Z #5 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:c6a5dd70fb24f4e07ef88cbda8efb613a5a649a1af071a41de8eaabd1ee6b5da
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.2408595Z #5 resolve docker.io/library/eclipse-temurin:17-jre-jammy@sha256:c6a5dd70fb24f4e07ef88cbda8efb613a5a649a1af071a41de8eaabd1ee6b5da 0.0s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4023139Z #5 ...
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4023821Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4023999Z #6 [internal] load build context
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4024427Z #6 transferring context: 51.47MB 0.1s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4024838Z #6 DONE 0.2s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4025104Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4025619Z #5 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:c6a5dd70fb24f4e07ef88cbda8efb613a5a649a1af071a41de8eaabd1ee6b5da
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4026410Z #5 sha256:e16844efa1e5487db57465d2338ce80cbdfac3f5ab5fba9ad68cff2f127152e4 2.46kB / 2.46kB 0.1s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4027241Z #5 sha256:33bfcf1bc7717e60b893a12f651775120e3cf8ad06809d1ac90ff176c2df7713 158B / 158B 0.1s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4027772Z #5 sha256:9f3d3c1f671ffbe0ac8f95a52d8414b6266390e468e9f9b349572c545703a787 0B / 47.63MB 0.2s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4028291Z #5 sha256:ba082564e6605eeb2e1abc91a762985d2e8afea393433de08e798c1eee36d028 0B / 30.07MB 0.2s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.4028757Z #5 sha256:e046509628737e4e4f482ba3193aa382c7c8222300f5a37f3a79bc093b6183de 0B / 16.12MB 0.2s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.5164647Z #5 sha256:9f3d3c1f671ffbe0ac8f95a52d8414b6266390e468e9f9b349572c545703a787 19.92MB / 47.63MB 0.3s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.5166101Z #5 sha256:ba082564e6605eeb2e1abc91a762985d2e8afea393433de08e798c1eee36d028 14.68MB / 30.07MB 0.3s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.5167077Z #5 sha256:e046509628737e4e4f482ba3193aa382c7c8222300f5a37f3a79bc093b6183de 16.12MB / 16.12MB 0.3s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.7388432Z #5 sha256:9f3d3c1f671ffbe0ac8f95a52d8414b6266390e468e9f9b349572c545703a787 47.63MB / 47.63MB 0.4s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.7390032Z #5 sha256:ba082564e6605eeb2e1abc91a762985d2e8afea393433de08e798c1eee36d028 30.07MB / 30.07MB 0.4s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.7390658Z #5 extracting sha256:ba082564e6605eeb2e1abc91a762985d2e8afea393433de08e798c1eee36d028
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.9485934Z #5 extracting sha256:ba082564e6605eeb2e1abc91a762985d2e8afea393433de08e798c1eee36d028 0.4s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:48.9486447Z #5 DONE 0.8s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.0989091Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.0990854Z #5 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:c6a5dd70fb24f4e07ef88cbda8efb613a5a649a1af071a41de8eaabd1ee6b5da
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.0992110Z #5 extracting sha256:e046509628737e4e4f482ba3193aa382c7c8222300f5a37f3a79bc093b6183de
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.2015977Z #5 extracting sha256:e046509628737e4e4f482ba3193aa382c7c8222300f5a37f3a79bc093b6183de 0.3s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.2016728Z #5 DONE 1.1s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.3518763Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.3520682Z #5 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:c6a5dd70fb24f4e07ef88cbda8efb613a5a649a1af071a41de8eaabd1ee6b5da
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.3522052Z #5 extracting sha256:9f3d3c1f671ffbe0ac8f95a52d8414b6266390e468e9f9b349572c545703a787
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.6928511Z #5 extracting sha256:9f3d3c1f671ffbe0ac8f95a52d8414b6266390e468e9f9b349572c545703a787 0.5s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.6930135Z #5 DONE 1.6s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.8519973Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.8520846Z #5 [1/4] FROM docker.io/library/eclipse-temurin:17-jre-jammy@sha256:c6a5dd70fb24f4e07ef88cbda8efb613a5a649a1af071a41de8eaabd1ee6b5da
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.8521654Z #5 extracting sha256:33bfcf1bc7717e60b893a12f651775120e3cf8ad06809d1ac90ff176c2df7713 done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.8522156Z #5 extracting sha256:e16844efa1e5487db57465d2338ce80cbdfac3f5ab5fba9ad68cff2f127152e4 done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.8522529Z #5 DONE 1.6s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.8522684Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:49.8523291Z #7 [2/4] RUN apt-get update     && apt-get install -y --no-install-recommends curl     && rm -rf /var/lib/apt/lists/*     && groupadd --system --gid 10001 bookstore     && useradd --system --uid 10001 --gid bookstore --home-dir /app --no-create-home bookstore
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:50.1240241Z #7 0.422 Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:50.3200131Z #7 0.468 Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:50.7815874Z #7 1.080 Get:3 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [8,111 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:51.0668118Z #7 1.365 Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:51.2829489Z #7 1.581 Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:51.4996489Z #7 1.798 Get:6 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:51.6251484Z #7 1.922 Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1,792 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:51.8074676Z #7 2.106 Get:8 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1,329 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:51.9743420Z #7 2.122 Get:9 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [96.7 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:51.9744054Z #7 2.122 Get:10 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [4,547 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:52.0273887Z #7 2.326 Get:11 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:52.1920706Z #7 2.340 Get:12 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:52.5431090Z #7 2.840 Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1,631 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:52.6656878Z #7 2.852 Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [8,422 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:52.6658036Z #7 2.931 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [4,884 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:52.6660483Z #7 2.964 Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [104 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:52.8175449Z #7 2.965 Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.6 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:52.8176347Z #7 2.965 Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [82.9 kB]
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:53.4743301Z #7 3.773 Fetched 49.6 MB in 4s (13.7 MB/s)
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:54.3033166Z #7 3.773 Reading package lists...
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:55.1453158Z #7 4.634 Reading package lists...
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:55.3298909Z #7 5.456 Building dependency tree...
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:55.3299456Z #7 5.628 Reading state information...
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:55.5061508Z #7 5.804 curl is already the newest version (7.81.0-1ubuntu1.30).
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:55.5062059Z #7 5.804 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.3473818Z #7 DONE 6.6s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.5070338Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.5071325Z #8 [3/4] WORKDIR /app
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.5071659Z #8 DONE 0.0s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.5072071Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.5072356Z #9 [4/4] COPY --chown=10001:10001 app/build/libs/app-1.0.0.jar /app/bookstore.jar
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.5865956Z #9 DONE 0.2s
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.7390593Z
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.7391269Z #10 exporting to image
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:56.7391572Z #10 exporting layers
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.5987001Z #10 exporting layers 1.0s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.7639329Z #10 exporting manifest sha256:8533809f0b475286a67c84ce32e9229e97f6adf8b76acbcf840402a8ab4cfefa done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.7640524Z #10 exporting config sha256:6da6830af784e347d711c389571ff0eab5aa1baa53e23b684ce815f551f21016 done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.7641638Z #10 exporting attestation manifest sha256:8310aeaabab1ca0beee300f51579bc315420720baf244e03d6f2701ce57741e0 done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.7642642Z #10 exporting manifest list sha256:481b7ea8eba86e3c5f32b169e2bc5b7c253f5beb5f83f5133b61479561159ecd done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.7643385Z #10 naming to docker.io/luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3 done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.7643946Z #10 unpacking to docker.io/luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.8245931Z #10 unpacking to docker.io/luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3 0.2s done
+Build, archive and push image	Construir a imagem	2026-11-22T15:58:57.8612090Z #10 DONE 1.2s
+Build, archive and push image	Arquivar Dockerfile e metadados	﻿2026-11-22T15:58:57.8684736Z ##[group]Run python3 "$PART_DIR/ci/image-metadata.py"
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8685175Z ^[[36;1mpython3 "$PART_DIR/ci/image-metadata.py"^[[0m
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8703307Z shell: /usr/bin/bash -e {0}
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8703593Z env:
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8703891Z   PART_DIR: CA5/Part2
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8704158Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8704449Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8704804Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8705163Z   BOOKSTORE_IMAGE_TAG: gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8705584Z   IMAGE_REFERENCE: luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8706021Z   SOURCE_COMMIT: e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8706335Z   SOURCE_BRANCH: development
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8706696Z   CI_BUILD_NUMBER: 8.1
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8706961Z   CI_PROVIDER: github-actions
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.8707233Z ##[endgroup]
+Build, archive and push image	Arquivar Dockerfile e metadados	2026-11-22T15:58:57.9776792Z Metadados arquivados para luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3.
+Build, archive and push image	Run actions/upload-artifact@v4	﻿2026-11-22T15:58:57.9882123Z ##[group]Run actions/upload-artifact@v4
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9882416Z with:
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9882630Z   name: build-metadata
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9882940Z   path: dist/
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9883171Z   retention-days: 7
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9883396Z   if-no-files-found: warn
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9883674Z   compression-level: 6
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9883904Z   overwrite: false
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9884175Z   include-hidden-files: false
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9884445Z env:
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9884662Z   PART_DIR: CA5/Part2
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9884897Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9885198Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9885555Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9885909Z   BOOKSTORE_IMAGE_TAG: gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9886344Z   IMAGE_REFERENCE: luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9886750Z   SOURCE_COMMIT: e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9887169Z   SOURCE_BRANCH: development
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9887406Z   CI_BUILD_NUMBER: 8.1
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9887671Z   CI_PROVIDER: github-actions
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:57.9887905Z ##[endgroup]
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:58.1156477Z (node:2884) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:58.1157356Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:58.1209181Z With the provided path, there will be 2 files uploaded
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:58.1215819Z Artifact name is valid!
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:58.1216405Z Root directory input is valid!
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:58.6542596Z Beginning upload of artifact content to blob storage
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:58.6678352Z (node:2884) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:58.9975174Z Uploaded bytes 993
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:59.0871254Z Finished uploading artifact content to blob storage!
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:59.0872066Z SHA256 digest of uploaded artifact zip is ce91246a7241771155d3000674ffece8e1d007fedadf7487dabd81597172d301
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:59.0872688Z Finalizing artifact upload
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:59.4492017Z Artifact build-metadata.zip successfully finalized. Artifact ID 14761548320
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:59.4492793Z Artifact build-metadata has been successfully uploaded! Final size is 993 bytes. Artifact ID is 14761548320
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:58:59.4496988Z Artifact download URL: https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041034720/artifacts/14761548320
+Build, archive and push image	Publicar a imagem	﻿2026-11-22T15:58:59.4586724Z ##[group]Run python3 "$PART_DIR/ci/push-image.py"
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4587143Z ^[[36;1mpython3 "$PART_DIR/ci/push-image.py"^[[0m
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4605957Z shell: /usr/bin/bash -e {0}
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4606259Z env:
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4606482Z   PART_DIR: CA5/Part2
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4606766Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4607041Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4607432Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4607802Z   BOOKSTORE_IMAGE_TAG: gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4608242Z   IMAGE_REFERENCE: luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4608643Z   SOURCE_COMMIT: e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4608985Z   SOURCE_BRANCH: development
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4609239Z   CI_BUILD_NUMBER: 8.1
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4609503Z   CI_PROVIDER: github-actions
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4609906Z   DOCKERHUB_USERNAME: luizbsilv
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4610822Z   DOCKERHUB_TOKEN: ***
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.4611109Z ##[endgroup]
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.9932991Z
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.9934145Z WARNING! Your credentials are stored unencrypted in '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204/.ci/docker-auth-ua52na21/config.json'.
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.9934768Z Configure a credential helper to remove this warning. See
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.9935338Z https://docs.docker.com/go/credential-store/
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.9935515Z
+Build, archive and push image	Publicar a imagem	2026-11-22T15:58:59.9935637Z Login Succeeded
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.0047353Z The push refers to repository [docker.io/luizbsilv/ca5-bookstore]
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1067324Z 59eec59c951d: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1067683Z 33bfcf1bc771: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1067952Z ba082564e660: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1068340Z ef57462d7f72: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1068577Z 9f3d3c1f671f: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1068837Z e16844efa1e5: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1069086Z e6e68745ef8b: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1069417Z e04650962873: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.1069679Z ca50a9994f56: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2064710Z ef57462d7f72: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2065180Z 9f3d3c1f671f: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2065493Z e16844efa1e5: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2065794Z e6e68745ef8b: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2066014Z e04650962873: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2066305Z ca50a9994f56: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2066547Z 59eec59c951d: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2066824Z 33bfcf1bc771: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.2067108Z ba082564e660: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3068533Z ca50a9994f56: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3069451Z 59eec59c951d: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3070462Z 33bfcf1bc771: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3070992Z ba082564e660: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3071229Z ef57462d7f72: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3071536Z 9f3d3c1f671f: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3071769Z e16844efa1e5: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3072012Z e6e68745ef8b: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.3072256Z e04650962873: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4072780Z e16844efa1e5: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4073199Z e6e68745ef8b: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4073678Z e04650962873: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4074050Z ca50a9994f56: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4075367Z 59eec59c951d: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4075875Z 33bfcf1bc771: Layer already exists
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4076193Z ba082564e660: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4076561Z ef57462d7f72: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.4076846Z 9f3d3c1f671f: Layer already exists
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.5069145Z e16844efa1e5: Layer already exists
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.5069683Z e6e68745ef8b: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.5070287Z e04650962873: Layer already exists
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.5070585Z ca50a9994f56: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.5070860Z 59eec59c951d: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.5071155Z ba082564e660: Layer already exists
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.5071458Z ef57462d7f72: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.6061969Z ca50a9994f56: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.6062303Z 59eec59c951d: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:00.6062747Z e6e68745ef8b: Waiting
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:01.3068270Z ca50a9994f56: Pushed
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:01.3069225Z 59eec59c951d: Pushed
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:01.4066023Z e6e68745ef8b: Pushed
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:03.3068190Z ef57462d7f72: Pushed
+Build, archive and push image	Publicar a imagem	2026-11-22T15:59:05.2595876Z gha-development-45041034720-1-e0d8bc3: digest: sha256:481b7ea8eba86e3c5f32b169e2bc5b7c253f5beb5f83f5133b61479561159ecd size: 856
+Build, archive and push image	Run actions/upload-artifact@v4	﻿2026-11-22T15:59:05.2944050Z ##[group]Run actions/upload-artifact@v4
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2944382Z with:
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2944591Z   name: published-image
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2944865Z   path: dist/push.json
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2945108Z   retention-days: 7
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2945343Z   if-no-files-found: warn
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2945599Z   compression-level: 6
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2945835Z   overwrite: false
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2946085Z   include-hidden-files: false
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2946312Z env:
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2946560Z   PART_DIR: CA5/Part2
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2946795Z   APP_DIR: CA5/Part2/bookstore
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2947132Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2947570Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2947908Z   BOOKSTORE_IMAGE_TAG: gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2948339Z   IMAGE_REFERENCE: luizbsilv/ca5-bookstore:gha-development-45041034720-1-e0d8bc3
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2948743Z   SOURCE_COMMIT: e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2949147Z   SOURCE_BRANCH: development
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2949414Z   CI_BUILD_NUMBER: 8.1
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2949683Z   CI_PROVIDER: github-actions
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.2950122Z ##[endgroup]
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.4179194Z (node:2924) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.4180267Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.4246478Z With the provided path, there will be 1 file uploaded
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.4247795Z Artifact name is valid!
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.4248306Z Root directory input is valid!
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.8006240Z Beginning upload of artifact content to blob storage
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:05.8130355Z (node:2924) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:06.1418225Z Uploaded bytes 289
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:06.2311078Z Finished uploading artifact content to blob storage!
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:06.2312186Z SHA256 digest of uploaded artifact zip is b38151e7d16d1805ee8091f52dd339c3d1c6eb2f90c001a69c5c8ef3141fef4d
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:06.2312931Z Finalizing artifact upload
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:06.5834961Z Artifact published-image.zip successfully finalized. Artifact ID 14761528452
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:06.5835751Z Artifact published-image has been successfully uploaded! Final size is 289 bytes. Artifact ID is 14761528452
+Build, archive and push image	Run actions/upload-artifact@v4	2026-11-22T15:59:06.5840397Z Artifact download URL: https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041034720/artifacts/14761528452
+Build, archive and push image	Post Run actions/checkout@v4	﻿2026-11-22T15:59:06.5986162Z Post job cleanup.
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6634178Z [command]/usr/bin/git version
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6664443Z git version 2.56.1
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6690033Z Temporarily overriding HOME='/home/runner/work/_temp/751011aa-dbdc-4e36-baa9-a3bdc3e7a280' before making global git config changes
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6691099Z Adding repository directory to the temporary git global config as a safe directory
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6692249Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6725427Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6749656Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6946569Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.6973992Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.7176022Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Build, archive and push image	Post Run actions/checkout@v4	2026-11-22T15:59:06.7200229Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Build, archive and push image	Complete job	﻿2026-11-22T15:59:06.7493635Z Evaluate and set job outputs
+Build, archive and push image	Complete job	2026-11-22T15:59:06.7498813Z Set output 'tag'
+Build, archive and push image	Complete job	2026-11-22T15:59:06.7501002Z Cleaning up orphan processes
+Build, archive and push image	Complete job	2026-11-22T15:59:06.7769512Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/download-artifact@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Email notification	Set up job	﻿2026-11-22T15:59:11.3979351Z Current runner version: '2.338.2'
+Email notification	Set up job	2026-11-22T15:59:11.4013803Z ##[group]Runner Image Provisioner
+Email notification	Set up job	2026-11-22T15:59:11.4015063Z Hosted Compute Agent
+Email notification	Set up job	2026-11-22T15:59:11.4016155Z Version: 20261111.635
+Email notification	Set up job	2026-11-22T15:59:11.4017132Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Email notification	Set up job	2026-11-22T15:59:11.4018277Z Build Date: 2026-11-11T01:49:01Z
+Email notification	Set up job	2026-11-22T15:59:11.4019319Z Worker ID: {9d7f10d0-bfcb-4a22-b233-13e2a98f1255}
+Email notification	Set up job	2026-11-22T15:59:11.4020857Z Region: eastus2
+Email notification	Set up job	2026-11-22T15:59:11.4021713Z Cloud: Azure
+Email notification	Set up job	2026-11-22T15:59:11.4022519Z ##[endgroup]
+Email notification	Set up job	2026-11-22T15:59:11.4024554Z ##[group]Operating System
+Email notification	Set up job	2026-11-22T15:59:11.4025448Z Ubuntu
+Email notification	Set up job	2026-11-22T15:59:11.4026462Z 26.04.1
+Email notification	Set up job	2026-11-22T15:59:11.4027238Z LTS
+Email notification	Set up job	2026-11-22T15:59:11.4027962Z ##[endgroup]
+Email notification	Set up job	2026-11-22T15:59:11.4028752Z ##[group]Runner Image
+Email notification	Set up job	2026-11-22T15:59:11.4029660Z Image: ubuntu-26.04
+Email notification	Set up job	2026-11-22T15:59:11.4030470Z Version: 20261116.202.1
+Email notification	Set up job	2026-11-22T15:59:11.4032171Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+Email notification	Set up job	2026-11-22T15:59:11.4034700Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+Email notification	Set up job	2026-11-22T15:59:11.4036331Z ##[endgroup]
+Email notification	Set up job	2026-11-22T15:59:11.4037983Z ##[group]GITHUB_TOKEN Permissions
+Email notification	Set up job	2026-11-22T15:59:11.4041035Z Contents: read
+Email notification	Set up job	2026-11-22T15:59:11.4041968Z Metadata: read
+Email notification	Set up job	2026-11-22T15:59:11.4042780Z ##[endgroup]
+Email notification	Set up job	2026-11-22T15:59:11.4045931Z Secret source: Actions
+Email notification	Set up job	2026-11-22T15:59:11.4047399Z Cache mode: write
+Email notification	Set up job	2026-11-22T15:59:11.4048740Z Prepare workflow directory
+Email notification	Set up job	2026-11-22T15:59:11.4747370Z Prepare all required actions
+Email notification	Set up job	2026-11-22T15:59:11.4796537Z Getting action download info
+Email notification	Set up job	2026-11-22T15:59:11.6418927Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Email notification	Set up job	2026-11-22T15:59:11.7992701Z Complete job name: Email notification
+Email notification	Run actions/checkout@v4	﻿2026-11-22T15:59:11.8772469Z ##[group]Run actions/checkout@v4
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8774039Z with:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8774802Z   persist-credentials: false
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8776069Z   repository: JP-142004/cogsi2627-1260168-1260204
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8782192Z   token: ***
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8782974Z   ssh-strict: true
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8783822Z   ssh-user: git
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8784564Z   clean: true
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8785348Z   sparse-checkout-cone-mode: true
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8786615Z   fetch-depth: 1
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8787373Z   fetch-tags: false
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8788248Z   show-progress: true
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8788992Z   lfs: false
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8789717Z   submodules: false
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8790569Z   set-safe-directory: true
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8791411Z   allow-unsafe-pr-checkout: false
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8792691Z env:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8793448Z   PART_DIR: CA5/Part2
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8794294Z   APP_DIR: CA5/Part2/bookstore
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8795134Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8796625Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:11.8797539Z ##[endgroup]
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1520754Z Syncing repository: JP-142004/cogsi2627-1260168-1260204
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1525269Z ##[group]Getting Git version info
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1527493Z Working directory is '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1530156Z [command]/usr/bin/git version
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1531228Z git version 2.56.1
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1549067Z ##[endgroup]
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1577673Z Temporarily overriding HOME='/home/runner/work/_temp/43dbeb5d-313d-482b-8000-d7c53069fb65' before making global git config changes
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1582294Z Adding repository directory to the temporary git global config as a safe directory
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1588388Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1655557Z Deleting the contents of '/home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204'
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1660541Z ##[group]Initializing the repository
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1664298Z [command]/usr/bin/git init /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1791569Z hint: Using 'master' as the name for the initial branch. This default branch name
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1794465Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1797507Z hint: to use in all of your new repositories, which will suppress this warning,
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1799644Z hint: call:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1800852Z hint:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1802436Z hint: 	git config --global init.defaultBranch <name>
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1804966Z hint:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1807557Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1811659Z hint: 'development'. The just-created branch can be renamed via this command:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1814991Z hint:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1816969Z hint: 	git branch -m <name>
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1819024Z hint:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1821650Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1825214Z Initialized empty Git repository in /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204/.git/
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1831873Z [command]/usr/bin/git remote add origin https://github.com/JP-142004/cogsi2627-1260168-1260204
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1878585Z ##[endgroup]
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1881467Z ##[group]Disabling automatic garbage collection
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1883816Z [command]/usr/bin/git config --local gc.auto 0
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1915491Z ##[endgroup]
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1917902Z ##[group]Setting up auth
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1922154Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.1953776Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.2510307Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.2540074Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.2761726Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.2789340Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.3007173Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.3046117Z ##[endgroup]
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.3048207Z ##[group]Fetching the repository
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.3055071Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e0d8bc3467bcc16f3d02cdd60e33b41617d92441:refs/remotes/origin/development
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7448058Z From https://github.com/JP-142004/cogsi2627-1260168-1260204
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7449797Z  * [new ref]         e0d8bc3467bcc16f3d02cdd60e33b41617d92441 -> origin/development
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7453445Z ##[endgroup]
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7454445Z ##[group]Determining the checkout info
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7456730Z ##[endgroup]
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7462406Z [command]/usr/bin/git sparse-checkout disable
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7520916Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7552363Z ##[group]Checking out the ref
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.7555285Z [command]/usr/bin/git checkout --progress --force -B development refs/remotes/origin/development
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8067584Z Switched to a new branch 'development'
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8074920Z branch 'development' set up to track 'origin/development'.
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8078834Z ##[endgroup]
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8123225Z [command]/usr/bin/git log -1 --format=%H
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8144124Z e0d8bc3467bcc16f3d02cdd60e33b41617d92441
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8161414Z ##[group]Removing auth
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8162781Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8187508Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8412506Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8432013Z http.https://github.com/.extraheader
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8438055Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8468456Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8699179Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8723913Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Email notification	Run actions/checkout@v4	2026-11-22T15:59:12.8949896Z ##[endgroup]
+Email notification	Enviar o resultado final	﻿2026-11-22T15:59:12.9190428Z ##[group]Run python3 "$PART_DIR/ci/notify-email.py"
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9191326Z ^[[36;1mpython3 "$PART_DIR/ci/notify-email.py"^[[0m
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9219240Z shell: /usr/bin/bash -e {0}
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9219887Z env:
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9220561Z   PART_DIR: CA5/Part2
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9221160Z   APP_DIR: CA5/Part2/bookstore
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9221879Z   BOOKSTORE_IMAGE_REPOSITORY: luizbsilv/ca5-bookstore
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9222613Z   DOCKER_REGISTRY_URL: https://index.docker.io/v1/
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9223982Z   NEEDS_JSON: {
+Email notification	Enviar o resultado final	  "assemble": {
+Email notification	Enviar o resultado final	    "result": "success",
+Email notification	Enviar o resultado final	    "outputs": {}
+Email notification	Enviar o resultado final	  },
+Email notification	Enviar o resultado final	  "tests": {
+Email notification	Enviar o resultado final	    "result": "success",
+Email notification	Enviar o resultado final	    "outputs": {}
+Email notification	Enviar o resultado final	  },
+Email notification	Enviar o resultado final	  "image": {
+Email notification	Enviar o resultado final	    "result": "success",
+Email notification	Enviar o resultado final	    "outputs": {
+Email notification	Enviar o resultado final	      "tag": "gha-development-45041034720-1-e0d8bc3"
+Email notification	Enviar o resultado final	    }
+Email notification	Enviar o resultado final	  },
+Email notification	Enviar o resultado final	  "deploy": {
+Email notification	Enviar o resultado final	    "result": "skipped",
+Email notification	Enviar o resultado final	    "outputs": {}
+Email notification	Enviar o resultado final	  }
+Email notification	Enviar o resultado final	}
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9225530Z   SMTP_HOST: smtp.gmail.com
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9226237Z   SMTP_PORT: 587
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9226849Z   SMTP_STARTTLS: true
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9227505Z   SMTP_SSL: false
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9228101Z   SMTP_USERNAME: luizafonsobsilva@gmail.com
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9229042Z   SMTP_PASSWORD: ***
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9229568Z   SMTP_OAUTH_TENANT_ID:
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9230183Z   SMTP_OAUTH_CLIENT_ID:
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9230734Z   SMTP_OAUTH_CLIENT_SECRET:
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9231417Z   NOTIFY_FROM: luizafonsobsilva@gmail.com
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9232034Z   NOTIFY_TO: <email ISEP configurado>
+Email notification	Enviar o resultado final	2026-11-22T15:59:12.9232569Z ##[endgroup]
+Email notification	Enviar o resultado final	2026-11-22T15:59:13.6199706Z Notificação SMTP enviada: SUCCESS.
+Email notification	Post Run actions/checkout@v4	﻿2026-11-22T15:59:13.6441700Z Post job cleanup.
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7276746Z [command]/usr/bin/git version
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7313362Z git version 2.56.1
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7350656Z Temporarily overriding HOME='/home/runner/work/_temp/81f131e3-2f87-40b3-9658-b6d556863433' before making global git config changes
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7352141Z Adding repository directory to the temporary git global config as a safe directory
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7356361Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cogsi2627-1260168-1260204/cogsi2627-1260168-1260204
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7396453Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7431555Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7683385Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7715277Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.7980767Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Email notification	Post Run actions/checkout@v4	2026-11-22T15:59:13.8020104Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Email notification	Complete job	﻿2026-11-22T15:59:13.8385091Z Cleaning up orphan processes
+Email notification	Complete job	2026-11-22T15:59:13.8714476Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
