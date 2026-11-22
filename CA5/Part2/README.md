@@ -19,7 +19,7 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Jenkins Multibranch e testes em paralelo | Validados com refs locais `main`/`development` e com a ca5-part2 real do GitHub |
 | Publicação automática e deploy exclusivo na `main` | Publicação Docker Hub validada pelo Jenkins e Actions na branch; deploy main validado no laboratório, integração na main ainda não autorizada |
 | Disparo automático | Poll SCM validado com commits locais e push real na ca5-part2 do GitHub |
-| Notificações | Jenkins: SUCCESS, FAILURE e UNSTABLE recebidos no Mailpit; envio externo Jenkins pendente. Actions: Gmail aprovado e receção ISEP confirmada |
+| Notificações | Jenkins: teste Gmail isolado aprovado e recebido; integração no pipeline em validação; Mailpit preservado. Actions: Gmail aprovado e receção ISEP confirmada |
 | Alternativa GitHub Actions | Build, testes e publicação aprovados; notificação repetida com Gmail em 22/11/2026 passou e foi recebida no ISEP |
 
 ## 2. Arquitetura prevista
@@ -179,6 +179,8 @@ As credenciais do GitHub, Docker Hub, SSH e notificações ficam no Jenkins Cred
 
 As notificações são enviadas por Email Extension. No laboratório, o Mailpit recebeu os três resultados por SMTP e mantém os e-mails num volume persistente. Não há encaminhamento para destinatários externos. A entrega por SMTP real exige configurar o servidor, a credencial de envio e o destinatário na fase de publicação.
 
+Em 22/11/2026 foi adicionada uma conta Gmail própria para os avisos externos do Jenkins, com credencial `ca5-gmail-smtp` criada pelo utilizador no formulário Credentials. O teste isolado foi recebido no ISEP. A conta Mailpit mantém-se para `ca5-local`; os projetos externos selecionam Gmail através do remetente. O [tutorial do Jenkins](jenkins/README.md#gmail-no-projeto-externo-e-mailpit-no-laboratório) explica todos os passos e a persistência da configuração, sem incluir passwords.
+
 ### 7.3. O que fica para a publicação
 
 Foi autorizada a publicação exclusivamente na `ca5-part2`, mantendo a main sem alterações. O projeto Jenkins `ca5-github` obtém o código dessa branch do repositório público e usa o caminho `CA5/Part2/Jenkinsfile`, com credencial Docker Hub limitada ao projeto. O primeiro build terminou SUCCESS e publicou a imagem; o deploy foi ignorado. A integração posterior nas branches main/development exige autorização e validação próprias.
@@ -231,6 +233,7 @@ O primeiro build do Jenkins encontrou o destinatário vazio na criação inicial
 | [32-jenkins-github-ca5-part2-1.txt](evidence/32-jenkins-github-ca5-part2-1.txt) | Checkout GitHub real, testes, arquivo, push Docker Hub e deploy ignorado |
 | [33-jenkins-github-poll-ca5-part2-2.json](evidence/33-jenkins-github-poll-ca5-part2-2.json) | Disparo automático por alteração SCM após push real, com SUCCESS |
 | [34-jenkins-github-output-fix-ca5-part2-3.json](evidence/34-jenkins-github-output-fix-ca5-part2-3.json) | Novo SUCCESS automático no commit afae544, com publicação Docker Hub |
+| [35-jenkins-gmail-test.json](evidence/35-jenkins-gmail-test.json) | Teste Gmail isolado no Jenkins, com receção ISEP confirmada pelo utilizador |
 
 As variantes `.json`, `-stages.json`, `-build.json`, `-push.json` e `-timing.json` guardam os dados estruturados dos builds indicados.
 

@@ -91,7 +91,33 @@ Uma falha dos testes marca o build como `UNSTABLE`. `skipStagesAfterUnstable()` 
 
 O playbook de deploy confirma a imagem exata, o utilizador sem privilégios, o estado `healthy` e a resposta HTTP `UP`. Depois de um deploy bem-sucedido, a post-action `success` executa novamente `verify.yml` com credencial SSH, sem fornecer credenciais do registo.
 
-A post-action `cleanup` envia a notificação por `emailext`, usando o resultado final. Se a verificação de produção falhar, a notificação reflete a falha. No laboratório, os e-mails são enviados por SMTP para Mailpit e ficam persistidos no volume `mailpit-data`; não são encaminhados para a Internet.
+A post-action `cleanup` envia a notificação por `emailext`, usando o resultado final. Se a verificação de produção falhar, a notificação reflete a falha. No projeto `ca5-local`, os e-mails são enviados por SMTP para Mailpit e ficam persistidos no volume `mailpit-data`. O projeto externo pode selecionar a conta Gmail adicional através do remetente, conforme a configuração descrita a seguir.
+
+### Gmail no projeto externo e Mailpit no laboratório
+
+Em 22 de novembro de 2026 foi configurado envio Gmail para o destinatário ISEP, com uma palavra-passe de aplicação própria do Jenkins. O teste isolado `ca5-email-check #1` terminou SUCCESS, sem erros de envio, e o utilizador confirmou a receção da mensagem `CA5 TESTE: Jenkins Gmail`. As evidências estão em [35-jenkins-gmail-test.json](../evidence/35-jenkins-gmail-test.json) e nos [logs com endereços omitidos](../evidence/35-jenkins-gmail-test.txt).
+
+Preparação pelo titular da conta:
+
+1. Ativar a verificação em duas etapas Google e criar uma palavra-passe de aplicação com o nome `CA5 Jenkins`, na mesma conta Gmail usada como remetente.
+2. No Jenkins, abrir **Manage Jenkins → Credentials → System → Global credentials → Add Credentials**.
+3. Escolher **Username with password**, âmbito **Global**, username igual ao endereço Gmail completo, password igual à palavra-passe de aplicação sem espaços e ID `ca5-gmail-smtp`.
+4. Guardar diretamente no formulário. A palavra-passe não é enviada para o chat, colocada no Git ou copiada do Secret do GitHub; cada ferramenta usa uma credencial de aplicação própria.
+
+A partir da raiz do repositório, confirmar os metadados e configurar o envio:
+
+```powershell
+py -3 CA5/Part2/jenkins/configure-email.py --sender CONTA_GMAIL --recipient EMAIL_ISEP --check
+py -3 CA5/Part2/jenkins/configure-email.py --sender CONTA_GMAIL --recipient EMAIL_ISEP --send-test
+```
+
+Substitui `CONTA_GMAIL` e `EMAIL_ISEP` pelos endereços autorizados. O primeiro comando verifica apenas o ID, o tipo e o username da credencial. O segundo configura uma conta adicional do Email Extension em `smtp.gmail.com:587`, com STARTTLS e referência ao ID; não lê nem exporta o valor da password SMTP. Também guarda `CA5_GMAIL_FROM` e `CA5_GMAIL_TO` nas propriedades de ambiente do Jenkins e cria um job isolado de teste, sem checkout, imagem ou deploy.
+
+O Mailpit continua como conta predefinida. O Jenkinsfile usa remetente vazio no projeto `ca5-local`, que mantém o envio local. Nos projetos externos, usa `CA5_GMAIL_FROM`, selecionando a conta Gmail pelo endereço. `EMAIL_RECIPIENT`, quando preenchido, sobrepõe o destinatário configurado; vazio usa `CA5_GMAIL_TO` nos projetos externos e `CA5_NOTIFY_TO` no laboratório.
+
+A conta adicional, a referência à credencial e as propriedades de ambiente são guardadas no volume Jenkins. O bootstrap do laboratório repõe apenas a conta predefinida Mailpit e não apaga a conta adicional ou a credencial Gmail. Após reconstruir um laboratório sem esse volume, é necessário voltar a criar a credencial e executar o configurador. A existência do Secret `SMTP_PASSWORD` no GitHub não configura o Jenkins.
+
+O resultado verde de `emailext` não é usado como única prova de entrega: são verificados os logs e é pedida confirmação ao destinatário. Para a demonstração final, a mensagem normal do pipeline deverá identificar o resultado, branch, commit, imagem e build, além deste teste isolado.
 
 ## 5. Configuração e credenciais
 
@@ -201,4 +227,7 @@ O build `#2`, no commit `acbc0c6`, foi iniciado automaticamente por Poll SCM dep
 - [Multibranch Pipeline](https://www.jenkins.io/doc/book/pipeline/multibranch/)
 - [Email Extension](https://plugins.jenkins.io/email-ext/)
 - [Mailpit SMTP](https://mailpit.axllent.org/docs/configuration/smtp/)
+- [Credenciais Jenkins](https://www.jenkins.io/doc/book/using/using-credentials/)
+- [Palavras-passe de aplicações Google](https://support.google.com/accounts/answer/185833)
+- [SMTP Gmail](https://support.google.com/mail/answer/7104828?hl=en)
 - [Configuração do registo Distribution](https://distribution.github.io/distribution/about/configuration/)

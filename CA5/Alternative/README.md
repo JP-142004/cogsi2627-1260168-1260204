@@ -173,7 +173,7 @@ py -3 CA5/Alternative/collect-local-evidence.py --include-failure
 
 Depois da validação local, foi autorizada a publicação exclusivamente na branch `ca5-part2`. O evento push inclui essa branch para testar o serviço GitHub Actions sem integrar código na main. O deploy continua condicionado à main. Alterações apenas a Markdown ou às pastas de evidências não repetem os jobs.
 
-O Secret `DOCKERHUB_TOKEN` foi configurado com autorização explícita. O nome público do utilizador fica na variável `DOCKERHUB_USERNAME`. A chave SSH fica exclusivamente local, por decisão do utilizador. Em 22 de novembro de 2026, o envio de e-mail foi alterado para uma conta Gmail pessoal autorizada, mantendo o endereço ISEP como destinatário. O Secret `SMTP_PASSWORD` foi criado pelo utilizador diretamente no GitHub. O envio Gmail passou e o utilizador confirmou a receção no ISEP; a configuração de envio externo do Jenkins continua pendente.
+O Secret `DOCKERHUB_TOKEN` foi configurado com autorização explícita. O nome público do utilizador fica na variável `DOCKERHUB_USERNAME`. A chave SSH fica exclusivamente local, por decisão do utilizador. Em 22 de novembro de 2026, o envio de e-mail foi alterado para uma conta Gmail pessoal autorizada, mantendo o endereço ISEP como destinatário. O Secret `SMTP_PASSWORD` foi criado pelo utilizador diretamente no GitHub. O envio Gmail passou e o utilizador confirmou a receção no ISEP. O Jenkins recebeu uma credencial de aplicação própria e o seu teste isolado também foi recebido; a integração no pipeline está em validação.
 
 ### 5.1. Secrets
 
@@ -226,7 +226,7 @@ Preparação pelo titular da conta:
 6. Repetir apenas o job **Email notification** da execução que falhou. Esta repetição não precisa de reconstruir a imagem nem autoriza deploy na branch de trabalho.
 7. Confirmar o resultado do job e a receção na caixa ISEP, incluindo a pasta de spam. Um resultado SMTP bem-sucedido e a confirmação de receção são registados separadamente.
 
-Se o teste falhar, verificar o endereço exato da conta, a utilização de uma palavra-passe de aplicação dessa mesma conta e o resultado nos logs, sem expor a credencial. O Jenkins tem uma configuração SMTP própria: o Secret do GitHub não configura automaticamente o Email Extension nem pode ser recuperado para esse fim. O envio externo Jenkins continua pendente; as notificações locais no Mailpit já foram validadas.
+Se o teste falhar, verificar o endereço exato da conta, a utilização de uma palavra-passe de aplicação dessa mesma conta e o resultado nos logs, sem expor a credencial. O Jenkins tem uma configuração SMTP própria: o Secret do GitHub não configura automaticamente o Email Extension nem pode ser recuperado para esse fim. A [configuração Gmail do Jenkins](../Part2/jenkins/README.md#gmail-no-projeto-externo-e-mailpit-no-laboratório) usa uma credencial própria e preserva o Mailpit do laboratório.
 
 Na configuração efetiva, os primeiros testes Gmail terminaram com `SMTPServerDisconnected` durante a autenticação. O endereço inicialmente indicado tinha um erro de escrita. Depois de o utilizador confirmar a conta correta, foram corrigidas apenas `SMTP_USERNAME` e `NOTIFY_FROM`, mantendo o mesmo Secret. A tentativa 4 da [execução 43292932843](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43292932843/attempts/4) terminou SUCCESS e o utilizador confirmou a mensagem na caixa ISEP. Foi repetido apenas o job de notificação; os resultados anteriores de compilação, testes e imagem foram reutilizados e não houve deploy nesta branch. A evidência é [10-gmail-notification.json](evidence/10-gmail-notification.json), acompanhada dos [logs com endereços omitidos](evidence/10-gmail-notification.txt).
 
@@ -289,7 +289,7 @@ py -3 CA5/Alternative/collect-github-evidence.py ID_DA_EXECUCAO
 | Artefactos do serviço GitHub | Upload, download e integridade do JAR exercitados; retenção configurada para sete dias |
 | Docker Hub no workflow | Imagem publicada pelo serviço GitHub e digest confirmado |
 | Self-hosted runner registado | Imagem construída e SSH local validado; registo bloqueado pela falta de acesso administrativo |
-| E-mail externo | Actions: Gmail autenticado, envio aprovado e receção ISEP confirmada; Jenkins: captura Mailpit validada, configuração externa pendente |
+| E-mail externo | Actions: Gmail aprovado e receção ISEP confirmada. Jenkins: teste Gmail isolado aprovado e recebido, integração no pipeline em validação; Mailpit preservado |
 | Estado UNSTABLE | Não existe equivalente direto no Actions; um teste falhado gera failure e bloqueia publicação/deploy |
 | Persistência H2 | Mantém a limitação da solução base: dados em memória perdem-se ao substituir o container |
 | Duas ferramentas sobre a mesma produção | Não há um bloqueio comum entre Jenkins e Actions; as demonstrações usam um responsável de deploy de cada vez |

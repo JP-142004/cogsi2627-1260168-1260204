@@ -1,0 +1,19 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "building": false,
+  "duration": 1952,
+  "number": 1,
+  "result": "SUCCESS",
+  "timestamp": 1795359274022,
+  "url": "http://localhost:18080/job/ca5-email-check/1/",
+  "mail_error_lines": [],
+  "receipt_confirmed": true,
+  "receipt_evidence": "Confirmação explícita do utilizador neste chat: Sim, recebi.",
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": 587,
+  "starttls": true,
+  "credential_id": "ca5-gmail-smtp",
+  "smtp_password_read_or_exported_by_helper": false,
+  "lab_mailpit_preserved": true,
+  "scope": "Teste isolado do Email Extension, sem checkout, imagem ou deploy."
+}
