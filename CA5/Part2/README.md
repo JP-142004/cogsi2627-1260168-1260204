@@ -19,8 +19,8 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Jenkins Multibranch e testes em paralelo | Validados com refs locais `main`/`development` e com a ca5-part2 real do GitHub |
 | Publicação automática e deploy exclusivo na `main` | Publicação Docker Hub validada pelo Jenkins e Actions na branch; deploy main validado no laboratório, integração na main ainda não autorizada |
 | Disparo automático | Poll SCM validado com commits locais e push real na ca5-part2 do GitHub |
-| Notificações | E-mails SMTP recebidos no Mailpit para SUCCESS, FAILURE e UNSTABLE |
-| Alternativa GitHub Actions | Execução real na branch com build, testes e publicação aprovados; job de e-mail falha por faltar autorização Microsoft 365 |
+| Notificações | Jenkins: SUCCESS, FAILURE e UNSTABLE recebidos no Mailpit; envio externo Jenkins pendente. Actions: Gmail aprovado e receção ISEP confirmada |
+| Alternativa GitHub Actions | Build, testes e publicação aprovados; notificação repetida com Gmail em 22/11/2026 passou e foi recebida no ISEP |
 
 ## 2. Arquitetura prevista
 
@@ -266,7 +266,7 @@ Notificações recebidas por SMTP na caixa local:
 | Notificações de resultado | Email Extension e SMTP | SUCCESS, FAILURE e UNSTABLE recebidos no Mailpit |
 | Segredos fora do código | Credentials, secrets e configurações temporárias | Sem segredos versionados; limpeza validada |
 | Alternativa sem Jenkins | [GitHub Actions](../Alternative/README.md) | Implementação e emulação local documentadas |
-| Integração externa e tag final | Branch publicada e imagem Docker Hub validada | SMTP externo, registo do runner e integração main/tag final pendentes |
+| Integração externa e tag final | Branch publicada, Docker Hub e Gmail Actions validados | SMTP externo Jenkins, registo do runner e integração main/tag final pendentes |
 
 ## 11. Referências
 

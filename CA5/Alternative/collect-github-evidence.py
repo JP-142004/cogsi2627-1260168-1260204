@@ -53,10 +53,12 @@ assert sum(report['tests'] for report in reports.values()) == 3
 assert sum(report['failures'] + report['errors'] for report in reports.values()) == 0
 remote = json.loads(subprocess.check_output(['docker', 'buildx', 'imagetools', 'inspect', metadata['image'], '--format', '{{json .Manifest}}'], text=True))
 assert any(value.endswith('@' + remote['digest']) for value in push['repo_digests'])
+smtp_accepted = jobs['Email notification']['conclusion'] == 'success'
 record.update({'provider': 'github-actions', 'junit': reports, 'jar_matches_prepared_artifact': True,
                'build_metadata': metadata, 'published_image': push, 'dockerhub_manifest_digest': remote['digest'],
-               'deploy_skipped': True, 'email_delivered': False,
-               'email_limitation': 'Autorização SMTP Microsoft 365 ainda não configurada; não se considera o run inteiramente bem-sucedido.'})
+               'deploy_skipped': True, 'email_smtp_accepted': smtp_accepted,
+               'email_delivered': None if smtp_accepted else False,
+               'email_limitation': 'SMTP aceite; confirmar a receção com o destinatário.' if smtp_accepted else 'Envio não concluído; consultar o job Email notification.'})
 (evidence / (prefix + '.json')).write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 logs = gh('run', 'view', args.run_id, '-R', repo, '--log')
 logs = re.sub(r'\b[0-9]+@isep\.ipp\.pt\b', '<email ISEP configurado>', logs)

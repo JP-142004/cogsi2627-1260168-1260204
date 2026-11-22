@@ -173,7 +173,7 @@ py -3 CA5/Alternative/collect-local-evidence.py --include-failure
 
 Depois da validação local, foi autorizada a publicação exclusivamente na branch `ca5-part2`. O evento push inclui essa branch para testar o serviço GitHub Actions sem integrar código na main. O deploy continua condicionado à main. Alterações apenas a Markdown ou às pastas de evidências não repetem os jobs.
 
-O Secret `DOCKERHUB_TOKEN` foi configurado com autorização explícita. O nome público do utilizador fica na variável `DOCKERHUB_USERNAME`. A chave SSH fica exclusivamente local, por decisão do utilizador. Os parâmetros Microsoft 365 foram definidos, mas a autorização de envio ainda não está disponível. Não se considera o e-mail externo validado enquanto não houver autenticação e receção confirmadas.
+O Secret `DOCKERHUB_TOKEN` foi configurado com autorização explícita. O nome público do utilizador fica na variável `DOCKERHUB_USERNAME`. A chave SSH fica exclusivamente local, por decisão do utilizador. Em 22 de novembro de 2026, o envio de e-mail foi alterado para uma conta Gmail pessoal autorizada, mantendo o endereço ISEP como destinatário. O Secret `SMTP_PASSWORD` foi criado pelo utilizador diretamente no GitHub. O envio Gmail passou e o utilizador confirmou a receção no ISEP; a configuração de envio externo do Jenkins continua pendente.
 
 ### 5.1. Secrets
 
@@ -182,8 +182,8 @@ O Secret `DOCKERHUB_TOKEN` foi configurado com autorização explícita. O nome 
 | `DOCKERHUB_TOKEN` | Access token com permissão para publicar a imagem |
 | `CA5_PRODUCTION_SSH_KEY` | Opcional para outro modo de configuração; não criado nesta entrega: a chave foi mantida local |
 | `SMTP_USERNAME` | Utilizador do servidor SMTP, quando há autenticação |
-| `SMTP_PASSWORD` | Credencial SMTP, quando há autenticação |
-| `SMTP_OAUTH_CLIENT_SECRET` | Segredo de uma aplicação Microsoft Entra autorizada a enviar por SMTP, no modo OAuth |
+| `SMTP_PASSWORD` | Palavra-passe de aplicação Gmail; criada pelo utilizador e guardada diretamente nos Secrets |
+| `SMTP_OAUTH_CLIENT_SECRET` | Apenas para o modo opcional Microsoft OAuth; não necessário para o Gmail |
 
 ### 5.2. Variables
 
@@ -202,7 +202,41 @@ O Secret `DOCKERHUB_TOKEN` foi configurado com autorização explícita. O nome 
 
 Para SMTP com SSL direto, configura a porta adequada e `SMTP_SSL=true`. A implementação usa SSL direto quando esse modo é escolhido. O modo sem TLS usado pelo Mailpit é exclusivo da validação local.
 
-Para a conta institucional Microsoft 365 foi preparado `smtp.office365.com:587`, com STARTTLS. O script suporta OAuth com client credentials: obtém um access token por HTTPS e autentica por XOAUTH2. Isso exige uma aplicação Entra, autorização `SMTP.SendAsApp`, consentimento administrativo e acesso à caixa, conforme a [documentação Microsoft](https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth). A disponibilidade SMTP depende das políticas do ISEP; não foi alterada qualquer política institucional. Não se assume que a palavra-passe habitual do Outlook permita enviar por SMTP.
+### 5.2.1. Gmail como remetente e ISEP como destinatário
+
+O remetente é a conta autorizada a autenticar no servidor de envio; o destinatário é a caixa que recebe os avisos. Assim, os avisos podem ser enviados pelo Gmail e recebidos no Outlook institucional. O facto de a conta Gmail estar associada ao GitHub não concede automaticamente autorização SMTP.
+
+| Variável | Configuração Gmail |
+|---|---|
+| `SMTP_HOST` | `smtp.gmail.com` |
+| `SMTP_PORT` | `587` |
+| `SMTP_STARTTLS` | `true` |
+| `SMTP_SSL` | `false` |
+| `SMTP_USERNAME` | Endereço exato da conta Google onde foi criada a palavra-passe de aplicação |
+| `NOTIFY_FROM` | O mesmo endereço de envio |
+| `NOTIFY_TO` | Endereço ISEP escolhido para receber os avisos |
+
+Preparação pelo titular da conta:
+
+1. Entrar na conta Google de envio e ativar a verificação em duas etapas em [Segurança](https://myaccount.google.com/security).
+2. Abrir [Palavras-passe de aplicações](https://myaccount.google.com/apppasswords), confirmar a conta selecionada, indicar `CA5 GitHub Actions` e criar uma palavra-passe de aplicação.
+3. No repositório, abrir **Settings → Secrets and variables → Actions → Secrets → New repository secret**.
+4. Usar o nome `SMTP_PASSWORD` e guardar a palavra-passe de aplicação, sem os espaços de separação. O valor é introduzido diretamente pelo utilizador; não é enviado para o chat nem colocado em ficheiros do trabalho.
+5. Configurar as variáveis da tabela. As variáveis `SMTP_OAUTH_TENANT_ID` e `SMTP_OAUTH_CLIENT_ID` e o Secret `SMTP_OAUTH_CLIENT_SECRET` ficam sem configuração quando se usa Gmail.
+6. Repetir apenas o job **Email notification** da execução que falhou. Esta repetição não precisa de reconstruir a imagem nem autoriza deploy na branch de trabalho.
+7. Confirmar o resultado do job e a receção na caixa ISEP, incluindo a pasta de spam. Um resultado SMTP bem-sucedido e a confirmação de receção são registados separadamente.
+
+Se o teste falhar, verificar o endereço exato da conta, a utilização de uma palavra-passe de aplicação dessa mesma conta e o resultado nos logs, sem expor a credencial. O Jenkins tem uma configuração SMTP própria: o Secret do GitHub não configura automaticamente o Email Extension nem pode ser recuperado para esse fim. O envio externo Jenkins continua pendente; as notificações locais no Mailpit já foram validadas.
+
+Na configuração efetiva, os primeiros testes Gmail terminaram com `SMTPServerDisconnected` durante a autenticação. O endereço inicialmente indicado tinha um erro de escrita. Depois de o utilizador confirmar a conta correta, foram corrigidas apenas `SMTP_USERNAME` e `NOTIFY_FROM`, mantendo o mesmo Secret. A tentativa 4 da [execução 43292932843](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43292932843/attempts/4) terminou SUCCESS e o utilizador confirmou a mensagem na caixa ISEP. Foi repetido apenas o job de notificação; os resultados anteriores de compilação, testes e imagem foram reutilizados e não houve deploy nesta branch. A evidência é [10-gmail-notification.json](evidence/10-gmail-notification.json), acompanhada dos [logs com endereços omitidos](evidence/10-gmail-notification.txt).
+
+O script de recolha distingue aceitação SMTP de receção na caixa de destino. Esta última exige confirmação do destinatário; não é inferida apenas a partir do resultado verde do job.
+
+Referências: [palavras-passe de aplicações Google](https://support.google.com/accounts/answer/185833), [configuração SMTP Gmail](https://support.google.com/mail/answer/7104828?hl=en), [Secrets GitHub](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets).
+
+### 5.2.2. Modo opcional Microsoft 365
+
+A primeira configuração considerou `smtp.office365.com:587`, com STARTTLS, mas foi substituída pelo Gmail. O script mantém suporte opcional OAuth com client credentials: obtém um access token por HTTPS e autentica por XOAUTH2. Esse modo exige uma aplicação Entra autorizada para a caixa de envio, conforme a [documentação Microsoft](https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth). A configuração Microsoft não é necessária para receber os avisos no endereço ISEP.
 
 Sem credenciais de envio, o job de notificação falha com uma mensagem de configuração explícita. A compilação, os testes e a publicação da imagem mantêm resultados independentes. Os sete testes em `ci/test_notify_email.py` exercitam a seleção do estado, o caso de imagem ignorada, a reconstrução da referência a partir da tag, a exigência de autenticação/TLS, XOAUTH2 e a ausência de segredos nos erros. O fluxo OAuth foi simulado nesses testes; a autorização real Microsoft ainda precisa de validação.
 
@@ -222,11 +256,11 @@ Enquanto a integração não for autorizada, mantém as alterações na `ca5-par
 
 O [run 43290201961](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43290201961) foi disparado por push na `ca5-part2`, no commit `2638c92`. Assemble, os dois jobs da matriz e Build/archive/push passaram. Os três testes da aplicação passaram; o SHA-256 do JAR recuperado foi comparado com o metadado e o digest da imagem foi confirmado no Docker Hub. O deploy ficou skipped.
 
-O resultado global foi **failure**, devido ao job de notificação: os parâmetros Microsoft 365 estão definidos, mas falta a credencial/autorização de envio. Esta falha é preservada nas evidências; não é apresentada como um pipeline totalmente aprovado.
+Na primeira tentativa de 12 de novembro, o resultado global foi **failure**, devido ao job de notificação: estavam definidos parâmetros Microsoft 365, sem autorização de envio. Esta falha histórica é preservada nas evidências.
 
 Nas primeiras execuções, o nome público do utilizador Docker tinha sido configurado como Secret. O GitHub identificou esse nome na referência da imagem e bloqueou o output entre jobs. O nome foi movido para uma variável e o Secret de username foi removido. O workflow passa agora apenas a tag como output; a referência completa é reconstruída no job de notificação. O token permanece protegido como Secret.
 
-A [execução 43292932843](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43292932843), no commit `afae544`, repetiu com sucesso a compilação, os testes e a publicação após essa correção. O job de e-mail continua com failure por faltar a autorização de envio; o deploy continua skipped.
+A [primeira tentativa da execução 43292932843](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43292932843/attempts/1), no commit `afae544`, repetiu com sucesso a compilação, os testes e a publicação após essa correção. Nessa tentativa, o job de e-mail falhou por faltar autorização de envio. Em 22 de novembro, a notificação foi repetida com Gmail na tentativa 4, passou e a receção foi confirmada. O deploy manteve-se skipped.
 
 | Evidência | Resultado |
 |---|---|
@@ -237,6 +271,7 @@ A [execução 43292932843](https://github.com/JP-142004/cogsi2627-1260168-126020
 | [06-github-43292932843.json](evidence/06-github-43292932843.json) | Resultados reais após corrigir os outputs e a classificação do username |
 | [08-branch-isolation.json](evidence/08-branch-isolation.json) | Main preservada, único Secret Docker Hub, Poll SCM real e produção sem alterações |
 | [09-publication-review.json](evidence/09-publication-review.json) | Revisão dos ficheiros, integridade das evidências e confirmação da correção dos outputs |
+| [10-gmail-notification.json](evidence/10-gmail-notification.json) | Repetição da notificação com Gmail: SMTP aprovado e receção confirmada pelo utilizador |
 
 Para recolher outra execução concluída desta branch:
 
@@ -254,7 +289,7 @@ py -3 CA5/Alternative/collect-github-evidence.py ID_DA_EXECUCAO
 | Artefactos do serviço GitHub | Upload, download e integridade do JAR exercitados; retenção configurada para sete dias |
 | Docker Hub no workflow | Imagem publicada pelo serviço GitHub e digest confirmado |
 | Self-hosted runner registado | Imagem construída e SSH local validado; registo bloqueado pela falta de acesso administrativo |
-| E-mail externo | Captura Mailpit validada; Microsoft 365 preparado, mas sem autorização de envio; job externo falha explicitamente |
+| E-mail externo | Actions: Gmail autenticado, envio aprovado e receção ISEP confirmada; Jenkins: captura Mailpit validada, configuração externa pendente |
 | Estado UNSTABLE | Não existe equivalente direto no Actions; um teste falhado gera failure e bloqueia publicação/deploy |
 | Persistência H2 | Mantém a limitação da solução base: dados em memória perdem-se ao substituir o container |
 | Duas ferramentas sobre a mesma produção | Não há um bloqueio comum entre Jenkins e Actions; as demonstrações usam um responsável de deploy de cada vez |
