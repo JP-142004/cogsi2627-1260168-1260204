@@ -6,6 +6,7 @@ services:
     mem_limit: 768m
     environment:
       CA5_LOCAL_SSH_KEY: /run/secrets/production_key
+      RUNNER_PRINT_LOG_TO_STDOUT: "false"
     secrets:
       - registration_token
       - production_key

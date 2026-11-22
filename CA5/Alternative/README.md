@@ -246,9 +246,9 @@ Regista um self-hosted runner Linux nas definições Actions do repositório e a
 
 Confirma que o runner consegue alcançar o SSH da VM. Se correr num container Docker Desktop, usa o encaminhamento do Vagrant e as variáveis de host/porta, como foi feito no laboratório. O workflow prepara Python 3.13 e Ansible Core 2.19.4; a compilação continua em Java 17 nos runners de build.
 
-Antes de demonstrar o deploy desta alternativa, suspende o job de deploy Jenkins que utiliza a mesma VM. O registo do runner exige acesso administrativo ao repositório. A conta atual tem permissão de push, mas a API de runners devolveu HTTP 403. O administrador terá de registar esse runner.
+Antes de demonstrar o deploy desta alternativa, suspende o job de deploy Jenkins que utiliza a mesma VM. A conta colaboradora recebeu HTTP 403 ao tentar gerir runners. Em 22/11/2026, a conta proprietária emitiu um token temporário de registo, guardado apenas no computador local, e foi registado `ca5-production-local` com a etiqueta `ca5-production`.
 
-Foi preparada e construída a [configuração do runner em Docker](production-runner/README.md), com versão oficial identificada por digest. A ligação SSH à VM foi exercitada localmente com o utilizador sem privilégios do runner. A chave é montada localmente e copiada temporariamente pelo workflow através de `CA5_LOCAL_SSH_KEY`; não foi enviada para o GitHub. O runner só ficará disponível para jobs depois do registo administrativo.
+Foi preparada e construída a [configuração do runner em Docker](production-runner/README.md), com versão oficial identificada por digest. O registo, a ligação ao GitHub e a espera por jobs foram confirmados. O proprietário confirmou o estado Idle/Online e a etiqueta; uma chamada SSH a partir do próprio container passou. A chave é montada localmente e será copiada temporariamente pelo workflow através de `CA5_LOCAL_SSH_KEY`; não foi enviada para o GitHub. A [evidência 12](evidence/12-runner-registration.json) distingue esta preparação da execução real de um job de deploy, que ainda não foi demonstrada neste runner.
 
 Enquanto a integração não for autorizada, mantém as alterações na `ca5-part2`. A execução real da main e a tag final ficam pendentes; não substituas a condição de deploy para fazer uma demonstração na branch de trabalho.
 
@@ -273,6 +273,7 @@ A [primeira tentativa da execução 43292932843](https://github.com/JP-142004/co
 | [09-publication-review.json](evidence/09-publication-review.json) | Revisão dos ficheiros, integridade das evidências e confirmação da correção dos outputs |
 | [10-gmail-notification.json](evidence/10-gmail-notification.json) | Repetição da notificação com Gmail: SMTP aprovado e receção confirmada pelo utilizador |
 | [11-actions-maven-retry.json](evidence/11-actions-maven-retry.json) | Execução 45035755363 aprovada após repetir um job bloqueado por HTTP 429 |
+| [12-runner-registration.json](evidence/12-runner-registration.json) | Runner registado e à espera de jobs, estado/etiqueta confirmados pelo proprietário e SSH aprovado |
 
 Na [execução 45035755363](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45035755363/attempts/2), no commit `910d28b`, a primeira tentativa do job de integração foi bloqueada pelo Maven Central com HTTP 429 ao descarregar `gson:2.10.1`, antes de executar os testes. A imagem e o deploy ficaram bloqueados nessa tentativa e o job de e-mail notificou a falha. Foi repetido apenas o job afetado e os dependentes, sem alterar a aplicação ou os testes. A segunda tentativa terminou SUCCESS, incluindo a publicação e a notificação Gmail; o deploy manteve-se skipped na branch de trabalho. O [excerto do erro original](evidence/11-actions-maven-429.txt) foi preservado.
 
@@ -291,7 +292,7 @@ py -3 CA5/Alternative/collect-github-evidence.py ID_DA_EXECUCAO
 | Checkout do GitHub | Exercitado no repositório público; um futuro repositório privado exige permissões adequadas |
 | Artefactos do serviço GitHub | Upload, download e integridade do JAR exercitados; retenção configurada para sete dias |
 | Docker Hub no workflow | Imagem publicada pelo serviço GitHub e digest confirmado |
-| Self-hosted runner registado | Imagem construída e SSH local validado; registo bloqueado pela falta de acesso administrativo |
+| Self-hosted runner registado | ca5-production-local registado com token do proprietário; Idle/Online e etiqueta confirmados; SSH aprovado; execução do deploy ainda pendente |
 | E-mail externo | Gmail aprovado e recebido no ISEP em ambos os pipelines; o Jenkins usa uma credencial própria e preserva Mailpit no laboratório |
 | Estado UNSTABLE | Não existe equivalente direto no Actions; um teste falhado gera failure e bloqueia publicação/deploy |
 | Persistência H2 | Mantém a limitação da solução base: dados em memória perdem-se ao substituir o container |

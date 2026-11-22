@@ -1,6 +1,6 @@
 param([switch]$UseExistingRegistrationToken)
 $ErrorActionPreference = 'Stop'
-$partDirectory = Join-Path (Split-Path $PSScriptRoot -Parent) '../Part2'
+$partDirectory = [System.IO.Path]::GetFullPath((Join-Path (Split-Path $PSScriptRoot -Parent) '../Part2'))
 $tokenPath = Join-Path $partDirectory '.local/secrets/github_runner_registration_token'
 if (-not $UseExistingRegistrationToken) {
     # O GitHub exige um administrador para emitir este token temporário.
@@ -10,6 +10,12 @@ if (-not $UseExistingRegistrationToken) {
     $registrationToken = $null
 }
 if (-not (Test-Path -LiteralPath $tokenPath)) { throw 'Falta o ficheiro local com o token de registo.' }
+$registrationToken = [System.IO.File]::ReadAllText($tokenPath).Trim()
+if ([string]::IsNullOrWhiteSpace($registrationToken)) { throw 'O ficheiro do token de registo está vazio.' }
+if ($registrationToken -match '[\s\x00]') { throw 'Guarda apenas o valor do token numa única linha, sem o comando de configuração.' }
+# Aceita o ficheiro guardado no Windows e remove BOM/finais de linha antes do mount.
+[System.IO.File]::WriteAllText($tokenPath, $registrationToken, [System.Text.UTF8Encoding]::new($false))
+$registrationToken = $null
 Push-Location $partDirectory
 try {
     $sshPort = (& vagrant port production --guest 22).Trim()

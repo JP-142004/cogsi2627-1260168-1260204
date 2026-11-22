@@ -273,7 +273,7 @@ Notificações recebidas por SMTP na caixa local:
 | Notificações de resultado | Email Extension e SMTP | SUCCESS, FAILURE e UNSTABLE recebidos no Mailpit |
 | Segredos fora do código | Credentials, secrets e configurações temporárias | Sem segredos versionados; limpeza validada |
 | Alternativa sem Jenkins | [GitHub Actions](../Alternative/README.md) | Implementação e emulação local documentadas |
-| Integração externa e tag final | Branch publicada, Docker Hub e Gmail Actions/Jenkins validados | Registo do runner e integração main/tag final pendentes |
+| Integração externa e tag final | Branch publicada, Docker Hub e Gmail validados; runner registado e SSH aprovado | Integração main/development, deploy final e tag pendentes |
 
 ## 11. Referências
 

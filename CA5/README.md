@@ -39,6 +39,7 @@ O relatório da alternativa identifica explicitamente as diferenças de estados,
 | Publicação das novas alterações no GitHub | Autorizada exclusivamente na branch `ca5-part2`; main sem alterações |
 | Prova dos eventos GitHub e execução externa final | Push na ca5-part2 demonstrado; main e deploy externo ficam para depois da integração |
 | SMTP para destinatário externo | Actions e Jenkins: envio Gmail aprovado e receção ISEP confirmada, incluindo a execução real Jenkins #6. Mailpit preservado no laboratório |
+| Runner GitHub Actions de produção | Registado como ca5-production-local; Idle/Online e etiqueta confirmados; acesso SSH à VM aprovado; sem job de deploy executado nesta etapa |
 | Tag final `ca5-part2` | A criar depois da revisão e validação externas |
 
 ## 5. Autoavaliação e contribuição
