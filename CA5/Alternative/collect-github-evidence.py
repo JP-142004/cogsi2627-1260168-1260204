@@ -1,4 +1,4 @@
-"""Recolhe uma execução real da ca5-part2; preserva falhas e valida artefactos."""
+"""Recolhe uma execução real; valida artefactos e a condição de deploy por branch."""
 import argparse
 import hashlib
 import json
@@ -10,33 +10,36 @@ import xml.etree.ElementTree as ET
 
 parser = argparse.ArgumentParser()
 parser.add_argument('run_id')
+parser.add_argument('--branch', choices=['ca5-part2', 'main', 'development'], default='ca5-part2')
+parser.add_argument('--prefix', default='06-github')
 args = parser.parse_args()
 repo = 'JP-142004/cogsi2627-1260168-1260204'
 alternative = Path(__file__).resolve().parent
 local = alternative.parent / 'Part2/.local/github-artifacts' / args.run_id
 local.mkdir(parents=True, exist_ok=True)
 evidence = alternative / 'evidence'
-prefix = '06-github-' + args.run_id
+prefix = args.prefix + '-' + args.run_id
 
 def gh(*arguments):
     return subprocess.check_output(['gh', *arguments], text=True, encoding='utf-8')
 
 record = json.loads(gh('run', 'view', args.run_id, '-R', repo, '--json', 'databaseId,headSha,headBranch,event,status,conclusion,url,jobs,createdAt,updatedAt'))
-if record['status'] != 'completed' or record['headBranch'] != 'ca5-part2':
-    raise SystemExit('É necessária uma execução concluída da ca5-part2.')
+if record['status'] != 'completed' or record['headBranch'] != args.branch:
+    raise SystemExit('É necessária uma execução concluída da branch pedida.')
 jobs = {job['name']: job for job in record['jobs']}
 required = ('Assemble', 'Tests (test)', 'Tests (integrationTest)', 'Build, archive and push image')
 if any(jobs[name]['conclusion'] != 'success' for name in required):
     raise SystemExit('Compilação, testes ou publicação não passaram; consulta a execução antes de consolidar.')
-if jobs['Deploy and verify production']['conclusion'] != 'skipped':
-    raise SystemExit('O deploy não foi ignorado na branch de trabalho.')
+expected_deploy = 'success' if args.branch == 'main' and record['event'] == 'push' else 'skipped'
+if jobs['Deploy and verify production']['conclusion'] != expected_deploy:
+    raise SystemExit('O resultado do deploy não corresponde à condição por branch/evento.')
 for artifact in ('prepared-app', 'junit-test', 'junit-integrationTest', 'build-metadata', 'published-image'):
     destination = local / artifact
     if not destination.exists():
         subprocess.run(['gh', 'run', 'download', args.run_id, '-R', repo, '-n', artifact, '-D', str(destination)], check=True)
 metadata = json.loads(next((local / 'build-metadata').rglob('build.json')).read_text(encoding='utf-8'))
 push = json.loads(next((local / 'published-image').rglob('push.json')).read_text(encoding='utf-8'))
-assert metadata['commit'] == record['headSha'] and metadata['branch'] == 'ca5-part2'
+assert metadata['commit'] == record['headSha'] and metadata['branch'] == args.branch
 assert push['image'] == metadata['image']
 with tarfile.open(next((local / 'prepared-app').rglob('prepared-app.tgz')), 'r:gz') as package:
     jar = package.extractfile('app/build/libs/app-1.0.0.jar').read()
@@ -56,7 +59,7 @@ assert any(value.endswith('@' + remote['digest']) for value in push['repo_digest
 smtp_accepted = jobs['Email notification']['conclusion'] == 'success'
 record.update({'provider': 'github-actions', 'junit': reports, 'jar_matches_prepared_artifact': True,
                'build_metadata': metadata, 'published_image': push, 'dockerhub_manifest_digest': remote['digest'],
-               'deploy_skipped': True, 'email_smtp_accepted': smtp_accepted,
+               'deploy_skipped': expected_deploy == 'skipped', 'email_smtp_accepted': smtp_accepted,
                'email_delivered': None if smtp_accepted else False,
                'email_limitation': 'SMTP aceite; confirmar a receção com o destinatário.' if smtp_accepted else 'Envio não concluído; consultar o job Email notification.'})
 (evidence / (prefix + '.json')).write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
@@ -65,4 +68,4 @@ logs = re.sub(r'\b[0-9]+@isep\.ipp\.pt\b', '<email ISEP configurado>', logs)
 (evidence / (prefix + '.txt')).write_text('\n'.join(line.rstrip() for line in logs.splitlines()).rstrip() + '\n', encoding='utf-8', newline='\n')
 print(json.dumps({'run': record['url'], 'conclusion': record['conclusion'], 'image': metadata['image'],
                   'junit': reports, 'jar_integrity': True, 'dockerhub_digest_verified': True,
-                  'deploy': 'skipped', 'email': jobs['Email notification']['conclusion']}, ensure_ascii=False, indent=2))
+                  'deploy': expected_deploy, 'email': jobs['Email notification']['conclusion']}, ensure_ascii=False, indent=2))

@@ -13,8 +13,8 @@ pipeline {
     parameters {
         string(name: 'IMAGE_REPOSITORY', defaultValue: 'luizbsilv/ca5-bookstore', description: 'Repositório da imagem, sem tag')
         string(name: 'REGISTRY_URL', defaultValue: 'https://index.docker.io/v1/', description: 'Docker Hub ou registo local do laboratório')
-        string(name: 'PRODUCTION_HOST', defaultValue: '192.168.56.20', description: 'Host SSH da VM de produção')
-        string(name: 'PRODUCTION_SSH_PORT', defaultValue: '22', description: 'Porta SSH da VM')
+        string(name: 'PRODUCTION_HOST', defaultValue: '', description: 'Vazio usa CA5_PRODUCTION_HOST ou 192.168.56.20')
+        string(name: 'PRODUCTION_SSH_PORT', defaultValue: '', description: 'Vazio usa CA5_PRODUCTION_SSH_PORT ou 22')
         string(name: 'EMAIL_RECIPIENT', defaultValue: '', description: 'Vazio usa o destinatário configurado no Jenkins; tem de existir um destinatário')
     }
 
@@ -47,8 +47,8 @@ pipeline {
                     env.BOOKSTORE_IMAGE_REPOSITORY = localLab ? env.CA5_IMAGE_REPOSITORY : (params.IMAGE_REPOSITORY?.trim() ?: 'luizbsilv/ca5-bookstore')
                     env.IMAGE_REFERENCE = "${env.BOOKSTORE_IMAGE_REPOSITORY}:${env.BOOKSTORE_IMAGE_TAG}"
                     env.DOCKER_REGISTRY_URL = localLab ? env.CA5_REGISTRY_URL : (params.REGISTRY_URL?.trim() ?: 'https://index.docker.io/v1/')
-                    env.PRODUCTION_HOST = localLab ? env.CA5_PRODUCTION_HOST : (params.PRODUCTION_HOST?.trim() ?: '192.168.56.20')
-                    env.PRODUCTION_SSH_PORT = localLab ? env.CA5_PRODUCTION_SSH_PORT : (params.PRODUCTION_SSH_PORT?.trim() ?: '22')
+                    env.PRODUCTION_HOST = localLab ? env.CA5_PRODUCTION_HOST : (params.PRODUCTION_HOST?.trim() ?: env.CA5_PRODUCTION_HOST ?: '192.168.56.20')
+                    env.PRODUCTION_SSH_PORT = localLab ? env.CA5_PRODUCTION_SSH_PORT : (params.PRODUCTION_SSH_PORT?.trim() ?: env.CA5_PRODUCTION_SSH_PORT ?: '22')
                     if (!env.NOTIFICATION_RECIPIENT.trim()) {
                         error('Configura EMAIL_RECIPIENT antes de executar o pipeline.')
                     }

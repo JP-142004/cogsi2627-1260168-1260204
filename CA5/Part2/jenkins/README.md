@@ -224,6 +224,18 @@ O build `#2`, no commit `acbc0c6`, foi iniciado automaticamente por Poll SCM dep
 
 ## 9. Referências
 
+### Integração nas branches do grupo
+
+Depois de integrar o código no GitHub e concluir o deploy Actions, configurar o Multibranch real:
+
+```powershell
+py -3 jenkins/connect-github.py --branches main development
+```
+
+O filtro inicial continua a ser `ca5-part2` quando não se passam argumentos. O helper preserva a credencial do registo local. Os parâmetros SSH vazios usam `CA5_PRODUCTION_HOST` e `CA5_PRODUCTION_SSH_PORT` do Jenkins; neste Docker Desktop são `host.docker.internal` e `2222`. Fora do laboratório, os valores de recurso são `192.168.56.20` e `22`. Um parâmetro explícito substitui o valor do ambiente no projeto externo.
+
+As duas ferramentas partilham a VM: concluir a execução de uma antes de ativar o deploy da outra. O runner Actions é efémero e só aceita um job; para nova demonstração, registar novamente o runner. A chave privada permanece no computador.
+
 - [Jenkins em Docker](https://www.jenkins.io/doc/book/installing/docker/)
 - [Sintaxe declarativa e condições por branch](https://www.jenkins.io/doc/book/pipeline/syntax/)
 - [Multibranch Pipeline](https://www.jenkins.io/doc/book/pipeline/multibranch/)

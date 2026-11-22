@@ -1,8 +1,9 @@
-"""Liga o Jenkins local à branch ca5-part2 do GitHub, com credencial por projeto.
+"""Liga o Jenkins local às branches escolhidas do GitHub, com credencial por projeto.
 
 Usa a sessão Docker Desktop já autenticada; não imprime nem grava o token.
 A configuração não altera branches Git nem envia a chave SSH ao GitHub.
 """
+import argparse
 import base64
 import http.cookiejar
 import json
@@ -12,6 +13,10 @@ from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import HTTPCookieProcessor, Request, build_opener
 
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--branches', nargs='+', choices=['ca5-part2', 'main', 'development'], default=['ca5-part2'])
+args = parser.parse_args()
+branch_filter = '(' + '|'.join(args.branches) + ')'
 part = Path(__file__).resolve().parents[1]
 password = (part / '.local/secrets/admin_password').read_text(encoding='utf-8').strip()
 docker_config = json.loads((Path.home() / '.docker/config.json').read_text(encoding='utf-8'))
@@ -69,7 +74,7 @@ if (previous) store.updateCredentials(Domain.global(), previous, credential)
 else store.addCredentials(Domain.global(), credential)
 def source = new GitSCMSource('https://github.com/JP-142004/cogsi2627-1260168-1260204.git')
 source.setId('ca5-github-scm')
-source.setTraits([new BranchDiscoveryTrait(), new RegexSCMHeadFilterTrait('ca5-part2')])
+source.setTraits([new BranchDiscoveryTrait(), new RegexSCMHeadFilterTrait(BRANCH_FILTER)])
 project.getSourcesList().clear()
 project.getSourcesList().add(new BranchSource(source))
 def factory = new WorkflowBranchProjectFactory()
@@ -78,12 +83,12 @@ project.setProjectFactory(factory)
 project.save()
 project.scheduleBuild2(0)
 println('CA5_GITHUB_CONFIGURED')
-'''.replace('PAYLOAD', json.dumps(payload))
+'''.replace('PAYLOAD', json.dumps(payload)).replace('BRANCH_FILTER', json.dumps(branch_filter))
 try:
     response = request('scriptText', urlencode({'script': script}).encode()).decode()
 except HTTPError as error:
     raise SystemExit(f'Jenkins respondeu HTTP {error.code}; detalhes omitidos para proteger a credencial.') from None
 if 'CA5_GITHUB_CONFIGURED' not in response:
     raise SystemExit('Jenkins não confirmou a configuração; resposta omitida para proteger a credencial.')
-print('Projeto ca5-github configurado e indexação pedida; filtro exclusivo ca5-part2.')
+print('Projeto ca5-github configurado e indexação pedida; branches: ' + ', '.join(args.branches) + '.')
 print('Docker Hub configurado apenas neste projeto; a credencial do registo local foi preservada.')
