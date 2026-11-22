@@ -1,0 +1,53 @@
+{
+  "provider": "github-actions",
+  "run_id": 45035755363,
+  "run_attempt": 2,
+  "head_branch": "ca5-part2",
+  "head_sha": "910d28b8d966592686648d7e8bff0f1776c015d1",
+  "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45035755363/attempts/2",
+  "conclusion": "success",
+  "initial_attempt": {
+    "job": "Tests (integrationTest)",
+    "cause": "Maven Central respondeu HTTP 429 ao descarregar gson:2.10.1, antes da execução dos testes.",
+    "image_job": "skipped",
+    "deploy_job": "skipped",
+    "notification_job": "success"
+  },
+  "recovery": "Repetição apenas do job afetado e dos dependentes; sem alteração da aplicação ou dos testes.",
+  "jobs": [
+    {
+      "name": "Tests (integrationTest)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Tests (test)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Assemble",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build, archive and push image",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Email notification",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Deploy and verify production",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "email_smtp_accepted": true,
+  "receipt_confirmed_this_run": null,
+  "receipt_note": "O percurso Gmail para ISEP já tem confirmação explícita do utilizador na evidência 10; este novo aviso não foi confirmado separadamente.",
+  "deploy_executed": false
+}

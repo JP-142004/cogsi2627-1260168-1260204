@@ -117,7 +117,9 @@ O Mailpit continua como conta predefinida. O Jenkinsfile usa remetente vazio no 
 
 A conta adicional, a referência à credencial e as propriedades de ambiente são guardadas no volume Jenkins. O bootstrap do laboratório repõe apenas a conta predefinida Mailpit e não apaga a conta adicional ou a credencial Gmail. Após reconstruir um laboratório sem esse volume, é necessário voltar a criar a credencial e executar o configurador. A existência do Secret `SMTP_PASSWORD` no GitHub não configura o Jenkins.
 
-O resultado verde de `emailext` não é usado como única prova de entrega: são verificados os logs e é pedida confirmação ao destinatário. Para a demonstração final, a mensagem normal do pipeline deverá identificar o resultado, branch, commit, imagem e build, além deste teste isolado.
+O resultado verde de `emailext` não é usado como única prova de entrega: são verificados os logs e é pedida confirmação ao destinatário. Além do teste isolado, o pipeline real `ca5-github/ca5-part2 #6`, no commit `910d28b`, terminou SUCCESS, publicou a imagem e enviou `CA5 SUCCESS: ca5-github/ca5-part2 #6`. O utilizador confirmou a receção no ISEP. O deploy ficou ignorado por a branch não ser main.
+
+Os [dados do build](../evidence/36-jenkins-gmail-pipeline-ca5-part2-6.json) e os [logs com endereços omitidos](../evidence/36-jenkins-gmail-pipeline-ca5-part2-6.txt) guardam a execução. A [verificação da configuração efetivamente usada](../evidence/37-jenkins-gmail-configuration.json) confirma o remetente Gmail, o destinatário ISEP, STARTTLS, a referência à credencial e o Mailpit preservado, sem ler ou exportar a password SMTP.
 
 ## 5. Configuração e credenciais
 

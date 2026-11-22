@@ -38,7 +38,7 @@ O relatório da alternativa identifica explicitamente as diferenças de estados,
 | Alternativa GitHub Actions | Compilação, testes, artefactos e Docker Hub aprovados; notificação repetida com Gmail em 22/11/2026 passou e foi recebida no ISEP |
 | Publicação das novas alterações no GitHub | Autorizada exclusivamente na branch `ca5-part2`; main sem alterações |
 | Prova dos eventos GitHub e execução externa final | Push na ca5-part2 demonstrado; main e deploy externo ficam para depois da integração |
-| SMTP para destinatário externo | Actions: Gmail aprovado e receção ISEP confirmada. Jenkins: teste Gmail isolado aprovado e recebido; integração no pipeline em validação. Mailpit preservado no laboratório |
+| SMTP para destinatário externo | Actions e Jenkins: envio Gmail aprovado e receção ISEP confirmada, incluindo a execução real Jenkins #6. Mailpit preservado no laboratório |
 | Tag final `ca5-part2` | A criar depois da revisão e validação externas |
 
 ## 5. Autoavaliação e contribuição

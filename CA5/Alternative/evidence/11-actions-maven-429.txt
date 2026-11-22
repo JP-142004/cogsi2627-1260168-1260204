@@ -1,0 +1,5 @@
+2026-11-22T15:00:27.9175034Z > Could not resolve com.google.code.gson:gson:2.10.1.
+2026-11-22T15:00:27.9177269Z    > Could not resolve com.google.code.gson:gson:2.10.1.
+2026-11-22T15:00:27.9177848Z       > Could not get resource 'https://plugins.gradle.org/m2/com/google/code/gson/gson/2.10.1/gson-2.10.1.pom'.
+2026-11-22T15:00:27.9178839Z          > Could not GET 'https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.pom'. Received status code 429 from server: Too Many Requests
+2026-11-22T15:00:27.9181504Z BUILD FAILED in 10s

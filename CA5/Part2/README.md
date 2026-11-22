@@ -19,7 +19,7 @@ Este README acompanha a implementação. Só os passos identificados como valida
 | Jenkins Multibranch e testes em paralelo | Validados com refs locais `main`/`development` e com a ca5-part2 real do GitHub |
 | Publicação automática e deploy exclusivo na `main` | Publicação Docker Hub validada pelo Jenkins e Actions na branch; deploy main validado no laboratório, integração na main ainda não autorizada |
 | Disparo automático | Poll SCM validado com commits locais e push real na ca5-part2 do GitHub |
-| Notificações | Jenkins: teste Gmail isolado aprovado e recebido; integração no pipeline em validação; Mailpit preservado. Actions: Gmail aprovado e receção ISEP confirmada |
+| Notificações | Gmail validado e recebido no ISEP em ambos os pipelines, incluindo Jenkins #6; SUCCESS, FAILURE e UNSTABLE também validados no Mailpit do laboratório |
 | Alternativa GitHub Actions | Build, testes e publicação aprovados; notificação repetida com Gmail em 22/11/2026 passou e foi recebida no ISEP |
 
 ## 2. Arquitetura prevista
@@ -181,6 +181,8 @@ As notificações são enviadas por Email Extension. No laboratório, o Mailpit 
 
 Em 22/11/2026 foi adicionada uma conta Gmail própria para os avisos externos do Jenkins, com credencial `ca5-gmail-smtp` criada pelo utilizador no formulário Credentials. O teste isolado foi recebido no ISEP. A conta Mailpit mantém-se para `ca5-local`; os projetos externos selecionam Gmail através do remetente. O [tutorial do Jenkins](jenkins/README.md#gmail-no-projeto-externo-e-mailpit-no-laboratório) explica todos os passos e a persistência da configuração, sem incluir passwords.
 
+A execução real `ca5-github/ca5-part2 #6` também terminou SUCCESS e o utilizador confirmou a receção do seu aviso no ISEP. Foram verificados o remetente e destinatário usados pelo pipeline, a conta adicional Gmail, STARTTLS e a preservação do Mailpit. O deploy permaneceu ignorado nesta branch.
+
 ### 7.3. O que fica para a publicação
 
 Foi autorizada a publicação exclusivamente na `ca5-part2`, mantendo a main sem alterações. O projeto Jenkins `ca5-github` obtém o código dessa branch do repositório público e usa o caminho `CA5/Part2/Jenkinsfile`, com credencial Docker Hub limitada ao projeto. O primeiro build terminou SUCCESS e publicou a imagem; o deploy foi ignorado. A integração posterior nas branches main/development exige autorização e validação próprias.
@@ -234,6 +236,8 @@ O primeiro build do Jenkins encontrou o destinatário vazio na criação inicial
 | [33-jenkins-github-poll-ca5-part2-2.json](evidence/33-jenkins-github-poll-ca5-part2-2.json) | Disparo automático por alteração SCM após push real, com SUCCESS |
 | [34-jenkins-github-output-fix-ca5-part2-3.json](evidence/34-jenkins-github-output-fix-ca5-part2-3.json) | Novo SUCCESS automático no commit afae544, com publicação Docker Hub |
 | [35-jenkins-gmail-test.json](evidence/35-jenkins-gmail-test.json) | Teste Gmail isolado no Jenkins, com receção ISEP confirmada pelo utilizador |
+| [36-jenkins-gmail-pipeline-ca5-part2-6.json](evidence/36-jenkins-gmail-pipeline-ca5-part2-6.json) | Pipeline completo SUCCESS com notificação Gmail e deploy ignorado |
+| [37-jenkins-gmail-configuration.json](evidence/37-jenkins-gmail-configuration.json) | Conta e destinatário efetivos, referência à credencial e receção confirmada |
 
 As variantes `.json`, `-stages.json`, `-build.json`, `-push.json` e `-timing.json` guardam os dados estruturados dos builds indicados.
 
@@ -269,7 +273,7 @@ Notificações recebidas por SMTP na caixa local:
 | Notificações de resultado | Email Extension e SMTP | SUCCESS, FAILURE e UNSTABLE recebidos no Mailpit |
 | Segredos fora do código | Credentials, secrets e configurações temporárias | Sem segredos versionados; limpeza validada |
 | Alternativa sem Jenkins | [GitHub Actions](../Alternative/README.md) | Implementação e emulação local documentadas |
-| Integração externa e tag final | Branch publicada, Docker Hub e Gmail Actions validados | SMTP externo Jenkins, registo do runner e integração main/tag final pendentes |
+| Integração externa e tag final | Branch publicada, Docker Hub e Gmail Actions/Jenkins validados | Registo do runner e integração main/tag final pendentes |
 
 ## 11. Referências
 
