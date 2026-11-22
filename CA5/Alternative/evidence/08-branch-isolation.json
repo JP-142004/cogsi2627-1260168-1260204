@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-11-12T19:45:47.292050+00:00",
+  "scope": "Validação na ca5-part2; sem integração na main",
+  "baseline_main": "f020c076427cbfa5e4cde72dc0ed74af9f5c7f80",
+  "remote_main": "f020c076427cbfa5e4cde72dc0ed74af9f5c7f80",
+  "main_unchanged": true,
+  "validated_branch_commit": "afae5447bd41a848f8eb7cac9675480ecf1d790c",
+  "final_tag_created": false,
+  "github_secret_names": [
+    "DOCKERHUB_TOKEN"
+  ],
+  "ssh_key_uploaded_to_github": false,
+  "jenkins_poll_build": "http://localhost:18080/job/ca5-github/job/ca5-part2/3/",
+  "jenkins_result": "SUCCESS",
+  "jenkins_causes": [
+    "Started by an SCM change"
+  ],
+  "jenkins_image": "luizbsilv/ca5-bookstore:jenkins-ca5-part2-3-afae544",
+  "jenkins_notification_captured_locally": true,
+  "production_unchanged": true,
+  "production": "c19418f92ef016f0532871854387aea4471b8de9e158b30584e3746e50f95c6b localhost:15000/luizbsilv/ca5-bookstore:gha-main-1794506536-1-42772bc healthy",
+  "health": {
+    "status": "UP"
+  },
+  "pending": [
+    "Autorização de envio Microsoft 365",
+    "Registo administrativo do runner",
+    "Autorização de integração na main e validação final/tag"
+  ]
+}

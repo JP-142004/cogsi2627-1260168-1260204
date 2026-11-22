@@ -1,0 +1,28 @@
+
+PLAY [Verificar a versão implantada e a saúde da produção] *********************
+
+TASK [Validar o repositório e a tag concreta da imagem] ************************
+ok: [cogsi-ca5-prod] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Aguardar pelo estado healthy do container] *******************************
+ok: [cogsi-ca5-prod]
+
+TASK [Confirmar a imagem exata e o utilizador sem privilégios] *****************
+ok: [cogsi-ca5-prod] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Verificar o endpoint de saúde da aplicação] ******************************
+ok: [cogsi-ca5-prod]
+
+TASK [Registar a versão e a verificação concluída] *****************************
+ok: [cogsi-ca5-prod] => {
+    "msg": "Imagem luizbsilv/ca5-bookstore:manual-862cdab em execução, container healthy e aplicação UP."
+}
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-prod             : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0

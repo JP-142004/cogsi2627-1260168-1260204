@@ -1,0 +1,59 @@
+Verificação local; runner ainda não registado no GitHub.
+1001
+Python 3.12.3
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known config file 'Credentials': '/home/runner/.credentials'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known config file 'Runner': '/home/runner/.runner'
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] Runner is built for Linux (X64) - linux-x64.
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] RuntimeInformation: Ubuntu 24.04.5 LTS.
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] Version: 2.338.2
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] Commit: d1eb12d4b115c301201de27d667284e1a80f2ab5
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] Culture:
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] UI Culture:
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] Validating directory permissions for: '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO CommandLineParser] Parse
+[RUNNER 2026-11-12 19:33:35Z INFO CommandLineParser] Parsing 1 args
+[RUNNER 2026-11-12 19:33:35Z INFO CommandLineParser] parsing argument
+[RUNNER 2026-11-12 19:33:35Z INFO CommandLineParser] HasArgs: True
+[RUNNER 2026-11-12 19:33:35Z INFO CommandLineParser] arg: version
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] Arguments parsed
+[RUNNER 2026-11-12 19:33:35Z INFO Runner] ExecuteCommand
+[RUNNER 2026-11-12 19:33:35Z INFO ConfigurationStore] currentAssemblyLocation: /home/runner/bin/Runner.Listener.dll
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO ConfigurationStore] binPath: /home/runner/bin
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO ConfigurationStore] RootFolder: /home/runner
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known config file 'Runner': '/home/runner/.runner'
+[RUNNER 2026-11-12 19:33:35Z INFO ConfigurationStore] ConfigFilePath: /home/runner/.runner
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known config file 'MigratedRunner': '/home/runner/.runner_migrated'
+[RUNNER 2026-11-12 19:33:35Z INFO ConfigurationStore] MigratedConfigFilePath: /home/runner/.runner_migrated
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known config file 'Credentials': '/home/runner/.credentials'
+[RUNNER 2026-11-12 19:33:35Z INFO ConfigurationStore] CredFilePath: /home/runner/.credentials
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known config file 'MigratedCredentials': '/home/runner/.credentials_migrated'
+[RUNNER 2026-11-12 19:33:35Z INFO ConfigurationStore] MigratedCredFilePath: /home/runner/.credentials_migrated
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Bin': '/home/runner/bin'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known directory 'Root': '/home/runner'
+[RUNNER 2026-11-12 19:33:35Z INFO HostContext] Well known config file 'Service': '/home/runner/.service'
+[RUNNER 2026-11-12 19:33:35Z INFO ConfigurationStore] ServiceConfigFilePath: /home/runner/.service
+[RUNNER 2026-11-12 19:33:35Z INFO CommandSettings] Flag 'help': 'False'
+[RUNNER 2026-11-12 19:33:35Z INFO CommandSettings] Flag 'version': 'True'
+[RUNNER 2026-11-12 19:33:35Z INFO Terminal] WRITE LINE: 2.338.2
+2.338.2
+[RUNNER 2026-11-12 19:33:35Z INFO Listener] Runner execution has finished with return code 0
+c19418f92ef016f0532871854387aea4471b8de9e158b30584e3746e50f95c6b localhost:15000/luizbsilv/ca5-bookstore:gha-main-1794506536-1-42772bc healthy
+Warning: Permanently added '[host.docker.internal]:2222' (ED25519) to the list of known hosts.

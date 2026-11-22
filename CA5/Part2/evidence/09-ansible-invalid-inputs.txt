@@ -1,0 +1,47 @@
+CENARIO 1: imagem ausente; rejeicao antes de qualquer alteracao
+
+PLAY [Implantar a imagem produzida pelo pipeline na VM de produção] ************
+
+TASK [Validar o repositório e a tag concreta da imagem] ************************
+fatal: [cogsi-ca5-prod]: FAILED! => {
+    "assertion": "image_repository is match('^[a-z0-9][a-z0-9._-]*/[a-z0-9][a-z0-9._/-]*$')",
+    "changed": false,
+    "evaluated_to": false,
+    "msg": "Define BOOKSTORE_IMAGE_REPOSITORY e BOOKSTORE_IMAGE_TAG com uma tag concreta do pipeline."
+}
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-prod             : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+CENARIO 2: tag latest; rejeicao antes de qualquer alteracao
+
+PLAY [Implantar a imagem produzida pelo pipeline na VM de produção] ************
+
+TASK [Validar o repositório e a tag concreta da imagem] ************************
+fatal: [cogsi-ca5-prod]: FAILED! => {
+    "assertion": "image_tag != 'latest'",
+    "changed": false,
+    "evaluated_to": false,
+    "msg": "Define BOOKSTORE_IMAGE_REPOSITORY e BOOKSTORE_IMAGE_TAG com uma tag concreta do pipeline."
+}
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-prod             : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+CENARIO 3: credenciais ausentes; rejeicao antes do provisionamento
+
+PLAY [Implantar a imagem produzida pelo pipeline na VM de produção] ************
+
+TASK [Validar o repositório e a tag concreta da imagem] ************************
+ok: [cogsi-ca5-prod] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Confirmar que as credenciais foram fornecidas pelo ambiente] *************
+fatal: [cogsi-ca5-prod]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-prod             : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+
+RESULTADO: os tres cenarios foram rejeitados com changed=0.

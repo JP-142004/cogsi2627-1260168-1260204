@@ -1,0 +1,31 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build
+> Task :app:clean
+> Task :app:compileJava
+> Task :app:processResources
+> Task :app:classes
+> Task :app:resolveMainClassName
+> Task :app:bootJar
+> Task :app:bootStartScripts
+> Task :app:bootDistTar
+> Task :app:bootDistZip
+> Task :app:jar
+> Task :app:startScripts
+> Task :app:distTar
+> Task :app:distZip
+> Task :app:assemble
+> Task :app:compileTestJava
+> Task :app:processTestResources NO-SOURCE
+> Task :app:testClasses
+> Task :app:test
+> Task :app:compileIntegrationTestJava
+> Task :app:processIntegrationTestResources NO-SOURCE
+> Task :app:integrationTestClasses
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-11-12T16:22:53.577Z  INFO 41308 --- [bookstore-api] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-11-12T16:22:53.579Z  INFO 41308 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-11-12T16:22:53.581Z  INFO 41308 --- [bookstore-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+> Task :app:integrationTest
+
+BUILD SUCCESSFUL in 23s
+16 actionable tasks: 16 executed

@@ -1,0 +1,12 @@
+{
+  "origin": "manual-infrastructure-validation",
+  "source_commit": "862cdabf8d5e62a4269b8c0fa44240bc82a93ea3",
+  "image": "luizbsilv/ca5-bookstore:manual-862cdab",
+  "image_id": "sha256:2568c56d5518cc92a7d55ad299cc57bf886f355e1da60fb648b20f319dc4443e",
+  "repo_digests": [
+    "cogsi-ca5-bookstore@sha256:2568c56d5518cc92a7d55ad299cc57bf886f355e1da60fb648b20f319dc4443e",
+    "luizbsilv/ca5-bookstore@sha256:2568c56d5518cc92a7d55ad299cc57bf886f355e1da60fb648b20f319dc4443e"
+  ],
+  "image_created_utc": "2026-11-12T16:23:21.703212192Z",
+  "jar_sha256": "680630ebc4f873c10fe4e020bdb6ed9994a2045ea1cb8c46a027cbbda507864d"
+}

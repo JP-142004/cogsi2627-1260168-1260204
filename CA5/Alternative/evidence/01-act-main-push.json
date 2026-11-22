@@ -1,0 +1,6 @@
+{
+  "image": "localhost:15000/luizbsilv/ca5-bookstore:gha-main-1794506536-1-42772bc",
+  "repo_digests": [
+    "localhost:15000/luizbsilv/ca5-bookstore@sha256:575c67d102c19c4d4633fc6459740b868eb5b6c331ba77e9d870c408d3290f9e"
+  ]
+}

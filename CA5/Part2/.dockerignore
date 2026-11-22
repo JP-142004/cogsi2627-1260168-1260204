@@ -1,0 +1,8 @@
+**
+!jenkins/
+!jenkins/Dockerfile
+!jenkins/plugins.txt
+!jenkins/init.groovy.d/
+!jenkins/init.groovy.d/*.groovy
+!ansible/
+!ansible/requirements.yml

@@ -1,0 +1,9 @@
+CA5 Part2 - perfil de recursos do container de produção
+Imagem: cogsi-ca5-bookstore:local
+Limite Docker: 536870912 bytes (512 MiB)
+JAVA_TOOL_OPTIONS=-XX:MaxRAMPercentage=60.0
+Docker health: healthy
+GET /actuator/health: HTTP 200, status UP
+GET /info/details: HTTP 200, ambiente production
+RESULTADO: PASSOU
+Container temporário removido.

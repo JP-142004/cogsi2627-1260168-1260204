@@ -1,0 +1,11 @@
+---
+- name: Verificar a versão implantada e a saúde da produção
+  hosts: production
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Validar a imagem esperada
+      ansible.builtin.import_tasks: tasks/validate-image.yml
+
+    - name: Verificar o container e a API
+      ansible.builtin.import_tasks: tasks/verify.yml

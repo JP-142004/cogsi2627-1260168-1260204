@@ -1,0 +1,30 @@
+{
+  "scope": "Repetição apenas da notificação; não recompilou, não publicou nova imagem e não fez deploy.",
+  "verified_utc": "2026-11-22 14:15:08 UTC",
+  "provider": "github-actions",
+  "run_id": 43292932843,
+  "run_attempt": 4,
+  "run_number": 3,
+  "url": "https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/43292932843/attempts/4",
+  "head_branch": "ca5-part2",
+  "head_sha": "afae5447bd41a848f8eb7cac9675480ecf1d790c",
+  "notification_job_id": 137235451450,
+  "notification_job_conclusion": "success",
+  "overall_conclusion": "success",
+  "smtp": {
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "starttls": true,
+    "ssl": false,
+    "authentication": "Palavra-passe de aplicação Google guardada pelo utilizador no Secret SMTP_PASSWORD",
+    "credential_value_read_or_exported": false
+  },
+  "sender": "Conta Gmail pessoal autorizada; endereço omitido",
+  "recipient": "Caixa ISEP indicada; endereço omitido",
+  "email_smtp_accepted": true,
+  "email_received": true,
+  "receipt_evidence": "Confirmação explícita do utilizador neste chat: Sim, chegou.",
+  "troubleshooting": "O endereço de autenticação inicialmente indicado tinha um erro de escrita. Foram corrigidas SMTP_USERNAME e NOTIFY_FROM, mantendo o Secret existente.",
+  "jenkins_external_email_configured": false,
+  "main_modified_by_this_step": false
+}

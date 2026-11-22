@@ -1,0 +1,7 @@
+---
+image_repository: "{{ lookup('ansible.builtin.env', 'BOOKSTORE_IMAGE_REPOSITORY') }}"
+image_tag: "{{ lookup('ansible.builtin.env', 'BOOKSTORE_IMAGE_TAG') }}"
+image_reference: "{{ image_repository }}:{{ image_tag }}"
+bookstore_container_name: ca5-bookstore
+bookstore_port: 8080
+bookstore_memory_limit: 512M

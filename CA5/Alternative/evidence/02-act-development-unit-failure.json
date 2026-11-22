@@ -1,0 +1,16 @@
+{
+  "provider": "act-local-emulation",
+  "branch": "development",
+  "commit": "ce07ef0b9eb7ab9d04bcd1ad2d389cccd3e81a6c",
+  "scenario": "unit-failure",
+  "run_id": "1794507939",
+  "exit_code": 1,
+  "finished_utc": "2026-11-12T18:27:19.908320+00:00",
+  "registry": "http://localhost:15000",
+  "github_writes": false,
+  "concurrent_jobs_in_emulation": 1,
+  "artifact_directory": "actions-artifacts/development/1794507939",
+  "production_before": "c19418f92ef016f0532871854387aea4471b8de9e158b30584e3746e50f95c6b localhost:15000/luizbsilv/ca5-bookstore:gha-main-1794506536-1-42772bc healthy",
+  "production_after": "c19418f92ef016f0532871854387aea4471b8de9e158b30584e3746e50f95c6b localhost:15000/luizbsilv/ca5-bookstore:gha-main-1794506536-1-42772bc healthy",
+  "production_changed": false
+}

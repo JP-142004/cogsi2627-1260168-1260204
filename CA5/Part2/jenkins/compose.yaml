@@ -1,0 +1,98 @@
+name: cogsi-ca5-local
+
+services:
+  jenkins:
+    image: cogsi-ca5-jenkins:local
+    build:
+      context: ..
+      dockerfile: jenkins/Dockerfile
+    user: "0:0"
+    mem_limit: 2560m
+    ports:
+      - "127.0.0.1:18080:8080"
+    environment:
+      JAVA_OPTS: >-
+        -Xms128m -Xmx512m
+        -Djenkins.install.runSetupWizard=false
+        -Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true
+      CA5_LOCAL_LAB: "true"
+      CA5_IMAGE_REPOSITORY: localhost:15000/luizbsilv/ca5-bookstore
+      CA5_REGISTRY_URL: http://localhost:15000
+      CA5_PRODUCTION_HOST: host.docker.internal
+      CA5_PRODUCTION_SSH_PORT: "${CA5_SSH_PORT:-2222}"
+      CA5_NOTIFY_TO: luiz@ca5.local
+    volumes:
+      - jenkins-home:/var/jenkins_home
+      - gradle-cache:/root/.gradle
+      - ../.local/scm.git:/srv/scm.git:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - admin_password
+      - registry_password
+      - production_key
+    depends_on:
+      - registry
+      - mailpit
+      - registry-tunnel
+
+  registry:
+    image: registry:3
+    mem_limit: 192m
+    ports:
+      - "127.0.0.1:15000:5000"
+    environment:
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: CA5 local
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      OTEL_TRACES_EXPORTER: none
+    volumes:
+      - registry-data:/var/lib/registry
+      - ../.local/secrets/registry.htpasswd:/auth/htpasswd:ro
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    mem_limit: 128m
+    ports:
+      - "127.0.0.1:18025:8025"
+      - "127.0.0.1:11025:1025"
+    environment:
+      MP_DATABASE: /data/mailpit.db
+    volumes:
+      - mailpit-data:/data
+    # Sem encaminhamento: os e-mails são capturados apenas neste laboratório.
+
+  registry-tunnel:
+    image: cogsi-ca5-jenkins:local
+    user: "0:0"
+    mem_limit: 64m
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - >-
+        mkdir -p /root/.ssh &&
+        cp /run/secrets/production_key /root/.ssh/production_key &&
+        chmod 600 /root/.ssh/production_key &&
+        exec ssh -i /root/.ssh/production_key
+        -o StrictHostKeyChecking=accept-new
+        -o ExitOnForwardFailure=yes
+        -o ServerAliveInterval=15 -o ServerAliveCountMax=3
+        -p ${CA5_SSH_PORT:-2222}
+        -NT -R 15000:host.docker.internal:15000 vagrant@host.docker.internal
+    secrets:
+      - production_key
+    depends_on:
+      - registry
+
+volumes:
+  jenkins-home:
+  gradle-cache:
+  registry-data:
+  mailpit-data:
+
+secrets:
+  admin_password:
+    file: ../.local/secrets/admin_password
+  registry_password:
+    file: ../.local/secrets/registry_password
+  production_key:
+    file: ../.local/secrets/production_key

@@ -1,0 +1,31 @@
+{
+  "container_running": true,
+  "container_exit_code": 0,
+  "connected_to_github": true,
+  "registration_accepted": true,
+  "listening_for_jobs": true,
+  "token_content_printed": false,
+  "ssh_key_uploaded_to_github": false,
+  "deploy_executed": false,
+  "runner": {
+    "agentId": 21,
+    "agentName": "ca5-production-local",
+    "gitHubUrl": "https://github.com/JP-142004/cogsi2627-1260168-1260204",
+    "workFolder": "_work",
+    "ephemeral": true,
+    "disableUpdate": true
+  },
+  "configured_labels": [
+    "self-hosted",
+    "linux",
+    "x64",
+    "ca5-production"
+  ],
+  "label_verification": "Etiqueta ca5-production confirmada pelo utilizador na interface GitHub.",
+  "ssh_connection_succeeded": true,
+  "ssh_exit_code": 0,
+  "github_ui_confirmation": true,
+  "github_ui_state_reported": "Idle/Online",
+  "github_workflow_job_executed_in_this_step": false,
+  "confirmation_evidence": "O utilizador confirmou que a conta proprietária vê ca5-production-local com a etiqueta ca5-production."
+}

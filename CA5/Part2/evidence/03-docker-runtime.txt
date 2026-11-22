@@ -1,0 +1,13 @@
+CA5 Part2 - teste local da imagem Docker
+Imagem: cogsi-ca5-bookstore:local
+Porta local: 127.0.0.1:18085 -> 8080
+Container criado: c47ca4f5237f3a54b3f8488e44765a3d3a11773174866e8bc458c0c9a910c183
+Docker health: healthy
+Utilizador da imagem: 10001:10001
+uid=10001(bookstore) gid=10001(bookstore) groups=10001(bookstore)
+GET /actuator/health: HTTP 200
+{"status":"UP"}
+GET /: HTTP 200, link books presente
+{"_links":{"books":{"href":"http://127.0.0.1:18085/books"},"clients":{"href":"http://127.0.0.1:18085/clients"},"orders":{"href":"http://127.0.0.1:18085/orders"},"health":{"href":"http://127.0.0.1:18085/health"},"info":{"href":"http://127.0.0.1:18085/info"}}}
+RESULTADO: PASSOU
+Container de teste removido.

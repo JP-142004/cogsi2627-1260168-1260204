@@ -1,0 +1,58 @@
+
+PLAY [Implantar a imagem produzida pelo pipeline na VM de produção] ************
+
+TASK [Validar o repositório e a tag concreta da imagem] ************************
+ok: [cogsi-ca5-prod] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Confirmar que as credenciais foram fornecidas pelo ambiente] *************
+ok: [cogsi-ca5-prod]
+
+TASK [Instalar Docker e a biblioteca HTTP usada pelos módulos] *****************
+ok: [cogsi-ca5-prod]
+
+TASK [Garantir que o Docker arranca com a VM e está ativo] *********************
+ok: [cogsi-ca5-prod]
+
+TASK [Criar uma pasta temporária para a autenticação Docker] *******************
+changed: [cogsi-ca5-prod]
+
+TASK [Autenticar no Docker Hub] ************************************************
+changed: [cogsi-ca5-prod]
+
+TASK [Obter a imagem antes de interromper o container existente] ***************
+changed: [cogsi-ca5-prod]
+
+TASK [Remover as credenciais temporárias da VM] ********************************
+changed: [cogsi-ca5-prod]
+
+TASK [Parar e remover o container anterior, se existir] ************************
+ok: [cogsi-ca5-prod]
+
+TASK [Arrancar o novo container com a imagem obtida] ***************************
+changed: [cogsi-ca5-prod]
+
+TASK [Aguardar pelo estado healthy do container] *******************************
+FAILED - RETRYING: [cogsi-ca5-prod]: Aguardar pelo estado healthy do container (36 retries left).
+FAILED - RETRYING: [cogsi-ca5-prod]: Aguardar pelo estado healthy do container (35 retries left).
+FAILED - RETRYING: [cogsi-ca5-prod]: Aguardar pelo estado healthy do container (34 retries left).
+ok: [cogsi-ca5-prod]
+
+TASK [Confirmar a imagem exata e o utilizador sem privilégios] *****************
+ok: [cogsi-ca5-prod] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [Verificar o endpoint de saúde da aplicação] ******************************
+ok: [cogsi-ca5-prod]
+
+TASK [Registar a versão e a verificação concluída] *****************************
+ok: [cogsi-ca5-prod] => {
+    "msg": "Imagem luizbsilv/ca5-bookstore:manual-862cdab em execução, container healthy e aplicação UP."
+}
+
+PLAY RECAP *********************************************************************
+cogsi-ca5-prod             : ok=14   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0

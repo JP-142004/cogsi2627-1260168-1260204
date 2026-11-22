@@ -1,0 +1,20 @@
+{
+  "build_url": "http://localhost:18080/job/ca5-github/job/ca5-part2/6/",
+  "number": 6,
+  "result": "SUCCESS",
+  "building": false,
+  "branch": "ca5-part2",
+  "source_commit": "910d28b8d966592686648d7e8bff0f1776c015d1",
+  "deploy_executed": false,
+  "from_matches_gmail_configuration": true,
+  "recipient_matches_isep_configuration": true,
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": "587",
+  "starttls": true,
+  "credential_id": "ca5-gmail-smtp",
+  "default_mailpit_preserved": true,
+  "smtp_debug_enabled": false,
+  "smtp_password_read_or_exported_by_helper": false,
+  "receipt_confirmed": true,
+  "receipt_evidence": "O utilizador confirmou no chat a receção de CA5 SUCCESS: ca5-github/ca5-part2 #6."
+}

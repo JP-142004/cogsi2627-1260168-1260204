@@ -1,0 +1,20 @@
+Started
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/ca5-email-check
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 3 min 0 sec
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Testar Gmail)
+[Pipeline] emailext
+Sending email to: <endereço omitido>
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
