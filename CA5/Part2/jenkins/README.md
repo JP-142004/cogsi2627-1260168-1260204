@@ -236,6 +236,10 @@ O filtro inicial continua a ser `ca5-part2` quando não se passam argumentos. O 
 
 As duas ferramentas partilham a VM: concluir a execução de uma antes de ativar o deploy da outra. O runner Actions é efémero e só aceita um job; para nova demonstração, registar novamente o runner. A chave privada permanece no computador.
 
+### Push real na development
+
+A [execução Actions 45041034720](https://github.com/JP-142004/cogsi2627-1260168-1260204/actions/runs/45041034720) validou a branch real `development`: um teste unitário e dois de integração aprovados, artefactos verificados, imagem publicada no Docker Hub e notificação SMTP aceite. O deploy foi ignorado. O projeto Jenkins foi depois configurado para descobrir esta branch; este avanço de documentação permite observar a deteção automática por Poll SCM, sem mudar a aplicação.
+
 - [Jenkins em Docker](https://www.jenkins.io/doc/book/installing/docker/)
 - [Sintaxe declarativa e condições por branch](https://www.jenkins.io/doc/book/pipeline/syntax/)
 - [Multibranch Pipeline](https://www.jenkins.io/doc/book/pipeline/multibranch/)
