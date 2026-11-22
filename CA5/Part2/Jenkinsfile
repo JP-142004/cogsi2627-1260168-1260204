@@ -26,7 +26,6 @@ pipeline {
     environment {
         PART_DIR = 'CA5/Part2'
         APP_DIR = 'CA5/Part2/bookstore'
-        DEPLOYED = 'false'
     }
 
     stages {
@@ -38,6 +37,8 @@ pipeline {
                     env.SOURCE_COMMIT = revision.GIT_COMMIT
                     env.SOURCE_BRANCH = env.BRANCH_NAME
                     env.CI_BUILD_NUMBER = env.BUILD_NUMBER
+                    // Estado mutável: uma variável declarativa não pode ser substituída por env.
+                    env.DEPLOYED = 'false'
                     def branchSlug = env.BRANCH_NAME.toLowerCase().replaceAll('[^a-z0-9_.-]', '-').take(40)
                     // Os ajustes do Compose pertencem apenas ao projeto de teste local.
                     def localLab = env.CA5_LOCAL_LAB == 'true' && env.JOB_NAME.startsWith('ca5-local/')
