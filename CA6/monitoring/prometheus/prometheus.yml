@@ -6,18 +6,41 @@ scrape_configs:
   - job_name: prometheus
     static_configs:
       - targets: ["localhost:9090"]
+        labels:
+          tier: monitoring
+          role: prometheus
+          env: dev
 
   - job_name: node
     static_configs:
       - targets: ["192.168.56.10:9100"]
         labels:
-          instance_name: app
+          tier: infrastructure
+          role: app
+          env: dev
       - targets: ["192.168.56.20:9100"]
         labels:
-          instance_name: proxy
+          tier: infrastructure
+          role: proxy
+          env: dev
       - targets: ["192.168.56.30:9100"]
         labels:
-          instance_name: db
+          tier: infrastructure
+          role: db
+          env: dev
       - targets: ["192.168.56.40:9100"]
         labels:
-          instance_name: monitoring
+          tier: monitoring
+          role: monitoring
+          env: dev
+
+  # Intervalo mais curto que o global para detetar mais cedo falhas da app
+  - job_name: bookstore
+    metrics_path: /actuator/prometheus
+    scrape_interval: 10s
+    static_configs:
+      - targets: ["192.168.56.10:8080"]
+        labels:
+          tier: application
+          role: app
+          env: dev
