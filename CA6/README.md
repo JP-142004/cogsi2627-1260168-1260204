@@ -170,3 +170,37 @@ Os pedidos a `/actuator` são excluídos porque o próprio scrape do Prometheus 
 | Estado por tier | `min by (tier) (up)` |
 
 ![Query up](images/promql-up.png)
+
+## Simulação de falha
+
+Objetivo: confirmar que o Prometheus deteta a indisponibilidade da app e a recuperação, sem intervenção manual na configuração.
+
+1. Estado inicial, com todos os targets UP:
+
+   ![Antes da falha](images/failure-1-up.png)
+
+2. Parar a app:
+
+   ```bash
+   vagrant ssh app -c "sudo systemctl stop bookstore"
+   ```
+
+   Como o job `bookstore` faz scrape a cada 10s, o target passa a DOWN no scrape seguinte, com erro de ligação recusada na porta 8080. Os targets `node` da mesma VM continuam UP: a máquina está saudável e só a aplicação falhou. É esta a distinção que as labels `tier=application` e `tier=infrastructure` tornam visível.
+
+   ![Target DOWN](images/failure-2-down.png)
+
+3. Voltar a iniciar a app:
+
+   ```bash
+   vagrant ssh app -c "sudo systemctl start bookstore"
+   ```
+
+   O target volta a UP depois de o Spring Boot arrancar e responder em `/actuator/prometheus`.
+
+   ![Target UP outra vez](images/failure-3-up-again.png)
+
+Evolução de `up{job="bookstore"}` durante o teste, no separador Graph:
+
+![up da app ao longo do tempo](images/failure-up-graph.png)
+
+Durante a falha, `bookstore_books_stored` e as restantes métricas da app deixam de ter amostras, em vez de passarem a zero. Por isso a disponibilidade deve ser medida com `up` e não com a ausência de valores de outras métricas.
