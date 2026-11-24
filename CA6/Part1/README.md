@@ -509,11 +509,3 @@ Os 6 targets ficaram UP com as labels corretas (screenshot da Etapa 5). Os resul
 | `vagrant up` falhou com `VERR_ALREADY_EXISTS` ao criar o `proxy` depois de um `destroy` | O VirtualBox deixou as pastas `cogsi-ca6-proxy` e `cogsi-ca6-monitoring` (só com logs) em `VirtualBox VMs\` | Apagar essas pastas e a VM incompleta (`ubuntu-jammy-...`), e voltar a correr `vagrant up` |
 | Heap % incoerente | Pools do G1 com `jvm_memory_max_bytes = -1` | Filtro `> 0` no denominador |
 
-## 13. Autoavaliação
-
-| Membro | Trabalho realizado | Contribuição |
-| --- | --- | --- |
-| Luiz Afonso | | __% |
-| João Paulo | | __% |
-
-As percentagens são acordadas pelos dois membros e representam o trabalho efetivo de cada um.

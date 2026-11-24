@@ -14,9 +14,3 @@ Continuação da [Parte 1](../Part1/README.md).
 
 ## Solução alternativa
 
-## Autoavaliação
-
-| Membro | Contribuição |
-| --- | --- |
-| Luiz Afonso | __% |
-| João Paulo | __% |
