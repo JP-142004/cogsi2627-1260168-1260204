@@ -11,8 +11,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/jammy64"
   config.vm.box_version = "20241002.0.0"
 
-  # Raiz do repositório em /vagrant, para os scripts usarem /vagrant/CA6/...
-  config.vm.synced_folder "..", "/vagrant"
+  # Raiz do repositório em /vagrant, para os scripts usarem /vagrant/CA6/Part1/...
+  config.vm.synced_folder "../..", "/vagrant"
 
   # Corre em todas as VMs antes do provisioning específico de cada uma
   config.vm.provision "common", type: "shell", path: "provision/common.sh"

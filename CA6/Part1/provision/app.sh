@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SRC="/vagrant/CA6/bookstore"
+SRC="/vagrant/CA6/Part1/bookstore"
 BUILD_DIR="/opt/bookstore/src"
 
 export DEBIAN_FRONTEND=noninteractive

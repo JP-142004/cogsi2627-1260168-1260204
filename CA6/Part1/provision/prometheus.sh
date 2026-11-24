@@ -2,7 +2,7 @@
 set -e
 
 PROMETHEUS_VERSION="2.53.2"
-CONFIG_SRC="/vagrant/CA6/monitoring/prometheus/prometheus.yml"
+CONFIG_SRC="/vagrant/CA6/Part1/monitoring/prometheus/prometheus.yml"
 
 if ! /usr/local/bin/prometheus --version 2>&1 | grep -q "version ${PROMETHEUS_VERSION}"; then
   cd /tmp
