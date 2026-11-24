@@ -1,7 +1,7 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.model.Book;
-import com.example.bookstore.repository.BookRepository;
+import com.example.bookstore.service.BookService;
 import com.example.bookstore.assembler.BookModelAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +15,17 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookRepository repo;
+    private final BookService service;
     private final BookModelAssembler assembler;
 
     /**
-     * Constructs a BookController with the given repository and assembler.
+     * Constructs a BookController with the given service and assembler.
      *
-     * @param repo the BookRepository for database operations
+     * @param service the BookService for book operations
      * @param assembler the BookModelAssembler for converting entities to models
      */
-    public BookController(BookRepository repo, BookModelAssembler assembler) {
-        this.repo = repo;
+    public BookController(BookService service, BookModelAssembler assembler) {
+        this.service = service;
         this.assembler = assembler;
     }
 
@@ -36,7 +36,7 @@ public class BookController {
      */
     @GetMapping
     public List<Book> all() {
-        return repo.findAll();
+        return service.findAll();
     }
 
     /**
@@ -48,7 +48,7 @@ public class BookController {
      */
     @GetMapping("/{id}")
     public EntityModel<Book> one(@PathVariable Long id) {
-        return assembler.toModel(repo.findById(id).orElseThrow());
+        return assembler.toModel(service.findById(id).orElseThrow());
     }
 
     /**
@@ -59,6 +59,6 @@ public class BookController {
      */
     @PostMapping
     public Book create(@RequestBody Book b) {
-        return repo.save(b);
+        return service.create(b);
     }
 }
