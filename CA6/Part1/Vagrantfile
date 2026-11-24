@@ -1,0 +1,65 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# IPs da rede privada (mesma topologia do CA2 Parte 2)
+APP_IP   = "192.168.56.10"
+PROXY_IP = "192.168.56.20"
+DB_IP    = "192.168.56.30"
+MONITORING_IP = "192.168.56.40"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.box_version = "20241002.0.0"
+
+  # Raiz do repositório em /vagrant, para os scripts usarem /vagrant/CA6/Part1/...
+  config.vm.synced_folder "../..", "/vagrant"
+
+  # Corre em todas as VMs antes do provisioning específico de cada uma
+  config.vm.provision "common", type: "shell", path: "provision/common.sh"
+
+  config.vm.define "db" do |db|
+    db.vm.hostname = "cogsi-ca6-db"
+    db.vm.network "private_network", ip: DB_IP
+    db.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca6-db"
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+    db.vm.provision "shell", path: "provision/db.sh", env: { "APP_IP" => APP_IP, "MONITORING_IP" => MONITORING_IP }
+  end
+
+  config.vm.define "app" do |app|
+    app.vm.hostname = "cogsi-ca6-app"
+    app.vm.network "private_network", ip: APP_IP
+    app.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca6-app"
+      vb.memory = 2048
+      vb.cpus = 2
+    end
+    app.vm.provision "shell", path: "provision/app.sh", env: { "DB_IP" => DB_IP }
+  end
+
+  config.vm.define "proxy" do |proxy|
+    proxy.vm.hostname = "cogsi-ca6-proxy"
+    proxy.vm.network "private_network", ip: PROXY_IP
+    proxy.vm.network "forwarded_port", guest: 80, host: 8081
+    proxy.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca6-proxy"
+      vb.memory = 512
+      vb.cpus = 1
+    end
+    proxy.vm.provision "shell", path: "provision/proxy.sh", env: { "APP_IP" => APP_IP }
+  end
+
+  config.vm.define "monitoring" do |mon|
+    mon.vm.hostname = "cogsi-ca6-monitoring"
+    mon.vm.network "private_network", ip: MONITORING_IP
+    mon.vm.network "forwarded_port", guest: 9090, host: 9090
+    mon.vm.provider "virtualbox" do |vb|
+      vb.name = "cogsi-ca6-monitoring"
+      vb.memory = 1024
+      vb.cpus = 1
+    end
+    mon.vm.provision "shell", path: "provision/prometheus.sh"
+  end
+end
