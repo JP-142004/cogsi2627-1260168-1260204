@@ -38,4 +38,5 @@ systemctl enable --now h2-server
 ufw default deny incoming
 ufw allow 22/tcp
 ufw allow from "$APP_IP" to any port 9092 proto tcp
+ufw allow from "$MONITORING_IP" to any port 9100 proto tcp
 ufw --force enable
