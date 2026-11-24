@@ -206,3 +206,22 @@ Evolução de `up{job="bookstore"}` durante o teste, no separador Graph:
 Durante a falha, `bookstore_books_stored` e as restantes métricas da app deixam de ter amostras, em vez de passarem a zero. Por isso a disponibilidade deve ser medida com `up` e não com a ausência de valores de outras métricas.
 
 O efeito também é visível nos gráficos da secção PromQL: o heap da JVM fica sem amostras entre as 16:39 e as 16:42, e a memória usada na VM `app` desce de cerca de 32% para 19% enquanto a JVM está parada.
+
+## Justificação das decisões
+
+**VM dedicada para o Prometheus.** O sistema de monitorização não deve partilhar a sorte do que monitoriza. Se o Prometheus corresse na VM `app`, uma falha da máquina deixava de ser visível exatamente quando é mais importante. Isolado, também não compete com a JVM por CPU e memória, o que distorceria as próprias métricas.
+
+**Intervalos de scrape de 15s e 10s.** 15s é o valor recomendado pelo Prometheus e chega para métricas de infraestrutura, que variam devagar. A app tem 10s porque é o serviço cuja indisponibilidade interessa detetar primeiro: na simulação, o target ficou DOWN 3 segundos depois do `stop`. Intervalos menores aumentariam o volume de dados e a carga na app sem ganho real neste cenário.
+
+**Organização por jobs e labels.** Cada job corresponde a um tipo de exporter (`node`, `bookstore`, `prometheus`), porque cada um expõe métricas com estrutura diferente. As labels `tier`, `role` e `env` são ortogonais ao job: permitem agregar por camada (`min by (tier) (up)`), relacionar a máquina com a aplicação que lá corre (`{role="app"}`) e, no futuro, separar ambientes sem mudar as queries.
+
+**Configuração como código.** O `prometheus.yml` está no repositório e é ligado por symlink, os scripts fixam versões e o `promtool check config` corre antes de cada arranque. Um `vagrant destroy -f && vagrant up` reconstrói o ambiente completo.
+
+## Autoavaliação
+
+| Membro | Trabalho realizado | Contribuição |
+| --- | --- | --- |
+| Luiz Afonso | | __% |
+| João Paulo | | __% |
+
+As percentagens são acordadas pelos dois membros e representam o trabalho efetivo de cada um.
