@@ -204,3 +204,5 @@ Evolução de `up{job="bookstore"}` durante o teste, no separador Graph:
 ![up da app ao longo do tempo](images/failure-up-graph.png)
 
 Durante a falha, `bookstore_books_stored` e as restantes métricas da app deixam de ter amostras, em vez de passarem a zero. Por isso a disponibilidade deve ser medida com `up` e não com a ausência de valores de outras métricas.
+
+O efeito também é visível nos gráficos da secção PromQL: o heap da JVM fica sem amostras entre as 16:39 e as 16:42, e a memória usada na VM `app` desce de cerca de 32% para 19% enquanto a JVM está parada.
